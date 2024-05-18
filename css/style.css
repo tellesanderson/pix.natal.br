@@ -2,21 +2,16 @@ body {
     margin: 0;
     padding: 0;
     overflow: hidden;
-    background: url('images/natal.jpg') no-repeat center center fixed;
-    background-size: cover;
+    background-color: #000;
+    position: relative;
+    height: 100vh;
 }
 
-#canvas-nest-container {
+#particles-js {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     z-index: 1;
-}
-
-canvas {
-    position: absolute;
-    width: 100%;
-    height: 100%;
 }
