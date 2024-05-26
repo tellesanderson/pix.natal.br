@@ -4,7 +4,7 @@ export const credits = {
     description: 'Jogo de RPG solo.',
     links: {
       GitHub: 'https://github.com/tellesanderson/aventura-solo-jovem-guerreiro',
-      Site: 'https://vangrog.com'
+      Site: 'https://superfacil.inf.br'
     } 
   };
 
