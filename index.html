@@ -1,32 +1,68 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="./core/core.css" rel="stylesheet"> 
-    <link href="./my-game/styles.css" rel="stylesheet">
-    <title>Jovem Guerreiro</title>
+    <title>Crônicas RPG - Aventuras Solo</title>
+    <link href="styles.css" rel="stylesheet">
+    <meta name="description" content="Plataforma imersiva de Aventuras Solo em formato RPG de texto. Escolha o seu destino e escreva sua própria história.">
 </head>
 <body>
-    <header class="container">
-        <div class="title-container">
-            <h1 id="game-title">Jovem Guerreiro</h1>
+    <div class="ambient-glow"></div>
+    
+    <header>
+        <div class="logo">
+            <span>⚔️ Crônicas RPG</span>
         </div>
     </header>
-    <main class="container">
-        <div class="text-container">
-            <section id="image" class="image-section"></section>
-            <section id="text" class="text-section"></section>
-            <section id="inventory" class="inventory-section"></section>        
-            <section id="options" class="buttons-section"></section>
-        </div>        
+
+    <main>
+        <section class="hero">
+            <h1>O Destino em Suas Mãos</h1>
+            <p>Jogue sozinho, sinta a tensão, escolha seu caminho. Bem-vindo à principal biblioteca interativa de aventuras solo literárias.</p>
+        </section>
+
+        <section class="explanation">
+            <h2>O Que É Uma Aventura Solo?</h2>
+            <p>Esqueça os gráficos limitantes. Aqui, a imaginação é o motor da sua jornada. Uma Aventura Solo é um formato de <em>role-playing game</em> (RPG) onde você toma as decisões pelo protagonista. A cada passo lido, uma nova página, um novo destino. Sua coragem ou covardia determinarão o fim da história. Você está pronto para forjar sua lenda?</p>
+        </section>
+
+        <section class="adventures-section" id="aventuras">
+            <h2>Acervo de Aventuras</h2>
+            <div class="grid">
+                
+                <!-- Card Jovem Guerreiro -->
+                <article class="card">
+                    <div class="card-image-wrapper">
+                        <img src="hero-bg.png" alt="Capa Jovem Guerreiro" class="card-img">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Jovem Guerreiro</h3>
+                        <p class="card-desc">Você é um guerreiro inexperiente que deve adentrar uma caverna repleta de perigos desconhecidos para tentar salvar a vida de seu pai. Um passo em falso pode ser fatal.</p>
+                        <a href="./jovem-guerreiro/index.html" class="btn-primary">Iniciar Aventura</a>
+                    </div>
+                </article>
+
+                <!-- Espaço para futuras aventuras (Placeholder disabled) -->
+                <article class="card" style="opacity: 0.6; pointer-events: none; filter: grayscale(1);">
+                    <div class="card-image-wrapper">
+                        <div style="width:100%; height:100%; background: radial-gradient(circle, #1a1a24 0%, #050505 100%); display:flex; align-items:center; justify-content:center;">
+                            <span style="font-size: 4rem;">🔒</span>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">O Templo das Sombras</h3>
+                        <p class="card-desc">Em Breve. Um antigo feitiço despertou as criaturas do abismo. Magos e mercenários entram... mas poucos retornam com sanidade.</p>
+                        <a href="#" class="btn-primary" style="border-color: #555; color: #555;">Bloqueado</a>
+                    </div>
+                </article>
+
+            </div>
+        </section>
     </main>
-    <footer class="container">
-        <div class="credits-container">
-            <div id="game-credits"></div>
-        </div>        
-    </footer> 
-    <script defer src="./core/core.js" type="module"></script>
+
+    <footer>
+        <p>&copy; 2026 Crônicas RPG. Forjado por Anderson Telles.</p>
+    </footer>
 </body>
 </html>
