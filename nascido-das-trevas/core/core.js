@@ -6,6 +6,7 @@ const inventoryElement = document.getElementById('inventory');
 const optionButtonsElement = document.getElementById('options');
 
 let state = {};
+let isNarrating = false;
 
 function startGame() {
   state = {};
@@ -26,6 +27,12 @@ function getBgForId(id) {
 }
 
 function showTextNode(textNodeIndex) {
+  if (window.speechSynthesis) {
+    window.speechSynthesis.cancel();
+    isNarrating = false;
+    const btn = document.getElementById('btn-narrate');
+    if(btn) btn.innerText = "🔊 Ouvir Cena";
+  }
 
   //return text node by index
   let textNode = textNodes.find(textNode => textNode.id === textNodeIndex);
@@ -142,5 +149,37 @@ window.onload = function() {
   document.title = credits.title;
   document.getElementById('game-title').innerHTML = credits.title;
   showCredits()
+  
+  const btnNarrate = document.getElementById('btn-narrate');
+  if(btnNarrate) {
+    btnNarrate.addEventListener('click', () => {
+      const synth = window.speechSynthesis;
+      if(synth.speaking && isNarrating) {
+        synth.cancel();
+        isNarrating = false;
+        btnNarrate.innerText = "🔊 Ouvir Cena";
+        return;
+      }
+      synth.cancel();
+      const textSections = document.querySelectorAll('#text p');
+      let fullText = "";
+      textSections.forEach(p => fullText += p.innerText + " . ");
+      
+      if(fullText.trim() !== "") {
+        const utterThis = new SpeechSynthesisUtterance(fullText);
+        utterThis.lang = 'pt-BR';
+        utterThis.pitch = 0.8;
+        utterThis.rate = 1.0;
+        utterThis.onend = () => {
+          isNarrating = false;
+          btnNarrate.innerText = "🔊 Ouvir Cena";
+        };
+        synth.speak(utterThis);
+        isNarrating = true;
+        btnNarrate.innerText = "🔇 Parar Narração";
+      }
+    });
+  }
+  
   startGame();
 }
