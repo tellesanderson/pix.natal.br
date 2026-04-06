@@ -99,8 +99,8 @@ export const textNodes = [
     ],
     "options": [
       {
-        "text": "Fim (Reiniciar)",
-        "nextText": -1
+        "text": "Sair para caçar",
+        "nextText": 20
       }
     ]
   },
@@ -127,8 +127,8 @@ export const textNodes = [
     ],
     "options": [
       {
-        "text": "Fim (Reiniciar)",
-        "nextText": -1
+        "text": "Encerrar a caçada",
+        "nextText": 13
       }
     ]
   },
