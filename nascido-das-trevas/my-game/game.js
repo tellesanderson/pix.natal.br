@@ -1,6 +1,6 @@
 export const credits = {
-    title: 'Nascido Das Trevas - Aventura Solo',
-    author: 'Aventura Solo (Adaptação)',
+    title: 'Nascido Das Trevas',
+    author: '',
     description: 'Tente sobreviver na noite como um vampiro novato.',
     links: {} 
   };
