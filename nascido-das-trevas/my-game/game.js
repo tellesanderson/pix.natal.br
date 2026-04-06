@@ -630,7 +630,7 @@ export const textNodes = [
     "id": 39,
     "paragraphs": [
       {
-        "text": "Você joga suas coisas no carro e foge da cidade. As saudades de Andrea são devoradoras,  mas você sabe que não pode retornar. Agora é um pária em fuga eterna."
+        "text": "Sua sobrevivência é o mais importante, e você sabe que cada minuto perdido dificultará mais sua fuga. Sebo nas canelas. Você foge da cidade, dirigindo a noite toda. Livra-se de seu Mustang azul em uma loja de carros usados e troca-o por um velho carro funerário (que outro veículo poderia transportar um caixão sem despertar suspeitas?). Logo está cruzando todo o país, fugindo do sol e tocando em casas noturnas. Faz sucesso por onde passa, mas sempre evita a fama um paradoxo que rege sua pós-vida. As saudades de Andrea e do resto da turma são devoradoras, mas você sabe que não pode retornar. Agora é um pária, um vampiro marginal em fuga eterna. Mas está em segurança. Bem. pelo menos é o que você imagina..."
       }
     ],
     "options": [
