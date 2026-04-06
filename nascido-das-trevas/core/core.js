@@ -58,9 +58,25 @@ function showTextNode(textNodeIndex) {
     button.classList.add('btn');
     button.innerText = option.text;
     if (enabledOption(option)) {
+      // Impede duplo-clique imediato colocando delay
+      button.disabled = true;
+      button.style.opacity = '0';
+      button.style.transition = 'opacity 0.8s ease';
+      
+      setTimeout(() => {
+        button.disabled = false;
+        button.style.opacity = '1';
+      }, 1500); // 1.5s de carência
+
       button.addEventListener('click', () => {
         selectOption(option);
-        window.scrollTo({ top: 0, behavior: 'smooth' })
+        // Rola a caixa flutuante (.main-glass-panel) em vez da Window nativa
+        const glassPanel = document.querySelector('.main-glass-panel');
+        if (glassPanel) {
+          glassPanel.scrollTo({ top: 0, behavior: 'smooth' });
+        } else {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
       });
     } else {
       button.disabled = true;
