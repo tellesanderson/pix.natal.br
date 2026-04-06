@@ -544,7 +544,7 @@ export const textNodes = [
     "id": 34,
     "paragraphs": [
       {
-        "text": "Você desiste de atacar seu criador e vai com ele. É levado à presença do Regente, uma  figura em trajes renascentistas que emana um poder imensurável. — Eu mostrarei a você o  verdadeiro poder dos vampiros: a imortalidade. O regente explica as regras da sociedade. Você  é aceito."
+        "text": "Você desiste de atacar seu criador e vai com ele. É levado à presença do Regente, uma  figura em trajes renascentistas que emana um poder imensurável. — Eu mostrarei a você o  verdadeiro poder dos vampiros: a imortalidade. O regente explica as regras da sociedade. Você é aceito na sociedade vampírica."
       }
     ],
     "options": [
