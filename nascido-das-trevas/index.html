@@ -1,32 +1,35 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="./core/core.css" rel="stylesheet"> 
+    <!-- Using the new fully styled UI -->
     <link href="./my-game/styles.css" rel="stylesheet">
-    <title>Jovem Guerreiro</title>
+    <title>Nascido Das Trevas</title>
 </head>
 <body>
-    <header class="container">
-        <div class="title-container">
-            <h1 id="game-title">Jovem Guerreiro</h1>
-        </div>
-    </header>
-    <main class="container">
-        <div class="text-container">
+    <div id="bg-container"></div>
+    
+    <div class="main-glass-panel">
+        <header>
+            <h1 id="game-title">Nascido Das Trevas</h1>
+        </header>
+        
+        <main>
+            <!-- Core elements targeted by core.js -->
             <section id="image" class="image-section"></section>
             <section id="text" class="text-section"></section>
             <section id="inventory" class="inventory-section"></section>        
             <section id="options" class="buttons-section"></section>
-        </div>        
-    </main>
-    <footer class="container">
-        <div class="credits-container">
+        </main>
+        
+        <footer class="credits-container">
             <div id="game-credits"></div>
-        </div>        
-    </footer> 
+        </footer> 
+    </div>
+
+    <!-- Same core JS engine but modified to parse IDs to bg images -->
     <script defer src="./core/core.js" type="module"></script>
 </body>
 </html>

@@ -12,10 +12,28 @@ function startGame() {
   showTextNode(0);
 }
 
+function getBgForId(id) {
+  const chases = [2, 9, 12, 13, 15, 17, 22, 30, 32, 39, 40];
+  const prisons = [3, 8, 26, 36, 37];
+  const bars = [0, 1, 4, 5, 14, 18, 21, 25, 27, 28, 31, 35];
+  const confronts = [6, 7, 10, 11, 16, 19, 20, 23, 24, 29, 34, 38];
+  
+  if(chases.includes(id)) return 'mustang_chase.png';
+  if(prisons.includes(id)) return 'cold_prison.png';
+  if(bars.includes(id)) return 'punk_rock_bar.png';
+  if(confronts.includes(id)) return 'vampire_confront.png';
+  return 'dark_streets.png';
+}
+
 function showTextNode(textNodeIndex) {
 
   //return text node by index
   let textNode = textNodes.find(textNode => textNode.id === textNodeIndex);
+
+  const bgContainer = document.getElementById('bg-container');
+  if(bgContainer) {
+    bgContainer.style.backgroundImage = `url('./bg/${getBgForId(textNodeIndex)}')`;
+  }
 
   //set new image
   imageElement.innerHTML = "";

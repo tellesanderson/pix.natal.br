@@ -1,39 +1,129 @@
-@import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@300&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=PT+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=Inter:wght@300;400;600&display=swap');
 
-:root{
-
-  --font-family: 'PT Sans', sans-serif;
-  --bg-color: #3e4148;
-
-  /* header */
-  --header-color: #fcffdb;
-
-  /* text container */
-  --text-bg-color: #463a37;
-  --text-border-color: #1f110f;
-  --text-color: #fcffdb;
-
-  /* options */
-  --btn-bg-color: #2f140d;
-  --btn-border-color: #fcffdb;
-  --btn-color: #fcffdb;  
-
-  /* options:disabled */
-  --btn-dis-bg-color: #401c13;
-  --btn-dis-color: #8b7979;
-
-  /* options:hover */
-  --btn-hov-bg-color: #fcffdb;
-  --btn-hov-border-color: #fcffdb;
-  --btn-hov-color: #2f140d;  
-
-  /* credits */
-  --credits-color: #fcffdb;
-  --credits-link-color: #dfbc60;
+:root {
+  --text-main: #f0f0f0;
+  --text-blood: #ff2a2a;
+  --glass-bg: rgba(10, 5, 5, 0.85);
+  --glass-border: rgba(255, 42, 42, 0.2);
 }
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
-  background-image: url("images/background.gif"); 
+  font-family: 'Inter', sans-serif;
+  color: var(--text-main);
+  background-color: #000;
+  min-height: 100vh;
+  overflow: hidden; /* For fullscreen effect */
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-   
+
+#bg-container {
+  position: fixed;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: -1;
+  transition: background-image 1.5s ease-in-out;
+  filter: brightness(0.4) contrast(1.2);
+}
+
+.main-glass-panel {
+  width: 90%;
+  max-width: 800px;
+  max-height: 90vh;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.8), 0 0 20px rgba(255, 0, 0, 0.1);
+  border-radius: 12px;
+  backdrop-filter: blur(15px);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  animation: fadeIn 1s ease-out;
+}
+
+/* Custom Scrollbar for glass panel */
+.main-glass-panel::-webkit-scrollbar { width: 8px; }
+.main-glass-panel::-webkit-scrollbar-track { background: rgba(0,0,0,0.5); border-radius: 4px; }
+.main-glass-panel::-webkit-scrollbar-thumb { background: #550000; border-radius: 4px; }
+
+header {
+  text-align: center;
+  padding: 1.5rem;
+  border-bottom: 1px solid var(--glass-border);
+}
+
+#game-title {
+  font-family: 'Cinzel', serif;
+  font-size: 2rem;
+  color: var(--text-blood);
+  text-shadow: 0 0 10px rgba(255, 42, 42, 0.4);
+  letter-spacing: 2px;
+}
+
+.text-section {
+  padding: 2.5rem;
+  font-size: 1.2rem;
+  line-height: 1.8;
+  text-shadow: 1px 1px 2px #000;
+  animation: textAppear 0.5s ease forwards;
+}
+
+.text-section p { margin-bottom: 1.5rem; }
+
+.buttons-section {
+  padding: 0 2.5rem 2.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.btn {
+  background: rgba(0, 0, 0, 0.6);
+  border: 1px solid var(--text-blood);
+  color: var(--text-blood);
+  padding: 1rem;
+  font-family: 'Cinzel', serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  text-align: left;
+}
+
+.btn:hover {
+  background: var(--text-blood);
+  color: #000;
+  box-shadow: 0 0 15px var(--text-blood);
+}
+
+.credits-container {
+  text-align: center;
+  padding: 1rem;
+  font-size: 0.8rem;
+  color: #777;
+  border-top: 1px solid var(--glass-border);
+}
+
+.credits-container a { color: var(--text-blood); text-decoration: none; margin: 0 5px; }
+
+/* Hide original image container since bg is fullscreen */
+.image-section { display: none; }
+.inventory-section { display: none; }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.98); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes textAppear {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
