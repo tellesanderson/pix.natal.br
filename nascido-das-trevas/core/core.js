@@ -154,6 +154,7 @@ window.onload = function() {
   if(btnNarrate) {
     btnNarrate.addEventListener('click', () => {
       const synth = window.speechSynthesis;
+      
       if(synth.speaking && isNarrating) {
         synth.cancel();
         isNarrating = false;
