@@ -192,4 +192,43 @@ window.onload = function() {
   }
   
   startGame();
+  scheduleBats();
+}
+
+// =============================
+// EFEITOS ESPECIAIS (MORCEGOS)
+// =============================
+function spawnBat() {
+    const bat = document.createElement('div');
+    bat.innerText = "🦇";
+    bat.classList.add('bat-animation');
+    
+    // Posicao Vertical e Tamanho Aleatorios
+    const startY = Math.random() * 80 + 5; 
+    const duration = Math.random() * 10 + 10; // 10 a 20 segundos pra cruzar a tela devagar
+    
+    bat.style.top = startY + "vh";
+    bat.style.fontSize = (Math.random() * 2 + 1.5) + "rem";
+    bat.style.animationDuration = duration + "s, 0.5s"; 
+    
+    // 50% de chance de vir da Direita pra Esquerda
+    if(Math.random() > 0.5) {
+        bat.style.animationName = "flyBatReverse, flapWobble";
+        // Espelhar morcego na direcao do voo
+        bat.style.transform = "scaleX(-1)";
+    }
+    
+    document.body.appendChild(bat);
+    
+    setTimeout(() => {
+        bat.remove(); // limpar da tela para nao pesar a memoria
+    }, duration * 1000);
+}
+
+function scheduleBats() {
+    // Spawna um morcego entre cada 8 a 15 segundos aleatoriamente
+    setTimeout(() => {
+        spawnBat();
+        scheduleBats();
+    }, Math.random() * 7000 + 8000);
 }

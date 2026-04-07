@@ -160,3 +160,31 @@ body.dyslexia-mode .card-title,
 body.dyslexia-mode .narrate-btn {
     font-family: 'OpenDyslexic', sans-serif !important;
 }
+
+@keyframes flyBat {
+    0% { left: -10vw; opacity: 0; }
+    10% { opacity: 0.8; }
+    90% { opacity: 0.8; }
+    100% { left: 110vw; opacity: 0; }
+}
+
+@keyframes flyBatReverse {
+    0% { left: 110vw; opacity: 0; }
+    10% { opacity: 0.8; }
+    90% { opacity: 0.8; }
+    100% { left: -10vw; opacity: 0; }
+}
+
+@keyframes flapWobble {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-25px); }
+}
+
+.bat-animation {
+    position: fixed;
+    z-index: 1; /* Atras da janela de vidro */
+    pointer-events: none;
+    opacity: 0.6;
+    filter: grayscale(100%) brightness(0); /* Transforma o emoji numa silhueta sombria total */
+    animation: flyBat 12s linear forwards, flapWobble 0.5s ease-in-out infinite alternate;
+}
