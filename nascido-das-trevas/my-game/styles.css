@@ -145,3 +145,18 @@ header {
   background: rgba(255, 42, 42, 0.2);
   box-shadow: 0 0 10px rgba(255, 42, 42, 0.3);
 }
+
+@import url('https://fonts.cdnfonts.com/css/open-dyslexic');
+
+body.dyslexia-mode #text p {
+    font-family: 'OpenDyslexic', sans-serif !important;
+    letter-spacing: 0.03rem;
+    line-height: 2.1 !important;
+    font-size: 1.15rem;
+}
+body.dyslexia-mode .btn,
+body.dyslexia-mode .card-desc,
+body.dyslexia-mode .card-title,
+body.dyslexia-mode .narrate-btn {
+    font-family: 'OpenDyslexic', sans-serif !important;
+}

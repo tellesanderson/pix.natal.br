@@ -181,6 +181,15 @@ window.onload = function() {
       }
     });
   }
+
+  const btnDyslexia = document.getElementById('btn-dyslexia');
+  if(btnDyslexia) {
+      btnDyslexia.addEventListener('click', () => {
+          document.body.classList.toggle('dyslexia-mode');
+          const isDys = document.body.classList.contains('dyslexia-mode');
+          btnDyslexia.innerText = isDys ? "✖️ Fonte Original" : "👁️ Leitura Fácil";
+      });
+  }
   
   startGame();
 }
