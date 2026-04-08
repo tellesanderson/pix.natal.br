@@ -112,8 +112,8 @@ header {
 #game-title {
   font-family: 'Cinzel', serif;
   font-size: 2rem;
-  color: var(--text-blood);
-  text-shadow: 0 0 10px rgba(255, 42, 42, 0.4);
+  color: var(--accent-primary);
+  text-shadow: 0 0 10px var(--accent-glow);
   letter-spacing: 2px;
 }
 
@@ -136,8 +136,8 @@ header {
 
 .btn {
   background: rgba(0, 0, 0, 0.6);
-  border: 1px solid var(--text-blood);
-  color: var(--text-blood);
+  border: 1px solid var(--accent-primary);
+  color: var(--accent-primary);
   padding: 1rem;
   font-family: 'Cinzel', serif;
   font-size: 1.1rem;
@@ -151,9 +151,9 @@ header {
 }
 
 .btn:hover {
-  background: var(--text-blood);
+  background: var(--accent-primary);
   color: #000;
-  box-shadow: 0 0 15px var(--text-blood);
+  box-shadow: 0 0 15px var(--accent-glow);
 }
 
 .credits-container {
@@ -164,7 +164,7 @@ header {
   border-top: 1px solid var(--glass-border);
 }
 
-.credits-container a { color: var(--text-blood); text-decoration: none; margin: 0 5px; }
+.credits-container a { color: var(--accent-primary); text-decoration: none; margin: 0 5px; }
 
 /* Hide original image container since bg is fullscreen */
 .image-section { display: none; }
@@ -180,7 +180,7 @@ header {
   to { opacity: 1; transform: translateY(0); }
 }.narrate-btn {
   background: transparent;
-  border: 1px solid var(--text-blood);
+  border: 1px solid var(--accent-primary);
   color: #fff;
   padding: 0.4rem 1rem;
   border-radius: 4px;
@@ -194,8 +194,8 @@ header {
   gap: 8px;
 }
 .narrate-btn:hover {
-  background: rgba(255, 42, 42, 0.2);
-  box-shadow: 0 0 10px rgba(255, 42, 42, 0.3);
+  background: var(--accent-glow);
+  box-shadow: 0 0 10px var(--accent-glow);
 }
 
 @import url('https://fonts.cdnfonts.com/css/open-dyslexic');
