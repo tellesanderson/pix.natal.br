@@ -56,7 +56,7 @@
                 </article>
 
                 <!-- Card Sem Saída -->
-                <article class="card locked">
+                <article class="card locked" id="sem-saida-card" style="cursor: pointer;" title="???">
                     <div class="card-image-wrapper">
                         <div class="card-img" style="background: linear-gradient(to right, #232526, #414345);"></div>
                     </div>
@@ -134,5 +134,41 @@
     <footer>
         <p>&copy; 2026 Crônicas RPG. Forjado por Anderson Telles.</p>
     </footer>
+
+    <script>
+        // Easter Egg: Desbloqueio secreto da aventura "Sem Saída"
+        let clickCount = 0;
+        let easterEggTimer;
+        
+        const semSaidaCard = document.getElementById('sem-saida-card');
+        if(semSaidaCard) {
+            semSaidaCard.addEventListener('click', function(e) {
+                // Impede o redirecionamento dos links internos
+                e.preventDefault(); 
+                
+                clickCount++;
+                clearTimeout(easterEggTimer);
+                
+                // Pisca o card para dar feedback ao jogador
+                semSaidaCard.style.filter = `brightness(${1 + (clickCount * 0.2)})`;
+                setTimeout(() => { semSaidaCard.style.filter = ''; }, 100);
+
+                if (clickCount >= 5) {
+                    // Feedback visual drástico
+                    semSaidaCard.style.transition = 'all 0.1s';
+                    semSaidaCard.style.transform = 'scale(0.9)';
+                    semSaidaCard.style.filter = 'hue-rotate(90deg) drop-shadow(0 0 20px #0ff)';
+                    
+                    setTimeout(() => {
+                        window.location.href = './sem-saida/index.html';
+                    }, 500);
+                } else {
+                    easterEggTimer = setTimeout(() => {
+                        clickCount = 0;
+                    }, 1000); // 1 segundo para acumular os 5 cliques
+                }
+            });
+        }
+    </script>
 </body>
 </html>

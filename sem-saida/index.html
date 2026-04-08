@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Using the new fully styled UI -->
+    <link href="./my-game/styles.css" rel="stylesheet">
+    <title>Sem Saída</title>
+</head>
+<body>
+    <div id="bg-container"></div>
+    
+    <div class="main-glass-panel">
+        <header style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+            <h1 id="game-title">Sem Saída</h1>
+            <div style="display: flex; gap: 10px;">
+                <button id="btn-narrate" class="narrate-btn" title="Ouvir Narração em Áudio">🔊 Ouvir Cena</button>
+                <button id="btn-dyslexia" class="narrate-btn" title="Ativar Fonte para Dislexia">👁️ Leitura Fácil</button>
+            </div>
+        </header>
+        
+        <main>
+            <!-- Core elements targeted by core.js -->
+            <section id="image" class="image-section"></section>
+            <section id="text" class="text-section"></section>
+            <section id="inventory" class="inventory-section"></section>        
+            <section id="options" class="buttons-section"></section>
+        </main>
+        
+        <footer class="credits-container">
+            <div id="game-credits"></div>
+        </footer> 
+    </div>
+
+    <!-- Same core JS engine but modified to parse IDs to bg images -->
+    <script defer src="./core/core.js" type="module"></script>
+</body>
+</html>
