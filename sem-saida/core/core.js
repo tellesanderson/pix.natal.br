@@ -5,14 +5,40 @@ function cleanText(str) {
   return str.replace(/\s*\[cite:\s*[^\]]+\]/g, '');
 }
 
-function formatOptionText(text, destino) {
-  if (!destino) return text;
-  const displayDestino = isNaN(destino) ? destino : parseInt(destino, 10);
-  const cleanTextLower = text.toLowerCase();
-  if (cleanTextLower.includes("vá para") || cleanTextLower.includes("ir para") || cleanTextLower.includes("ir ao trecho")) {
-    return text;
+function cleanStoryText(text) {
+  if (!text) return '';
+  let cleaned = text.replace(/\s*\[cite:\s*[^\]]+\]/g, '');
+  
+  const patterns = [
+    /\s*Se\s+você\s+acha\s+que\s+pode\s+sobreviver\s+nesse\s+perigoso\s+futuro,\s+comece\s+lendo\s+o\s+trecho\s+\d+\.?/gi,
+    /\s*(?:se\s+)?(?:você\s+e\s+sua\s+moto\s+)?rumam\s+para\s+\d+\.?/gi,
+    /\s*Confuso,\s+você\s+vai\s+para\s+\d+\.?/gi,
+    /\s*Vá\s+para\s+\d+\.?/gi,
+    /\s*(?:se\s+)?(?:você\s+)?(?:quiser|desejar|achar)\s+[^,.]+(?:,\s*|\s+)(?:vá\s+para|leia\s+o\s+trecho|leia\s+o)\s+\d+\.?/gi,
+    /\s*(?:se\s+)?(?:você\s+)?(?:quiser|desejar|achar)\s+[^,.]+(?:,\s*|\s+)(?:volte\s+para|retorne\s+para)\s+\d+\.?/gi,
+    /\s*(?:se\s+)?(?:você\s+)?(?:quiser|desejar|achar)\s+[^,.]+(?:,\s*|\s+)(?:ir\s+para|ir\s+para\s+o)\s+\d+\.?/gi
+  ];
+  
+  patterns.forEach(regex => {
+    cleaned = cleaned.replace(regex, '');
+  });
+  
+  return cleaned.trim();
+}
+
+function cleanOptionText(text) {
+  if (!text) return '';
+  const cleaned = text.trim();
+  const simpleTransitionRegex = /^(?:vá\s+para|ir\s+para(?:\s+o\s+trecho)?|ir\s+ao\s+trecho)\s+\d+$/i;
+  if (simpleTransitionRegex.test(cleaned)) {
+    return "Continuar";
   }
-  return `${text} (Vá para ${displayDestino})`;
+  
+  return cleaned
+    .replace(/\s*\(?vá\s+para\s+\d+\)?/gi, '')
+    .replace(/\s*\(?ir\s+para\s+o\s+trecho\s+\d+\)?/gi, '')
+    .replace(/\s*\(?trecho\s+\d+\)?/gi, '')
+    .trim();
 }
 
 const imageElement = document.getElementById('image');
@@ -113,12 +139,15 @@ function showTextNode(textNodeIndex) {
 
   textElement.innerHTML = "";
   if (textNode.texto) {
-    const paragraphs = cleanText(textNode.texto).split('\n');
-    paragraphs.forEach(paraText => {
-      let p = document.createElement('p');
-      p.innerText = paraText;
-      textElement.appendChild(p);
-    });
+    const cleanStory = cleanStoryText(textNode.texto);
+    if (cleanStory) {
+      const paragraphs = cleanStory.split('\n');
+      paragraphs.forEach(paraText => {
+        let p = document.createElement('p');
+        p.innerText = paraText;
+        textElement.appendChild(p);
+      });
+    }
   }
 
   optionButtonsElement.innerHTML = "";
@@ -150,7 +179,7 @@ function showTextNode(textNodeIndex) {
     choices.forEach(option => {
       let button = document.createElement('button');
       button.classList.add('btn');
-      button.innerText = cleanText(formatOptionText(option.texto, option.destino));
+      button.innerText = cleanOptionText(option.texto);
       
       // Checkpoint Cibernético Style
       if(option.texto && option.texto.includes("SISTEMA CRÍTICO")) {
@@ -200,7 +229,7 @@ function selectOption(option) {
 function showCredits(){
   let creditsElement = document.getElementById('game-credits');
   let p = document.createElement('p');
-  p.innerText = `${credits.title} \n ${credits.author} \n ${cleanText(credits.description)}`;
+  p.innerText = `${credits.title} \n ${credits.author} \n ${cleanStoryText(credits.description)}`;
   creditsElement.appendChild(p);
 }
 
