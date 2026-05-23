@@ -80,9 +80,10 @@
                 </article>
 
                 <!-- Card Eu, O Monstro -->
-                <article class="card locked">
+                <article class="card locked" id="eu-o-monstro-card">
                     <div class="card-image-wrapper">
                         <div class="card-img" style="background: linear-gradient(to right, #000000, #434343);"></div>
+                        <div class="lock-overlay-icon" id="eu-o-monstro-lock" style="position: absolute; top: 10px; right: 10px; font-size: 1.8rem; cursor: pointer; z-index: 20;" title="Clique 8 vezes para desbloquear">🔒</div>
                     </div>
                     <div class="card-content">
                         <h3 class="card-title">Eu, O Monstro</h3>
@@ -152,7 +153,7 @@
                 // Pisca o card para dar feedback ao jogador
                 semSaidaCard.style.filter = `brightness(${1 + (clickCount * 0.2)})`;
                 setTimeout(() => { semSaidaCard.style.filter = ''; }, 100);
-
+ 
                 if (clickCount >= 5) {
                     // Feedback visual drástico
                     semSaidaCard.style.transition = 'all 0.1s';
@@ -166,6 +167,64 @@
                     easterEggTimer = setTimeout(() => {
                         clickCount = 0;
                     }, 1000); // 1 segundo para acumular os 5 cliques
+                }
+            });
+        }
+
+        // Easter Egg: Desbloqueio secreto da aventura "Eu, O Monstro" (8 cliques no cadeado)
+        let monsterClickCount = 0;
+        let monsterEasterEggTimer;
+        
+        const monsterLock = document.getElementById('eu-o-monstro-lock');
+        const monsterCard = document.getElementById('eu-o-monstro-card');
+        
+        if(monsterLock && monsterCard) {
+            monsterLock.addEventListener('click', function(e) {
+                e.stopPropagation(); // Evita interações com o card
+                
+                monsterClickCount++;
+                clearTimeout(monsterEasterEggTimer);
+                
+                // Efeito de vibração no cadeado
+                monsterLock.style.transition = 'transform 0.05s';
+                monsterLock.style.transform = `scale(${1 + (monsterClickCount * 0.15)}) rotate(${monsterClickCount % 2 === 0 ? 10 : -10}deg)`;
+                
+                // Pisca o card levemente a cada clique no cadeado
+                monsterCard.style.filter = `brightness(${1 + (monsterClickCount * 0.08)})`;
+                
+                setTimeout(() => {
+                    monsterLock.style.transform = '';
+                    monsterCard.style.filter = '';
+                }, 100);
+ 
+                if (monsterClickCount >= 8) {
+                    // Animação de quebra do cadeado
+                    monsterLock.style.transition = 'all 0.6s cubic-bezier(0.6, -0.28, 0.735, 0.045)';
+                    monsterLock.style.transform = 'translateY(150px) rotate(180deg) scale(0)';
+                    monsterLock.style.opacity = '0';
+                    
+                    // Transição visual do card para dourado
+                    monsterCard.style.transition = 'all 0.5s ease';
+                    monsterCard.style.filter = 'hue-rotate(180deg) drop-shadow(0 0 25px #ceb15b)';
+                    monsterCard.classList.remove('locked');
+                    
+                    // Atualiza o botão para liberar o acesso
+                    const btn = monsterCard.querySelector('.btn-primary');
+                    if(btn) {
+                        btn.innerText = 'Iniciar Aventura';
+                        btn.href = './eu-o-monstro/index.html';
+                        btn.style.pointerEvents = 'auto';
+                        btn.style.borderColor = '#ceb15b';
+                        btn.style.color = '#ceb15b';
+                    }
+                    
+                    setTimeout(() => {
+                        window.location.href = './eu-o-monstro/index.html';
+                    }, 1200);
+                } else {
+                    monsterEasterEggTimer = setTimeout(() => {
+                        monsterClickCount = 0;
+                    }, 2000); // 2 segundos para completar a sequência de 8 cliques
                 }
             });
         }
