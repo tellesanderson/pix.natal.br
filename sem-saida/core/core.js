@@ -13,6 +13,28 @@ const glassPanel = document.querySelector('.main-glass-panel');
 
 let state = {};
 let isNarrating = false;
+let ptVoice = null;
+
+function loadVoices() {
+  if (!window.speechSynthesis) return;
+  const voices = window.speechSynthesis.getVoices();
+  const ptBRVoices = voices.filter(v => v.lang.includes('pt-BR') || v.lang.includes('pt_BR'));
+  
+  if (ptBRVoices.length > 0) {
+    ptVoice = ptBRVoices.find(v => v.name.toLowerCase().includes('natural') && v.name.toLowerCase().includes('microsoft'))
+              || ptBRVoices.find(v => v.name.toLowerCase().includes('natural'))
+              || ptBRVoices.find(v => v.name.toLowerCase().includes('online'))
+              || ptBRVoices.find(v => v.name.toLowerCase().includes('google'))
+              || ptBRVoices[0];
+  }
+}
+
+if (window.speechSynthesis) {
+  if (window.speechSynthesis.onvoiceschanged !== undefined) {
+    window.speechSynthesis.onvoiceschanged = loadVoices;
+  }
+  loadVoices();
+}
 
 function startGame() {
   state = {};
@@ -242,7 +264,13 @@ window.onload = function() {
       if(fullText.trim() !== "") {
         const utterThis = new SpeechSynthesisUtterance(fullText);
         utterThis.lang = 'pt-BR';
-        utterThis.pitch = 0.8;
+        if (ptVoice) {
+          utterThis.voice = ptVoice;
+          // Vozes neurais (Online/Natural) soam perfeitas com tom padrão (1.0), as demais soam melhor com tom um pouco mais grave (0.9)
+          utterThis.pitch = ptVoice.name.toLowerCase().includes('natural') || ptVoice.name.toLowerCase().includes('online') ? 1.0 : 0.9;
+        } else {
+          utterThis.pitch = 0.9;
+        }
         utterThis.rate = 1.0;
         utterThis.onend = () => {
           isNarrating = false;
