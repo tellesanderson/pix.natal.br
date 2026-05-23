@@ -5,6 +5,16 @@ function cleanText(str) {
   return str.replace(/\s*\[cite:\s*[^\]]+\]/g, '');
 }
 
+function formatOptionText(text, destino) {
+  if (!destino) return text;
+  const displayDestino = isNaN(destino) ? destino : parseInt(destino, 10);
+  const cleanTextLower = text.toLowerCase();
+  if (cleanTextLower.includes("vá para") || cleanTextLower.includes("ir para") || cleanTextLower.includes("ir ao trecho")) {
+    return text;
+  }
+  return `${text} (Vá para ${displayDestino})`;
+}
+
 const imageElement = document.getElementById('image');
 const textElement = document.getElementById('text');
 const inventoryElement = document.getElementById('inventory');
@@ -140,7 +150,7 @@ function showTextNode(textNodeIndex) {
     choices.forEach(option => {
       let button = document.createElement('button');
       button.classList.add('btn');
-      button.innerText = cleanText(option.texto);
+      button.innerText = cleanText(formatOptionText(option.texto, option.destino));
       
       // Checkpoint Cibernético Style
       if(option.texto && option.texto.includes("SISTEMA CRÍTICO")) {
