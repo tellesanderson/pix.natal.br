@@ -1,5 +1,10 @@
 import { credits, textNodes } from './../my-game/game.js';
 
+function cleanText(str) {
+  if (!str) return '';
+  return str.replace(/\s*\[cite:\s*[^\]]+\]/g, '');
+}
+
 const imageElement = document.getElementById('image');
 const textElement = document.getElementById('text');
 const inventoryElement = document.getElementById('inventory');
@@ -76,7 +81,7 @@ function showTextNode(textNodeIndex) {
 
   textElement.innerHTML = "";
   if (textNode.texto) {
-    const paragraphs = textNode.texto.split('\n');
+    const paragraphs = cleanText(textNode.texto).split('\n');
     paragraphs.forEach(paraText => {
       let p = document.createElement('p');
       p.innerText = paraText;
@@ -113,7 +118,7 @@ function showTextNode(textNodeIndex) {
     choices.forEach(option => {
       let button = document.createElement('button');
       button.classList.add('btn');
-      button.innerText = option.texto;
+      button.innerText = cleanText(option.texto);
       
       // Checkpoint Cibernético Style
       if(option.texto && option.texto.includes("SISTEMA CRÍTICO")) {
@@ -163,7 +168,7 @@ function selectOption(option) {
 function showCredits(){
   let creditsElement = document.getElementById('game-credits');
   let p = document.createElement('p');
-  p.innerText = `${credits.title} \n ${credits.author} \n ${credits.description}`;
+  p.innerText = `${credits.title} \n ${credits.author} \n ${cleanText(credits.description)}`;
   creditsElement.appendChild(p);
 }
 
