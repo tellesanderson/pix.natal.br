@@ -11,15 +11,15 @@ let isNarrating = false;
 
 function startGame() {
   state = {};
-  showTextNode(0);
+  showTextNode("intro");
 }
 
 function getBgForId(id) {
-  const hospitals = [1, 9, 23, 29, 37];
-  const streets = [4, 6, 7, 14, 20, 21, 24, 26, 28, 31, 35, 36];
-  const indoors = [2, 10, 12, 15, 18, 19, 30, 34];
-  const deepWeb = [27, 38, 39];
-  const combats = [3, 5, 11, 13, 17, 22, 25, 32, 33, 40];
+  const hospitals = ["01", "09", "23", "29", "37"];
+  const streets = ["04", "06", "07", "14", "20", "21", "24", "26", "28", "31", "35", "36"];
+  const indoors = ["02", "10", "12", "15", "18", "19", "30", "34"];
+  const deepWeb = ["27", "38", "39"];
+  const combats = ["03", "05", "11", "13", "17", "22", "25", "32", "33", "40"];
   
   if(hospitals.includes(id)) return 'linear-gradient(to bottom, #0f2027, #203a43, #2c5364)';
   if(streets.includes(id)) return 'linear-gradient(to bottom, #141e30, #243b55)';
@@ -43,16 +43,16 @@ function showTextNode(textNodeIndex) {
   glassPanel.classList.remove('matrix-bg', 'glitch-effect');
 
   // Aplicando efeitos via gatilhos de parágrafos
-  if (textNodeIndex === 19) {
+  if (textNodeIndex === "19") {
       document.body.classList.add('whiteout-explosion');
       // Toca um áudio curto via base64 para representar a explosão/curto
       playEffectSound('explosion');
-  } else if (textNodeIndex === 27) {
+  } else if (textNodeIndex === "27") {
       glassPanel.classList.add('matrix-bg');
-  } else if (textNodeIndex === 39) {
+  } else if (textNodeIndex === "39") {
       glassPanel.classList.add('glitch-effect');
       playEffectSound('glitch');
-  } else if (textNodeIndex === 40) {
+  } else if (textNodeIndex === "40") {
       // Clímax
       document.body.style.filter = "contrast(1.2) saturate(1.5)";
       playEffectSound('boss');
@@ -75,48 +75,77 @@ function showTextNode(textNodeIndex) {
   }
 
   textElement.innerHTML = "";
-  textNode.paragraphs.forEach(paragraph => {
-    let p = document.createElement('p');
-    p.innerText = paragraph.text;
-    textElement.appendChild(p);
-  })
+  if (textNode.texto) {
+    const paragraphs = textNode.texto.split('\n');
+    paragraphs.forEach(paraText => {
+      let p = document.createElement('p');
+      p.innerText = paraText;
+      textElement.appendChild(p);
+    });
+  }
 
   optionButtonsElement.innerHTML = "";
-  textNode.options.forEach(option => {
+  const choices = textNode.escolhas || [];
+  if (choices.length === 0) {
     let button = document.createElement('button');
     button.classList.add('btn');
-    button.innerText = option.text;
+    button.innerText = "Jogar Novamente";
     
-    // Checkpoint Cibernético Style
-    if(option.text.includes("SISTEMA CRÍTICO")) {
-        button.style.borderColor = "#00f3ff";
-        button.style.color = "#00f3ff";
-        button.style.boxShadow = "0 0 10px #00f3ff";
-    }
-
-    if (enabledOption(option)) {
-      button.disabled = true;
-      button.style.opacity = '0';
-      button.style.transition = 'opacity 0.8s ease';
-      
-      setTimeout(() => {
-        button.disabled = false;
-        button.style.opacity = '1';
-      }, 1500);
-
-      button.addEventListener('click', () => {
-        selectOption(option);
-        if (glassPanel) {
-          glassPanel.scrollTo({ top: 0, behavior: 'smooth' });
-        } else {
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-      });
-    } else {
-      button.disabled = true;
-    }
+    button.disabled = true;
+    button.style.opacity = '0';
+    button.style.transition = 'opacity 0.8s ease';
+    
+    setTimeout(() => {
+      button.disabled = false;
+      button.style.opacity = '1';
+    }, 1500);
+    
+    button.addEventListener('click', () => {
+      startGame();
+      if (glassPanel) {
+        glassPanel.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    });
     optionButtonsElement.appendChild(button);
-  })
+  } else {
+    choices.forEach(option => {
+      let button = document.createElement('button');
+      button.classList.add('btn');
+      button.innerText = option.texto;
+      
+      // Checkpoint Cibernético Style
+      if(option.texto && option.texto.includes("SISTEMA CRÍTICO")) {
+          button.style.borderColor = "#00f3ff";
+          button.style.color = "#00f3ff";
+          button.style.boxShadow = "0 0 10px #00f3ff";
+      }
+
+      if (enabledOption(option)) {
+        button.disabled = true;
+        button.style.opacity = '0';
+        button.style.transition = 'opacity 0.8s ease';
+        
+        setTimeout(() => {
+          button.disabled = false;
+          button.style.opacity = '1';
+        }, 1500);
+
+        button.addEventListener('click', () => {
+          selectOption(option);
+          if (glassPanel) {
+            glassPanel.scrollTo({ top: 0, behavior: 'smooth' });
+          } else {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }
+        });
+      } else {
+        button.disabled = true;
+      }
+      optionButtonsElement.appendChild(button);
+    });
+  }
 
   inventoryElement.innerHTML = "";
 }
@@ -126,10 +155,7 @@ function enabledOption(option) {
 }
 
 function selectOption(option) {
-  let nextTextNodeId = option.nextText;
-  if (nextTextNodeId < 0) {
-    return startGame();
-  }
+  let nextTextNodeId = option.destino;
   state = Object.assign(state, option.setState || {});
   showTextNode(nextTextNodeId);
 }
