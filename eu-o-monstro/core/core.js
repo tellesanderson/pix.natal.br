@@ -78,19 +78,16 @@ function startGame() {
 }
 
 function getBgForId(id) {
-  const hospitals = ["01", "09", "23", "29", "37"];
-  const streets = ["04", "06", "07", "14", "20", "21", "24", "26", "28", "31", "35", "36"];
-  const indoors = ["02", "10", "12", "15", "18", "19", "30", "34"];
-  const deepWeb = ["27", "38", "39"];
-  const combats = ["03", "05", "11", "13", "17", "22", "25", "32", "33", "40"];
+  const roomNodes = ["intro", "01", "03", "07", "10", "15", "20", "31"];
+  const forestNodes = ["13", "17", "21", "26", "36", "39"];
+  const umbraNodes = ["04", "08", "12", "18", "19", "23", "25", "29", "32", "34", "37", "38"];
   
-  if(hospitals.includes(id)) return 'linear-gradient(to bottom, #0f2027, #203a43, #2c5364)';
-  if(streets.includes(id)) return 'linear-gradient(to bottom, #141e30, #243b55)';
-  if(deepWeb.includes(id)) return 'linear-gradient(to bottom, #000000, #0f9b0f)';
-  if(combats.includes(id)) return 'linear-gradient(to bottom, #4b1248, #f0c27b)';
+  if (roomNodes.includes(id)) return 'werewolf_room.png';
+  if (forestNodes.includes(id)) return 'forest_clearing.png';
+  if (umbraNodes.includes(id)) return 'umbra_world.png';
   
-  // Base 
-  return 'linear-gradient(to bottom, #000000, #434343)';
+  // Default/urban/other nodes
+  return 'dark_alley.png';
 }
 
 function showTextNode(textNodeIndex) {
@@ -127,7 +124,7 @@ function showTextNode(textNodeIndex) {
 
   const bgContainer = document.getElementById('bg-container');
   if(bgContainer) {
-    bgContainer.style.background = getBgForId(textNodeIndex);
+    bgContainer.style.backgroundImage = `url('./bg/${getBgForId(textNodeIndex)}')`;
   }
 
   imageElement.innerHTML = "";
