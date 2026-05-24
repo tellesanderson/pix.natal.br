@@ -30,7 +30,7 @@ export const textNodes = [
   },
   {
     "id": "03",
-    "texto": "A estatueta é de ouro, com quase trinta centímetros de altura. É belíssima, representando as formas delicadas de uma fada com precisão impecável. Pasmo, você reconhece no pedestal a assinatura do mestre escultor elfo Lorens Lorian. Se for um trabalho original, vale uma fortuna; e, se for uma falsificação, você gostaria de conhecer esse gênio da arte e contratá-lo para a Guilda. Você coloca a estatueta na mochila. Se ainda não investigou o cetro e quer fazê-lo agora, vá para 8. Se prefere abandonar a sala, vá para 20.",
+    "texto": "A estatueta é de ouro, com quase trinta centímetros de altura. É belíssima, representando as formas delicadas de uma fada com precisão impecável. Pasmo, você reconhece no pedestal a assinatura do mestre escultor elfo Lorens Lorian. Se for um trabalho original, vale uma fortuna; e, se for uma falsificação, você gostaria de conhecer esse gênio da arte e contratá-lo para a Guilda. Você coloca a estatueta na mochila. Se ainda não investigou o cetro e quer fazê-lo agora, aproveite... Ou prefere abandonar a sala?",
     "escolhas": [
       { "texto": "Investigar o cetro", "destino": "08" },
       { "texto": "Abandonar a sala", "destino": "20" }
