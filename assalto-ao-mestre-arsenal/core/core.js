@@ -100,21 +100,23 @@ function startGame() {
 }
 
 function getBgForId(id) {
-  const forestApproach = ["intro", "01", "02", "10", "24", "37"];
-  const corridorsAndTraps = ["05", "06", "09", "14", "16", "20", "23", "25", "28", "29", "30", "34", "36", "38", "39"];
-  const collectionRooms = ["03", "07", "08", "12", "26", "35"];
-  const combats = ["13", "15", "19", "27", "31", "33"];
-  const failures = ["11", "17", "22"];
-  const success = ["40"];
-  
-  if (forestApproach.includes(id)) return 'linear-gradient(to bottom, #11052C, #0F0E17)';
-  if (corridorsAndTraps.includes(id)) return 'linear-gradient(to bottom, #001e2b, #0a0a0c)';
-  if (collectionRooms.includes(id)) return 'linear-gradient(to bottom, #2c003e, #fe346e, #d4af37)';
-  if (combats.includes(id)) return 'linear-gradient(to bottom, #4d0000, #ff3333, #ffcc00)';
-  if (failures.includes(id)) return 'linear-gradient(to bottom, #000000, #1c1c1c)';
-  if (success.includes(id)) return 'linear-gradient(to bottom, #1a3c40, #406882, #d4af37)';
-  
-  return 'linear-gradient(to bottom, #1a0826, #0a050f)';
+  const introCity = ["intro", "01", "24"];
+  const mountainPass = ["02", "04", "07", "10", "12", "18", "21", "32", "37"];
+  const towerClimbing = ["26"];
+  const zombieCorridor = ["05", "06", "09", "14", "16", "20", "22", "23", "25", "28", "29", "30", "31", "34", "36", "38"];
+  const arsenalDungeon = ["11", "17", "39"];
+  const arsenalArmory = ["03", "08", "13", "15", "19", "27", "33", "35"];
+  const guildVictory = ["40"];
+
+  if (introCity.includes(id)) return 'kristophania_city.png';
+  if (mountainPass.includes(id)) return 'mountain_pass.png';
+  if (towerClimbing.includes(id)) return 'tower_climbing.png';
+  if (zombieCorridor.includes(id)) return 'zombie_corridor.png';
+  if (arsenalDungeon.includes(id)) return 'arsenal_dungeon.png';
+  if (arsenalArmory.includes(id)) return 'arsenal_armory.png';
+  if (guildVictory.includes(id)) return 'guild_victory.png';
+
+  return 'kristophania_city.png';
 }
 
 function showTextNode(textNodeIndex) {
@@ -148,7 +150,7 @@ function showTextNode(textNodeIndex) {
 
   const bgContainer = document.getElementById('bg-container');
   if(bgContainer) {
-    bgContainer.style.background = getBgForId(textNodeIndex);
+    bgContainer.style.backgroundImage = `url('./bg/${getBgForId(textNodeIndex)}')`;
   }
 
   imageElement.innerHTML = "";
