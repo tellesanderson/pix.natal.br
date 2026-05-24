@@ -11,31 +11,34 @@ function cleanStoryText(text) {
   cleaned = cleaned.replace(/<[^>]*>/g, '');
 
   const patterns = [
+    // Specific page instructions with dynamic numbers (must run before general ones)
+    /Se quiser tentar abri-la, vá para \d+\.\s*Se quiser tentar o outro corredor, vá para \d+\.?/gi,
+    /Se você deseja convidar Parx para participar do roubo, vá para \d+\.\s*Se não confia no clérigo trapaceiro e prefere agir sozinho, vá para \d+\.?/gi,
+    /Se quiser seguir o conselho de Parx, vá para \d+\.\s*Prefere usar sua estratégia costumeira, protegido pela escuridão\? Vá para \d+\.?/gi,
+    /Se ainda não investigou o cetro e quer fazê-lo agora, vá para \d+\.\s*Se prefere abandonar a sala, vá para \d+\.?/gi,
+    /Se quer procurar armadilhas, vá para \d+\.\s*Se quiser ignorar armadilhas e apenas abrir a porta, \d+\.?/gi,
+    /Se quiser dar uma escutadela na porta antes de tentar arrombá-la, leia o \d+\.\s*Se quiser voltar e pegar o caminho da esquerda, vá para \d+\.\s*Se quiser poupar tempo e meter o pé na porta, vá para \d+\.?/gi,
+    /Enquanto espera a noite cair, vá para \d+\.?/gi,
+    /Se quiser correr o risco e tocar o cajado, vá para \d+\.\s*Se ainda não investigou a estatueta e quer fazê-lo agora, vá para \d+\.\s*Se quer sair da sala sem tocar em mais nada, vá para \d+\.?/gi,
+    /Se você aceita o convite de Parx para um assalto, vá para \d+\.\s*Se prefere deixar o homem seguir em paz, vá para \d+\.?/gi,
+    /Resmungando, você espera o anoitecer\. Vá para \d+\.?/gi,
+    /Uma espada recurvada dos salteadores do deserto\.\s*Se quiser pegá-la, vá para \d+\.\s*Uma lança prateada, com dragões esculpidos no cabo\.\s*Se quiser agarrá-la, vá para \d+\.\s*Um elmo dourado com a forma de uma concha\.\s*Se quiser colocá-lo, vá para \d+\.\s*Um colar de contas vermelhas\.\s*Para pegá-lo, vá para \d+\.?/gi,
+    /Se quiser deixar a tarefa para Parx, vá para \d+\.\s*Se quiser usar seu próprio poder, vá para \d+\.?/gi,
+    /Se você quiser colar o ouvido à porta e escutar, vá para \d+\.\s*Se acha que pode haver uma armadilha na porta, vá para \d+\.?/gi,
+    /Se quiser roubar a adaga, vá para \d+\.\s*Se está satisfeito com a bolsa de moedas, vá para \d+\.?/gi,
+    /Se quiser mexer na tocha, vá para \d+\.\s*Se acha melhor procurar armadilhas antes de mexer na tocha, vá para \d+\.?/gi,
+    /Se quer forçar a fechadura com suas ferramentas, vá para \d+\.\s*Se quiser voltar e pegar o caminho da esquerda, vá para \d+\.?/gi,
+    /Uma estatueta metálica sobre uma mesinha, no canto do quarto\.\s*Se quiser pegá-la, vá para \d+\.\s*Um cetro, suspenso na parede, tendo em sua ponta um cristal transparente\.\s*Se quiser pegá-lo, vá para \d+\.\s*Se prefere deixar tudo onde está, vá para \d+\.?/gi,
+    /Se quiser usar suas ferramentas para destrancá-la, vá para \d+\.\s*Se quiser tentar o outro corredor, vá para \d+\.?/gi,
+    /Se quiser apresentar-se como negociante de artefatos mágicos, vá para \d+\.\s*Se prefere agir sob o disfarce de emissário da Guilda, vá para \d+\.?/gi,
+    /Se quiser procurar armadilhas na porta, vá para \d+\.\s*Se quiser tentar abrir a porta, vá para \d+\.\s*Se quiser tentar o outro corredor, vá para \d+\.?/gi,
+    /Se quiser pegar o caminho da direita, vá para \d+\.\s*Se prefere o da esquerda, vá para \d+\.?/gi,
+    /Vamos, pois, à procura do bom Mestre Arsenal\. Vá para \d+\.?/gi,
+    /Três objetos estão ao seu alcance:/gi,
+    
+    // General/fallback page instructions (must run last)
     /Comece lendo o trecho \d+\.?/gi,
-    /Vá para \d+\.?/gi,
-    /Se quiser tentar abri-la, vá para 28\.\s*Se quiser tentar o outro corredor, vá para 6\./gi,
-    /Se você deseja convidar Parx para participar do roubo, vá para 24\.\s*Se não confia no clérigo trapaceiro e prefere agir sozinho, vá para 37\./gi,
-    /Se quiser seguir o conselho de Parx, vá para 32\.\s*Prefere usar sua estratégia costumeira, protegido pela escuridão\? Vá para 26\./gi,
-    /Se ainda não investigou o cetro e quer fazê-lo agora, vá para 8\.\s*Se prefere abandonar a sala, vá para 20\./gi,
-    /Se quer procurar armadilhas, vá para 39\.\s*Se quiser ignorar armadilhas e apenas abrir a porta, 30\./gi,
-    /Se quiser dar uma escutadela na porta antes de tentar arrombá-la, leia o 25\.\s*Se quiser voltar e pegar o caminho da esquerda, vá para 34\.\s*Se quiser poupar tempo e meter o pé na porta, vá para 31\./gi,
-    /Enquanto espera a noite cair, vá para 26\./gi,
-    /Se quiser correr o risco e tocar o cajado, vá para 11\.\s*Se ainda não investigou a estatueta e quer fazê-lo agora, vá para 3\.\s*Se quer sair da sala sem tocar em mais nada, vá para 20\./gi,
-    /Se você aceita o convite de Parx para um assalto, vá para 21\.\s*Se prefere deixar o homem seguir em paz, vá para 4\./gi,
-    /Resmungando, você espera o anoitecer\. Vá para 26\./gi,
-    /Uma espada recurvada dos salteadores do deserto\.\s*Se quiser pegá-la, vá para 15\.\s*Uma lança prateada, com dragões esculpidos no cabo\.\s*Se quiser agarrá-la, vá para 19\.\s*Um elmo dourado com a forma de uma concha\.\s*Se quiser colocá-lo, vá para 27\.\s*Um colar de contas vermelhas\.\s*Para pegá-lo, vá para 33\./gi,
-    /Se quiser deixar a tarefa para Parx, vá para 38\.\s*Se quiser usar seu próprio poder, vá para 5\./gi,
-    /Se você quiser colar o ouvido à porta e escutar, vá para 16\.\s*Se acha que pode haver uma armadilha na porta, vá para 29\./gi,
-    /Se quiser roubar a adaga, vá para 17\.\s*Se está satisfeito com a bolsa de moedas, vá para 18\./gi,
-    /Se quiser mexer na tocha, vá para 13\.\s*Se acha melhor procurar armadilhas antes de mexer na tocha, vá para 36\./gi,
-    /Se quer forçar a fechadura com suas ferramentas, vá para 22\.\s*Se quiser voltar e pegar o caminho da esquerda, vá para 34\./gi,
-    /Uma estatueta metálica sobre uma mesinha, no canto do quarto\.\s*Se quiser pegá-la, vá para 3\.\s*Um cetro, suspenso na parede, tendo em sua ponta um cristal transparente\.\s*Se quiser pegá-lo, vá para 8\.\s*Se prefere deixar tudo onde está, vá para 20\./gi,
-    /Se quiser usar suas ferramentas para destrancá-la, vá para 9\.\s*Se quiser tentar o outro corredor, vá para 6\./gi,
-    /Se quiser apresentar-se como negociante de artefatos mágicos, vá para 7\.\s*Se prefere agir sob o disfarce de emissário da Guilda, vá para 12\./gi,
-    /Se quiser procurar armadilhas na porta, vá para 14\.\s*Se quiser tentar abrir a porta, vá para 28\.\s*Se quiser tentar o outro corredor, vá para 6\./gi,
-    /Se quiser pegar o caminho da direita, vá para 6\.\s*Se prefere o da esquerda, vá para 34\./gi,
-    /Vamos, pois, à procura do bom Mestre Arsenal\./gi,
-    /Três objetos estão ao seu alcance:/gi
+    /Vá para \d+\.?/gi
   ];
 
   patterns.forEach(regex => {
