@@ -64,7 +64,7 @@ body {
   background-repeat: no-repeat;
   z-index: -1;
   transition: background 1.5s ease-in-out;
-  filter: brightness(0.35) contrast(1.15);
+  filter: brightness(0.6) contrast(1.15);
 }
 
 .main-glass-panel {
