@@ -28,7 +28,7 @@ function cleanStoryText(text) {
     /Se quiser roubar a adaga, vá para \d+\.\s*Se está satisfeito com a bolsa de moedas, vá para \d+\.?/gi,
     /Se quiser mexer na tocha, vá para \d+\.\s*Se acha melhor procurar armadilhas antes de mexer na tocha, vá para \d+\.?/gi,
     /Se quer forçar a fechadura com suas ferramentas, vá para \d+\.\s*Se quiser voltar e pegar o caminho da esquerda, vá para \d+\.?/gi,
-    /Uma estatueta metálica sobre uma mesinha, no canto do quarto\.\s*Se quiser pegá-la, vá para \d+\.\s*Um cetro, suspenso na parede, tendo em sua ponta um cristal transparente\.\s*Se quiser pegá-lo, vá para \d+\.\s*Se prefere deixar tudo onde está, vá para \d+\.?/gi,
+    /Se quiser pegá-la, vá para \d+\.\s*Um cetro, suspenso na parede, tendo em sua ponta um cristal transparente\.\s*Se quiser pegá-lo, vá para \d+\.\s*Se prefere deixar tudo onde está, vá para \d+\.?/gi,
     /Se quiser usar suas ferramentas para destrancá-la, vá para \d+\.\s*Se quiser tentar o outro corredor, vá para \d+\.?/gi,
     /Se quiser apresentar-se como negociante de artefatos mágicos, vá para \d+\.\s*Se prefere agir sob o disfarce de emissário da Guilda, vá para \d+\.?/gi,
     /Se quiser procurar armadilhas na porta, vá para \d+\.\s*Se quiser tentar abrir a porta, vá para \d+\.\s*Se quiser tentar o outro corredor, vá para \d+\.?/gi,
