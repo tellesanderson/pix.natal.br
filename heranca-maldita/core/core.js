@@ -50,6 +50,48 @@ const glassPanel = document.querySelector('.main-glass-panel');
 let state = {};
 let isNarrating = false;
 let ptVoice = null;
+let currentAudio = null;
+let currentNodeId = "intro";
+
+function stopAllNarration() {
+  if (window.speechSynthesis) {
+    window.speechSynthesis.cancel();
+  }
+  if (currentAudio) {
+    currentAudio.pause();
+    currentAudio.currentTime = 0;
+    currentAudio = null;
+  }
+  isNarrating = false;
+  const btnNarrate = document.getElementById('btn-narrate');
+  if (btnNarrate) {
+    btnNarrate.innerText = "🔊 Ouvir Cena";
+  }
+}
+
+function usarFallbackNavegador(texto) {
+  const synth = window.speechSynthesis;
+  if (!synth) {
+    stopAllNarration();
+    return;
+  }
+  const utterThis = new SpeechSynthesisUtterance(texto);
+  utterThis.lang = 'pt-BR';
+  if (ptVoice) {
+    utterThis.voice = ptVoice;
+    utterThis.pitch = ptVoice.name.toLowerCase().includes('natural') || ptVoice.name.toLowerCase().includes('online') ? 1.0 : 0.85;
+  } else {
+    utterThis.pitch = 0.85;
+  }
+  utterThis.rate = 1.02;
+  utterThis.onend = () => {
+    stopAllNarration();
+  };
+  utterThis.onerror = () => {
+    stopAllNarration();
+  };
+  synth.speak(utterThis);
+}
 
 function loadVoices() {
   if (!window.speechSynthesis) return;
@@ -95,12 +137,8 @@ function getBgForId(id) {
 }
 
 function showTextNode(textNodeIndex) {
-  if (window.speechSynthesis) {
-    window.speechSynthesis.cancel();
-    isNarrating = false;
-    const btn = document.getElementById('btn-narrate');
-    if (btn) btn.innerText = "🔊 Ouvir Cena";
-  }
+  currentNodeId = textNodeIndex;
+  stopAllNarration();
 
   // Visual effects reset
   document.body.classList.remove('whiteout-explosion');
@@ -288,35 +326,39 @@ window.onload = function() {
   const btnNarrate = document.getElementById('btn-narrate');
   if (btnNarrate) {
     btnNarrate.addEventListener('click', () => {
-      const synth = window.speechSynthesis;
-      if (synth.speaking && isNarrating) {
-        synth.cancel();
-        isNarrating = false;
-        btnNarrate.innerText = "🔊 Ouvir Cena";
+      if (isNarrating) {
+        stopAllNarration();
         return;
       }
-      synth.cancel();
+      
+      stopAllNarration();
+      
       const textSections = document.querySelectorAll('#text p');
       let fullText = "";
       textSections.forEach(p => fullText += p.innerText + " . ");
       
       if (fullText.trim() !== "") {
-        const utterThis = new SpeechSynthesisUtterance(fullText);
-        utterThis.lang = 'pt-BR';
-        if (ptVoice) {
-          utterThis.voice = ptVoice;
-          utterThis.pitch = ptVoice.name.toLowerCase().includes('natural') || ptVoice.name.toLowerCase().includes('online') ? 1.0 : 0.85;
-        } else {
-          utterThis.pitch = 0.85;
-        }
-        utterThis.rate = 1.02;
-        utterThis.onend = () => {
-          isNarrating = false;
-          btnNarrate.innerText = "🔊 Ouvir Cena";
-        };
-        synth.speak(utterThis);
         isNarrating = true;
         btnNarrate.innerText = "🔇 Parar Narração";
+
+        // Tenta tocar o áudio estático gerado do Edge TTS
+        const audioUrl = `./my-game/audio/${currentNodeId}.mp3`;
+        currentAudio = new Audio(audioUrl);
+        
+        currentAudio.onended = () => {
+          stopAllNarration();
+        };
+
+        currentAudio.onerror = () => {
+          console.warn(`Áudio estático não encontrado (${audioUrl}). Usando fallback do navegador...`);
+          currentAudio = null;
+          usarFallbackNavegador(fullText);
+        };
+
+        currentAudio.play().catch(err => {
+          console.warn("Falha ao tocar MP3, iniciando fallback:", err);
+          usarFallbackNavegador(fullText);
+        });
       }
     });
   }
