@@ -16,6 +16,70 @@ let gameState = {};
 let audioCtx = null;
 let windNode = null;
 let windFilter = null;
+let currentAudio = null;
+let isNarrating = false;
+let ptVoice = null;
+let currentNodeId = "intro";
+
+function stopAllNarration() {
+  if (window.speechSynthesis) {
+    window.speechSynthesis.cancel();
+  }
+  if (currentAudio) {
+    currentAudio.pause();
+    currentAudio.currentTime = 0;
+    currentAudio = null;
+  }
+  isNarrating = false;
+  const btnNarrate = document.getElementById('btn-narrate');
+  if (btnNarrate) {
+    btnNarrate.innerText = "🔊 Ouvir Cena";
+    btnNarrate.classList.remove('playing');
+  }
+}
+
+function usarFallbackNavegador(texto) {
+  const synth = window.speechSynthesis;
+  if (!synth) {
+    stopAllNarration();
+    return;
+  }
+  
+  const utterThis = new SpeechSynthesisUtterance(texto);
+  utterThis.lang = 'pt-BR';
+  if (ptVoice) {
+    utterThis.voice = ptVoice;
+  }
+  utterThis.pitch = 0.85; // Slightly lower pitch for medieval tone
+  utterThis.rate = 0.95;  // Slightly slower rate for dramatic effect
+  
+  utterThis.onend = () => {
+    stopAllNarration();
+  };
+  utterThis.onerror = () => {
+    stopAllNarration();
+  };
+  
+  synth.speak(utterThis);
+}
+
+function loadVoices() {
+  if (!window.speechSynthesis) return;
+  const voices = window.speechSynthesis.getVoices();
+  const ptVoices = voices.filter(v => v.lang.includes('pt-BR') || v.lang.includes('pt-PT') || v.lang.startsWith('pt'));
+  
+  if (ptVoices.length > 0) {
+    ptVoice = ptVoices.find(v => v.name.toLowerCase().includes('natural') || v.name.toLowerCase().includes('neural')) || ptVoices[0];
+  }
+}
+
+if (window.speechSynthesis) {
+  if (window.speechSynthesis.onvoiceschanged !== undefined) {
+    window.speechSynthesis.onvoiceschanged = loadVoices;
+  }
+  loadVoices();
+}
+
 
 // Clean [source: XXX] tags, leading numbers, and CYOA instructions
 function cleanStoryText(text) {
@@ -190,6 +254,9 @@ function startGame() {
 }
 
 function showTextNode(nodeId) {
+  currentNodeId = nodeId;
+  stopAllNarration();
+
   const textNode = textNodes.find(node => node.id === nodeId);
   if (!textNode) {
     console.error(`Story node not found: ${nodeId}`);
@@ -322,6 +389,51 @@ function setupCredits() {
 window.onload = () => {
   setupCredits();
   setupNotepad();
+  
+  const btnNarrate = document.getElementById('btn-narrate');
+  if (btnNarrate) {
+    btnNarrate.addEventListener('click', () => {
+      initAudio();
+      if (isNarrating) {
+        stopAllNarration();
+        return;
+      }
+      
+      stopAllNarration();
+      
+      const paragraphs = document.querySelectorAll('#text p');
+      let textToSpeak = "";
+      paragraphs.forEach(p => {
+        textToSpeak += p.innerText + " ";
+      });
+      
+      textToSpeak = textToSpeak.trim();
+      if (!textToSpeak) return;
+      
+      isNarrating = true;
+      btnNarrate.innerText = "🔇 Parar";
+      btnNarrate.classList.add('playing');
+      
+      const audioUrl = `./my-game/audio/${currentNodeId}.mp3`;
+      currentAudio = new Audio(audioUrl);
+      
+      currentAudio.onended = () => {
+        stopAllNarration();
+      };
+      
+      currentAudio.onerror = () => {
+        currentAudio = null;
+        usarFallbackNavegador(textToSpeak);
+      };
+      
+      currentAudio.play().catch(err => {
+        console.warn("Audio playback blocked or failed. Falling back to TTS:", err);
+        currentAudio = null;
+        usarFallbackNavegador(textToSpeak);
+      });
+    });
+  }
+  
   startGame();
   
   // Resume AudioContext on body click to satisfy browser policy

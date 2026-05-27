@@ -383,3 +383,22 @@ textarea#notepad-textarea:focus {
 .credits-text p {
   margin: 0;
 }
+
+/* Header controls and narration audio button styling */
+.header-controls {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.audio-btn.playing {
+  border-color: var(--blood-red);
+  color: var(--blood-red);
+  box-shadow: 0 0 10px var(--blood-red-glow);
+}
+
+.audio-btn.playing:hover {
+  background: var(--blood-red);
+  color: #fff;
+}
+
