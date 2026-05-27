@@ -1,56 +1,14 @@
 import { credits, textNodes } from './../my-game/game.js';
 
-function cleanText(str) {
-  if (!str) return '';
-  return str.replace(/\s*\[cite:\s*[^\]]+\]/g, '');
-}
-
-function cleanStoryText(text) {
-  if (!text) return '';
-  let cleaned = text.replace(/\s*\[cite:\s*[^\]]+\]/g, '');
-  
-  const patterns = [
-    /\s*Se\s+você\s+acha\s+que\s+pode\s+sobreviver\s+nesse\s+perigoso\s+futuro,\s+comece\s+lendo\s+o\s+trecho\s+\d+\.?/gi,
-    /\s*(?:se\s+)?(?:você\s+e\s+sua\s+moto\s+)?rumam\s+para\s+\d+\.?/gi,
-    /\s*Confuso,\s+você\s+vai\s+para\s+\d+\.?/gi,
-    /\s*Vá\s+para\s+\d+\.?/gi,
-    /\s*(?:se\s+)?(?:você\s+)?(?:quiser|desejar|achar)\s+[^,.]+(?:,\s*|\s+)(?:vá\s+para|leia\s+o\s+trecho|leia\s+o)\s+\d+\.?/gi,
-    /\s*(?:se\s+)?(?:você\s+)?(?:quiser|desejar|achar)\s+[^,.]+(?:,\s*|\s+)(?:volte\s+para|retorne\s+para)\s+\d+\.?/gi,
-    /\s*(?:se\s+)?(?:você\s+)?(?:quiser|desejar|achar)\s+[^,.]+(?:,\s*|\s+)(?:ir\s+para|ir\s+para\s+o)\s+\d+\.?/gi
-  ];
-  
-  patterns.forEach(regex => {
-    cleaned = cleaned.replace(regex, '');
-  });
-  
-  return cleaned.trim();
-}
-
-function cleanOptionText(text) {
-  if (!text) return '';
-  const cleaned = text.trim();
-  const simpleTransitionRegex = /^(?:vá\s+para|ir\s+para(?:\s+o\s+trecho)?|ir\s+ao\s+trecho)\s+\d+$/i;
-  if (simpleTransitionRegex.test(cleaned)) {
-    return "Continuar";
-  }
-  
-  return cleaned
-    .replace(/\s*\(?vá\s+para\s+\d+\)?/gi, '')
-    .replace(/\s*\(?ir\s+para\s+o\s+trecho\s+\d+\)?/gi, '')
-    .replace(/\s*\(?trecho\s+\d+\)?/gi, '')
-    .trim();
-}
-
-const imageElement = document.getElementById('image');
 const textElement = document.getElementById('text');
-const inventoryElement = document.getElementById('inventory');
-const optionButtonsElement = document.getElementById('options');
-const glassPanel = document.querySelector('.main-glass-panel');
+const optionsElement = document.getElementById('options');
+const titleElement = document.getElementById('game-title');
+const creditsElement = document.getElementById('game-credits');
 
-let state = {};
+let gameState = {};
+let currentAudio = null;
 let isNarrating = false;
 let ptVoice = null;
-let currentAudio = null;
 let currentNodeId = "intro";
 
 function stopAllNarration() {
@@ -66,6 +24,7 @@ function stopAllNarration() {
   const btnNarrate = document.getElementById('btn-narrate');
   if (btnNarrate) {
     btnNarrate.innerText = "🔊 Ouvir Cena";
+    btnNarrate.classList.remove('playing');
   }
 }
 
@@ -75,35 +34,33 @@ function usarFallbackNavegador(texto) {
     stopAllNarration();
     return;
   }
+  
   const utterThis = new SpeechSynthesisUtterance(texto);
   utterThis.lang = 'pt-BR';
   if (ptVoice) {
     utterThis.voice = ptVoice;
-    utterThis.pitch = ptVoice.name.toLowerCase().includes('natural') || ptVoice.name.toLowerCase().includes('online') ? 1.0 : 0.9;
-  } else {
-    utterThis.pitch = 0.9;
   }
+  utterThis.pitch = 1.0;
   utterThis.rate = 1.0;
+  
   utterThis.onend = () => {
     stopAllNarration();
   };
   utterThis.onerror = () => {
     stopAllNarration();
   };
+  
   synth.speak(utterThis);
 }
 
 function loadVoices() {
   if (!window.speechSynthesis) return;
   const voices = window.speechSynthesis.getVoices();
-  const ptBRVoices = voices.filter(v => v.lang.includes('pt-BR') || v.lang.includes('pt_BR'));
+  const ptVoices = voices.filter(v => v.lang.includes('pt-BR') || v.lang.includes('pt-PT') || v.lang.startsWith('pt'));
   
-  if (ptBRVoices.length > 0) {
-    ptVoice = ptBRVoices.find(v => v.name.toLowerCase().includes('natural') && v.name.toLowerCase().includes('microsoft'))
-              || ptBRVoices.find(v => v.name.toLowerCase().includes('natural'))
-              || ptBRVoices.find(v => v.name.toLowerCase().includes('online'))
-              || ptBRVoices.find(v => v.name.toLowerCase().includes('google'))
-              || ptBRVoices[0];
+  if (ptVoices.length > 0) {
+    // Try to find a Portuguese Neural or Natural voice
+    ptVoice = ptVoices.find(v => v.name.toLowerCase().includes('natural') || v.name.toLowerCase().includes('neural')) || ptVoices[0];
   }
 }
 
@@ -114,217 +71,228 @@ if (window.speechSynthesis) {
   loadVoices();
 }
 
+
+// Clean cite tags and trailing instruction text
+function cleanStoryText(text) {
+  if (!text) return "";
+  
+  // 1. Remove [cite: XX] tags
+  let cleaned = text.replace(/\s*\[cite:\s*[^\]]+\]/gi, '');
+  
+  // 2. Remove magic number instructions/references at the end of the text
+  const magicPhrases = [
+    /,\s*comece\s+lendo\s+o\s+trecho\s+\d+\.?\s*$/gi,
+    /\s*se\s+você\s+acha\s+que\s+pode\s+sobreviver\s+nesse\s+perigoso\s+futuro,\s+comece\s+lendo\s+o\s+trecho\s+\d+\.?\s*$/gi,
+    /\s*vá\s+para\s+o\s+trecho\s+\d+\.?\s*$/gi,
+    /\s*vá\s+para\s+\d+\.?\s*$/gi,
+    /\s*leia\s+o\s+trecho\s+\d+\.?\s*$/gi,
+    /\s*volte\s+para\s+\d+\.?\s*$/gi,
+    /\s*retorne\s+para\s+\d+\.?\s*$/gi,
+    /\s*ir\s+para\s+\d+\.?\s*$/gi
+  ];
+  
+  magicPhrases.forEach(regex => {
+    cleaned = cleaned.replace(regex, '');
+  });
+  
+  cleaned = cleaned.trim();
+  
+  // Restore ending punctuation if it was stripped
+  if (cleaned.length > 0 && !/[.!?"]$/.test(cleaned)) {
+    cleaned += ".";
+  }
+  
+  return cleaned;
+}
+
+// Generate retro synthesizer sounds
+function playSynthSound(type) {
+  try {
+    const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+    if (!AudioContextClass) return;
+    
+    const audioCtx = new AudioContextClass();
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    
+    osc.connect(gain);
+    gain.connect(audioCtx.destination);
+    
+    if (type === 'click') {
+      // Short hi-tech blip
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(1200, audioCtx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(600, audioCtx.currentTime + 0.08);
+      
+      gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.08);
+      
+      osc.start();
+      osc.stop(audioCtx.currentTime + 0.08);
+    } else if (type === 'hover') {
+      // Subtle tick
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(800, audioCtx.currentTime);
+      
+      gain.gain.setValueAtTime(0.02, audioCtx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.04);
+      
+      osc.start();
+      osc.stop(audioCtx.currentTime + 0.04);
+    } else if (type === 'transition') {
+      // Futuristic hum sweep
+      osc.type = 'sawtooth';
+      osc.frequency.setValueAtTime(120, audioCtx.currentTime);
+      osc.frequency.linearRampToValueAtTime(300, audioCtx.currentTime + 0.2);
+      
+      const filter = audioCtx.createBiquadFilter();
+      filter.type = 'lowpass';
+      filter.frequency.setValueAtTime(200, audioCtx.currentTime);
+      filter.frequency.exponentialRampToValueAtTime(1000, audioCtx.currentTime + 0.2);
+      
+      osc.disconnect(gain);
+      osc.connect(filter);
+      filter.connect(gain);
+      
+      gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.25);
+      
+      osc.start();
+      osc.stop(audioCtx.currentTime + 0.25);
+    } else if (type === 'gameover') {
+      // Low descending synth growl
+      osc.type = 'square';
+      osc.frequency.setValueAtTime(150, audioCtx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(40, audioCtx.currentTime + 0.8);
+      
+      gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.8);
+      
+      osc.start();
+      osc.stop(audioCtx.currentTime + 0.8);
+    } else if (type === 'success') {
+      // Chime
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(523.25, audioCtx.currentTime); // C5
+      osc.frequency.setValueAtTime(659.25, audioCtx.currentTime + 0.1); // E5
+      osc.frequency.setValueAtTime(783.99, audioCtx.currentTime + 0.2); // G5
+      
+      gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.5);
+      
+      osc.start();
+      osc.stop(audioCtx.currentTime + 0.5);
+    }
+  } catch (e) {
+    console.warn("Web Audio API not allowed or supported on this interaction:", e);
+  }
+}
+
 function startGame() {
-  state = {};
+  gameState = {};
   showTextNode("intro");
 }
 
-function getBgForId(id) {
-  const hospitals = ["01", "09", "23", "29", "37"];
-  const streets = ["04", "06", "07", "14", "20", "21", "24", "26", "28", "31", "35", "36"];
-  const indoors = ["02", "10", "12", "15", "18", "19", "30", "34"];
-  const deepWeb = ["27", "38", "39"];
-  const combats = ["03", "05", "11", "13", "17", "22", "25", "32", "33", "40"];
-  
-  if(hospitals.includes(id)) return 'linear-gradient(to bottom, #0f2027, #203a43, #2c5364)';
-  if(streets.includes(id)) return 'linear-gradient(to bottom, #141e30, #243b55)';
-  if(deepWeb.includes(id)) return 'linear-gradient(to bottom, #000000, #0f9b0f)';
-  if(combats.includes(id)) return 'linear-gradient(to bottom, #4b1248, #f0c27b)';
-  
-  // Base 
-  return 'linear-gradient(to bottom, #000000, #434343)';
-}
-
-function showTextNode(textNodeIndex) {
-  currentNodeId = textNodeIndex;
+function showTextNode(nodeId) {
+  currentNodeId = nodeId;
   stopAllNarration();
 
-  // Reseta efeitos visuais do nó anterior
-  document.body.classList.remove('whiteout-explosion');
-  glassPanel.classList.remove('matrix-bg', 'glitch-effect');
-
-  // Aplicando efeitos via gatilhos de parágrafos
-  if (textNodeIndex === "19") {
-      document.body.classList.add('whiteout-explosion');
-      // Toca um áudio curto via base64 para representar a explosão/curto
-      playEffectSound('explosion');
-  } else if (textNodeIndex === "27") {
-      glassPanel.classList.add('matrix-bg');
-  } else if (textNodeIndex === "39") {
-      glassPanel.classList.add('glitch-effect');
-      playEffectSound('glitch');
-  } else if (textNodeIndex === "40") {
-      // Clímax
-      document.body.style.filter = "contrast(1.2) saturate(1.5)";
-      playEffectSound('boss');
-  } else {
-      document.body.style.filter = "none";
+  const textNode = textNodes.find(node => node.id === nodeId);
+  if (!textNode) {
+    console.error(`Story node not found: ${nodeId}`);
+    return;
   }
 
-  let textNode = textNodes.find(textNode => textNode.id === textNodeIndex);
+  // Clear previous contents
+  textElement.innerHTML = '';
+  optionsElement.innerHTML = '';
 
-  const bgContainer = document.getElementById('bg-container');
-  if(bgContainer) {
-    bgContainer.style.background = getBgForId(textNodeIndex);
-  }
-
-  imageElement.innerHTML = "";
-  if (textNode.img) {
-    let img = document.createElement('img');
-    img.src = `./my-game/images/scenes/${textNode.img}`;
-    imageElement.appendChild(img);
-  }
-
-  textElement.innerHTML = "";
-  if (textNode.texto) {
-    const cleanStory = cleanStoryText(textNode.texto);
-    if (cleanStory) {
-      const paragraphs = cleanStory.split('\n');
-      paragraphs.forEach(paraText => {
-        let p = document.createElement('p');
-        p.innerText = paraText;
-        textElement.appendChild(p);
-      });
+  // Render story paragraphs
+  const rawText = textNode.texto || '';
+  const cleanedText = cleanStoryText(rawText);
+  
+  // Split by double newline or single newline to form readable paragraphs
+  const paragraphs = cleanedText.split(/\n+/);
+  
+  paragraphs.forEach((pText, index) => {
+    if (pText.trim()) {
+      const p = document.createElement('p');
+      p.className = 'story-paragraph';
+      p.innerText = pText.trim();
+      p.style.animationDelay = `${index * 150}ms`;
+      textElement.appendChild(p);
     }
-  }
+  });
 
-  optionButtonsElement.innerHTML = "";
+  // Render choice buttons
   const choices = textNode.escolhas || [];
+  
   if (choices.length === 0) {
-    let button = document.createElement('button');
-    button.classList.add('btn');
-    button.innerText = "Jogar Novamente";
-    
-    button.disabled = true;
-    button.style.opacity = '0';
-    button.style.transition = 'opacity 0.8s ease';
-    
-    setTimeout(() => {
-      button.disabled = false;
-      button.style.opacity = '1';
-    }, 1500);
-    
-    button.addEventListener('click', () => {
+    // End of story or dead end - offer restart button
+    const restartBtn = document.createElement('button');
+    restartBtn.className = 'cyber-btn game-over-btn';
+    restartBtn.innerHTML = '<span class="btn-glitch">REBOOT_SYSTEM</span>';
+    restartBtn.addEventListener('click', () => {
+      playSynthSound('click');
       startGame();
-      if (glassPanel) {
-        glassPanel.scrollTo({ top: 0, behavior: 'smooth' });
-      } else {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      }
     });
-    optionButtonsElement.appendChild(button);
+    restartBtn.addEventListener('mouseenter', () => playSynthSound('hover'));
+    
+    // Play gameover sound or success sound based on node id
+    if (nodeId === "40") {
+      playSynthSound('success');
+    } else {
+      playSynthSound('gameover');
+    }
+
+    optionsElement.appendChild(restartBtn);
   } else {
-    choices.forEach(option => {
-      let button = document.createElement('button');
-      button.classList.add('btn');
-      button.innerText = cleanOptionText(option.texto);
+    choices.forEach((choice, index) => {
+      const btn = document.createElement('button');
+      btn.className = 'cyber-btn';
+      btn.innerText = choice.texto;
+      btn.style.animationDelay = `${(paragraphs.length * 150) + (index * 100)}ms`;
       
-      // Checkpoint Cibernético Style
-      if(option.texto && option.texto.includes("SISTEMA CRÍTICO")) {
-          button.style.borderColor = "#00f3ff";
-          button.style.color = "#00f3ff";
-          button.style.boxShadow = "0 0 10px #00f3ff";
-      }
-
-      if (enabledOption(option)) {
-        button.disabled = true;
-        button.style.opacity = '0';
-        button.style.transition = 'opacity 0.8s ease';
-        
-        setTimeout(() => {
-          button.disabled = false;
-          button.style.opacity = '1';
-        }, 1500);
-
-        button.addEventListener('click', () => {
-          selectOption(option);
-          if (glassPanel) {
-            glassPanel.scrollTo({ top: 0, behavior: 'smooth' });
-          } else {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-          }
-        });
-      } else {
-        button.disabled = true;
-      }
-      optionButtonsElement.appendChild(button);
+      btn.addEventListener('click', () => {
+        playSynthSound('click');
+        playSynthSound('transition');
+        selectOption(choice.destino);
+      });
+      btn.addEventListener('mouseenter', () => playSynthSound('hover'));
+      
+      optionsElement.appendChild(btn);
     });
   }
 
-  inventoryElement.innerHTML = "";
+  // Smooth scroll container to top
+  const terminalPanel = document.querySelector('.panel-content');
+  if (terminalPanel) {
+    terminalPanel.scrollTo({ top: 0, behavior: 'smooth' });
+  }
 }
 
-function enabledOption(option) {
-  return option.requiredState == null || option.requiredState(state);
+function selectOption(nextId) {
+  showTextNode(nextId);
 }
 
-function selectOption(option) {
-  let nextTextNodeId = option.destino;
-  state = Object.assign(state, option.setState || {});
-  showTextNode(nextTextNodeId);
+function setupCredits() {
+  if (creditsElement) {
+    creditsElement.innerHTML = `
+      <p>// PROJECT: ${credits.title}</p>
+      <p>// AUTHOR: ${credits.author}</p>
+      <p>// ENCRYPT: AES-256-CYBER</p>
+    `;
+  }
+  if (titleElement) {
+    titleElement.innerText = credits.title;
+  }
 }
 
-function showCredits(){
-  let creditsElement = document.getElementById('game-credits');
-  let p = document.createElement('p');
-  p.innerText = `${credits.title} \n ${credits.author} \n ${cleanStoryText(credits.description)}`;
-  creditsElement.appendChild(p);
-}
-
-function playEffectSound(type) {
-    // A simple synth audio feedback for demonstration without needing actual mp3 files
-    try {
-        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        if (type === 'explosion') {
-            const osc = audioCtx.createOscillator();
-            const gainNode = audioCtx.createGain();
-            osc.type = 'square';
-            osc.frequency.setValueAtTime(100, audioCtx.currentTime);
-            osc.frequency.exponentialRampToValueAtTime(1, audioCtx.currentTime + 1);
-            gainNode.gain.setValueAtTime(1, audioCtx.currentTime);
-            gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 1);
-            osc.connect(gainNode);
-            gainNode.connect(audioCtx.destination);
-            osc.start();
-            osc.stop(audioCtx.currentTime + 1);
-        } else if (type === 'glitch') {
-            const bufferSize = audioCtx.sampleRate * 0.5; // 0.5 seconds
-            const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
-            const data = buffer.getChannelData(0);
-            for (let i = 0; i < bufferSize; i++) {
-                data[i] = Math.random() * 2 - 1; // white noise
-            }
-            const noise = audioCtx.createBufferSource();
-            noise.buffer = buffer;
-            const filter = audioCtx.createBiquadFilter();
-            filter.type = 'highpass';
-            filter.frequency.value = 1000;
-            noise.connect(filter);
-            filter.connect(audioCtx.destination);
-            noise.start();
-        } else if (type === 'boss') {
-            const osc = audioCtx.createOscillator();
-            const gainNode = audioCtx.createGain();
-            osc.type = 'sawtooth';
-            osc.frequency.setValueAtTime(55, audioCtx.currentTime); // Low A
-            gainNode.gain.setValueAtTime(0.5, audioCtx.currentTime);
-            osc.connect(gainNode);
-            gainNode.connect(audioCtx.destination);
-            osc.start();
-            osc.stop(audioCtx.currentTime + 2);
-        }
-    } catch(e) {
-        console.warn('AudioContext not supported');
-    }
-}
-
-window.onload = function() { 
-  document.title = credits.title;
-  document.getElementById('game-title').innerHTML = credits.title;
-  showCredits();
+window.onload = () => {
+  setupCredits();
   
   const btnNarrate = document.getElementById('btn-narrate');
-  if(btnNarrate) {
+  if (btnNarrate) {
     btnNarrate.addEventListener('click', () => {
       if (isNarrating) {
         stopAllNarration();
@@ -333,44 +301,38 @@ window.onload = function() {
       
       stopAllNarration();
       
-      const textSections = document.querySelectorAll('#text p');
-      let fullText = "";
-      textSections.forEach(p => fullText += p.innerText + " . ");
-      
-      if(fullText.trim() !== "") {
-        isNarrating = true;
-        btnNarrate.innerText = "🔇 Parar Narração";
-
-        // Tenta tocar o áudio estático gerado do Edge TTS
-        const audioUrl = `./my-game/audio/${currentNodeId}.mp3`;
-        currentAudio = new Audio(audioUrl);
-        
-        currentAudio.onended = () => {
-          stopAllNarration();
-        };
-
-        currentAudio.onerror = () => {
-          console.warn(`Áudio estático não encontrado (${audioUrl}). Usando fallback do navegador...`);
-          currentAudio = null;
-          usarFallbackNavegador(fullText);
-        };
-
-        currentAudio.play().catch(err => {
-          console.warn("Falha ao tocar MP3, iniciando fallback:", err);
-          usarFallbackNavegador(fullText);
-        });
-      }
-    });
-  }
-
-  const btnDyslexia = document.getElementById('btn-dyslexia');
-  if(btnDyslexia) {
-      btnDyslexia.addEventListener('click', () => {
-          document.body.classList.toggle('dyslexia-mode');
-          const isDys = document.body.classList.contains('dyslexia-mode');
-          btnDyslexia.innerText = isDys ? "✖️ Fonte Original" : "👁️ Leitura Fácil";
+      const paragraphs = document.querySelectorAll('#text p');
+      let textToSpeak = "";
+      paragraphs.forEach(p => {
+        textToSpeak += p.innerText + " ";
       });
+      
+      textToSpeak = textToSpeak.trim();
+      if (!textToSpeak) return;
+      
+      isNarrating = true;
+      btnNarrate.innerText = "🔇 Parar";
+      btnNarrate.classList.add('playing');
+      
+      const audioUrl = `./my-game/audio/${currentNodeId}.mp3`;
+      currentAudio = new Audio(audioUrl);
+      
+      currentAudio.onended = () => {
+        stopAllNarration();
+      };
+      
+      currentAudio.onerror = () => {
+        currentAudio = null;
+        usarFallbackNavegador(textToSpeak);
+      };
+      
+      currentAudio.play().catch(err => {
+        console.warn("Audio playback blocked or failed. Falling back to TTS:", err);
+        currentAudio = null;
+        usarFallbackNavegador(textToSpeak);
+      });
+    });
   }
   
   startGame();
-}
+};

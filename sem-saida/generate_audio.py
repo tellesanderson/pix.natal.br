@@ -20,28 +20,33 @@ except ImportError:
 def clean_story_text(text):
     if not text:
         return ""
-    # Clean backticks
+    # Clean backticks and newlines
     cleaned = text.replace("`", "")
     # Strip out citation markers if any (e.g. [cite: ...])
     cleaned = re.sub(r"\s*\[cite:\s*[^\]]+\]", "", cleaned)
     # Strip HTML
     cleaned = re.sub(r"<[^>]*>", "", cleaned)
 
+    # Magic CYOA number patterns to clean up
     patterns = [
-        # Page jump instructions typical in CYOA books
-        r"\s*Se\s+você\s+acha\s+que\s+pode\s+sobreviver\s+nesse\s+perigoso\s+futuro,\s+comece\s+lendo\s+o\s+trecho\s+\d+\.?",
-        r"\s*(?:se\s+)?(?:você\s+e\s+sua\s+moto\s+)?rumam\s+para\s+\d+\.?",
-        r"\s*Confuso,\s+você\s+vai\s+para\s+\d+\.?",
-        r"\s*Vá\s+para\s+\d+\.?",
-        r"\s*(?:se\s+)?(?:você\s+)?(?:quiser|desejar|achar)\s+[^,.]+(?:,\s*|\s+)(?:vá\s+para|leia\s+o\s+trecho|leia\s+o)\s+\d+\.?",
-        r"\s*(?:se\s+)?(?:você\s+)?(?:quiser|desejar|achar)\s+[^,.]+(?:,\s*|\s+)(?:volte\s+para|retorne\s+para)\s+\d+\.?",
-        r"\s*(?:se\s+)?(?:você\s+)?(?:quiser|desejar|achar)\s+[^,.]+(?:,\s*|\s+)(?:ir\s+para|ir\s+para\s+o)\s+\d+\.?"
+        r",\s*comece\s+lendo\s+o\s+trecho\s+\d+\.?\s*$",
+        r"\s*Se\s+você\s+acha\s+que\s+pode\s+sobreviver\s+nesse\s+perigoso\s+futuro,\s+comece\s+lendo\s+o\s+trecho\s+\d+\.?\s*$",
+        r"\s*vá\s+para\s+o\s+trecho\s+\d+\.?\s*$",
+        r"\s*vá\s+para\s+\d+\.?\s*$",
+        r"\s*leia\s+o\s+trecho\s+\d+\.?\s*$",
+        r"\s*volte\s+para\s+\d+\.?\s*$",
+        r"\s*retorne\s+para\s+\d+\.?\s*$",
+        r"\s*ir\s+para\s+\d+\.?\s*$"
     ]
 
     for pattern in patterns:
         cleaned = re.sub(pattern, "", cleaned, flags=re.IGNORECASE)
 
-    return cleaned.strip()
+    cleaned = cleaned.strip()
+    if cleaned and not cleaned[-1] in ['.', '!', '?', '"']:
+        cleaned += "."
+        
+    return cleaned
 
 async def main():
     # 1. Run Node.js script to extract JSON data

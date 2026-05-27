@@ -1,242 +1,369 @@
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=Inter:wght@300;400;600&display=swap');
+/* Custom Cyberpunk Theme for Sem Saída */
 
 :root {
-  --bg-color: #050505;
-  --bg-gradient: radial-gradient(circle at top center, #11001c 0%, #050505 80%);
-  --accent-primary: #00f3ff; /* Neon cyan */
-  --accent-secondary: #ff0055; /* Neon pink */
-  --accent-glow: rgba(0, 243, 255, 0.4);
-  --accent-glow-secondary: rgba(255, 0, 85, 0.4);
-  --text-main: #e0e0e0;
-  --text-muted: #8892b0;
-  --glass-bg: rgba(10, 10, 16, 0.7);
-  --glass-border: rgba(0, 243, 255, 0.15);
+  --bg-dark: #060713;
+  --panel-bg: rgba(10, 11, 28, 0.75);
+  
+  --neon-blue: #00f0ff;
+  --neon-blue-glow: rgba(0, 240, 255, 0.4);
+  --neon-pink: #ff0055;
+  --neon-pink-glow: rgba(255, 0, 85, 0.3);
+  
+  --text-primary: #e6ebff;
+  --text-secondary: #8e9bb0;
+  --text-neon: #00f0ff;
+  
+  --font-cyber: 'Orbitron', 'Cinzel', sans-serif;
+  --font-text: 'Inter', sans-serif;
 }
-
-* { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
-  font-family: 'Inter', sans-serif;
-  background-color: var(--bg-color);
-  background-image: var(--bg-gradient);
-  background-attachment: fixed;
-  color: var(--text-main);
-  min-height: 100vh;
-  overflow-x: hidden;
-  line-height: 1.6;
-  transition: all 0.5s ease;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  font-family: var(--font-text);
+  color: var(--text-primary);
+  background-color: var(--bg-dark);
+  position: relative;
+  overflow: hidden;
+  height: 100vh;
+  width: 100vw;
 }
 
-/* --- EFEITOS CYBERPUNK --- */
-.glitch-effect {
-  animation: glitch-anim 0.3s cubic-bezier(.25, .46, .45, .94) both infinite;
-  color: var(--accent-secondary);
-  text-shadow: 2px 2px var(--accent-primary), -2px -2px #ffff00;
-  filter: hue-rotate(90deg) contrast(150%) blur(1px);
-}
-
-@keyframes glitch-anim {
-  0% { transform: translate(0) }
-  20% { transform: translate(-2px, 2px) }
-  40% { transform: translate(-2px, -2px) }
-  60% { transform: translate(2px, 2px) }
-  80% { transform: translate(2px, -2px) }
-  100% { transform: translate(0) }
-}
-
-.whiteout-explosion {
-  animation: whiteout-anim 2s forwards;
-}
-
-@keyframes whiteout-anim {
-  0% { background-color: #fff; filter: brightness(10) contrast(0); }
-  100% { background-color: #000; filter: brightness(1) contrast(1); }
-}
-
-.matrix-bg {
-  background: black !important;
-  background-image: linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(0,20,0,0.8) 100%) !important;
-  border-color: #0f0 !important;
-  color: #0f0 !important;
-  text-shadow: 0 0 5px #0f0;
-}
-.matrix-bg .btn {
-  border-color: #0f0;
-  color: #0f0;
-}
-.matrix-bg .btn:hover {
-  background: #0f0;
-  color: #000;
-}
-
-#bg-container {
-  position: fixed;
-  top: 0; left: 0; width: 100vw; height: 100vh;
-  background-size: cover;
+/* Background Cyber Grid Animation */
+.cyber-grid {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    linear-gradient(rgba(0, 240, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 240, 255, 0.05) 1px, transparent 1px);
+  background-size: 50px 50px;
   background-position: center;
-  background-repeat: no-repeat;
-  z-index: -1;
-  transition: background-image 1.5s ease-in-out;
-  filter: brightness(0.6) contrast(1.2);
+  z-index: 1;
+  pointer-events: none;
+  animation: gridScroll 30s linear infinite;
 }
 
-.main-glass-panel {
-  width: 90%;
-  max-width: 800px;
-  max-height: 90vh;
-  background: var(--glass-bg);
-  border: 1px solid var(--glass-border);
-  box-shadow: 0 20px 50px rgba(0,0,0,0.8), 0 0 20px rgba(255, 0, 0, 0.1);
-  border-radius: 12px;
-  backdrop-filter: blur(15px);
+@keyframes gridScroll {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 50px 100px;
+  }
+}
+
+/* Retro CRT Scanlines */
+.scanlines {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    rgba(18, 16, 16, 0) 50%, 
+    rgba(0, 0, 0, 0.15) 50%
+  ), linear-gradient(
+    90deg, 
+    rgba(255, 0, 0, 0.03), 
+    rgba(0, 255, 0, 0.01), 
+    rgba(0, 0, 255, 0.03)
+  );
+  background-size: 100% 4px, 6px 100%;
+  z-index: 99;
+  pointer-events: none;
+}
+
+/* Purple-Blue Ambient Light */
+.ambient-glow {
+  position: absolute;
+  width: 800px;
+  height: 800px;
+  background: radial-gradient(circle, rgba(142, 0, 255, 0.15) 0%, transparent 70%);
+  top: -200px;
+  left: -200px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* Base Wrapper for layout centering */
+.game-wrapper {
+  position: relative;
+  z-index: 10;
   display: flex;
   flex-direction: column;
-  overflow-y: auto;
-  animation: fadeIn 1s ease-out;
+  width: 92%;
+  max-width: 900px;
+  height: 90vh;
+  justify-content: space-between;
 }
 
-/* Custom Scrollbar for glass panel */
-.main-glass-panel::-webkit-scrollbar { width: 8px; }
-.main-glass-panel::-webkit-scrollbar-track { background: rgba(0,0,0,0.5); border-radius: 4px; }
-.main-glass-panel::-webkit-scrollbar-thumb { background: #550000; border-radius: 4px; }
-
-header {
-  text-align: center;
-  padding: 1.5rem;
-  border-bottom: 1px solid var(--glass-border);
+/* Cyber Header style */
+.game-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 25px;
+  background: rgba(10, 11, 28, 0.85);
+  border-bottom: 2px solid var(--neon-blue);
+  box-shadow: 0 0 15px var(--neon-blue-glow);
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 8px), calc(100% - 15px) 100%, 0 100%);
+  font-family: var(--font-cyber);
 }
 
-#game-title {
-  font-family: 'Cinzel', serif;
-  font-size: 2rem;
-  color: var(--accent-primary);
-  text-shadow: 0 0 10px var(--accent-glow);
+.logo-area {
+  font-size: 1.25rem;
+  font-weight: 900;
   letter-spacing: 2px;
 }
 
-.text-section {
-  padding: 2.5rem;
-  font-size: 1.2rem;
-  line-height: 1.8;
-  text-shadow: 1px 1px 2px #000;
-  animation: textAppear 0.5s ease forwards;
+.neon-text-blue {
+  color: var(--neon-blue);
+  text-shadow: 0 0 5px var(--neon-blue);
 }
 
-.text-section p { margin-bottom: 1.5rem; }
-
-.buttons-section {
-  padding: 0 2.5rem 2.5rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+.neon-text-pink {
+  color: var(--neon-pink);
+  text-shadow: 0 0 8px var(--neon-pink);
 }
 
-.btn {
-  background: rgba(0, 0, 0, 0.6);
-  border: 1px solid var(--accent-primary);
-  color: var(--accent-primary);
-  padding: 1rem;
-  font-family: 'Cinzel', serif;
-  font-size: 1.1rem;
-  font-weight: 600;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  position: relative;
-  overflow: hidden;
-  text-align: left;
-}
-
-.btn:hover {
-  background: var(--accent-primary);
-  color: #000;
-  box-shadow: 0 0 15px var(--accent-glow);
-}
-
-.credits-container {
-  text-align: center;
-  padding: 1rem;
+.status-indicator {
   font-size: 0.8rem;
-  color: #777;
-  border-top: 1px solid var(--glass-border);
-}
-
-.credits-container a { color: var(--accent-primary); text-decoration: none; margin: 0 5px; }
-
-/* Hide original image container since bg is fullscreen */
-.image-section { display: none; }
-.inventory-section { display: none; }
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: scale(0.98); }
-  to { opacity: 1; transform: scale(1); }
-}
-
-@keyframes textAppear {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}.narrate-btn {
-  background: transparent;
-  border: 1px solid var(--accent-primary);
-  color: #fff;
-  padding: 0.4rem 1rem;
-  border-radius: 4px;
-  font-family: inherit;
-  font-size: 0.9rem;
-  cursor: pointer;
-  margin-top: 15px;
-  transition: all 0.3s ease;
-  display: inline-flex;
+  color: var(--text-secondary);
+  display: flex;
   align-items: center;
   gap: 8px;
-}
-.narrate-btn:hover {
-  background: var(--accent-glow);
-  box-shadow: 0 0 10px var(--accent-glow);
+  letter-spacing: 1px;
 }
 
-@import url('https://fonts.cdnfonts.com/css/open-dyslexic');
-
-body.dyslexia-mode #text p {
-    font-family: 'OpenDyslexic', sans-serif !important;
-    letter-spacing: 0.03rem;
-    line-height: 2.1 !important;
-    font-size: 1.15rem;
-}
-body.dyslexia-mode .btn,
-body.dyslexia-mode .card-desc,
-body.dyslexia-mode .card-title,
-body.dyslexia-mode .narrate-btn {
-    font-family: 'OpenDyslexic', sans-serif !important;
+.pulse-dot {
+  width: 8px;
+  height: 8px;
+  background-color: #00ff66;
+  border-radius: 50%;
+  box-shadow: 0 0 8px #00ff66;
+  animation: pulse 1.5s infinite;
 }
 
-@keyframes flyBat {
-    0% { left: -10vw; opacity: 0; }
-    10% { opacity: 0.8; }
-    90% { opacity: 0.8; }
-    100% { left: 110vw; opacity: 0; }
+@keyframes pulse {
+  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 255, 102, 0.7); }
+  70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(0, 255, 102, 0); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 255, 102, 0); }
 }
 
-@keyframes flyBatReverse {
-    0% { left: 110vw; opacity: 0; }
-    10% { opacity: 0.8; }
-    90% { opacity: 0.8; }
-    100% { left: -10vw; opacity: 0; }
+/* Glassmorphism Terminal Panel */
+.game-main {
+  flex-grow: 1;
+  margin: 20px 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
 
-@keyframes flapWobble {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-25px); }
+.terminal-panel {
+  flex-grow: 1;
+  background: var(--panel-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(0, 240, 255, 0.25);
+  box-shadow: inset 0 0 20px rgba(0, 240, 255, 0.05), 0 10px 30px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  border-radius: 4px;
+  overflow: hidden;
 }
 
-.bat-animation {
-    position: fixed;
-    z-index: 1; /* Atras da janela de vidro */
-    pointer-events: none;
-    opacity: 0.6;
-    filter: grayscale(100%) brightness(0); /* Transforma o emoji numa silhueta sombria total */
-    animation: flyBat 12s linear forwards, flapWobble 0.5s ease-in-out infinite alternate;
+.panel-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 15px;
+  background: rgba(6, 7, 19, 0.9);
+  border-bottom: 1px solid rgba(0, 240, 255, 0.15);
 }
+
+.window-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.window-dot.red { background-color: var(--neon-pink); }
+.window-dot.yellow { background-color: #ffaa00; }
+.window-dot.green { background-color: #00ff66; }
+
+.panel-title {
+  font-family: var(--font-cyber);
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  margin-left: 10px;
+  letter-spacing: 1.5px;
+}
+
+.panel-content {
+  flex-grow: 1;
+  padding: 25px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Story and paragraph animations */
+.story-text-container {
+  margin-bottom: 25px;
+}
+
+.story-paragraph {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  margin-bottom: 20px;
+  color: var(--text-primary);
+  text-align: justify;
+  animation: slideUpFade 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes slideUpFade {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Choice Buttons Container & Styling */
+.story-options-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.cyber-btn {
+  position: relative;
+  font-family: var(--font-cyber);
+  font-size: 0.95rem;
+  letter-spacing: 1px;
+  color: var(--neon-blue);
+  background: transparent;
+  border: 1px solid var(--neon-blue);
+  padding: 14px 20px;
+  cursor: pointer;
+  text-align: left;
+  outline: none;
+  transition: all 0.3s ease;
+  
+  /* Sci-fi angles */
+  clip-path: polygon(8px 0%, 100% 0%, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0% 100%, 0% 8px);
+  
+  animation: slideUpFade 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.cyber-btn:hover {
+  background: rgba(0, 240, 255, 0.1);
+  color: #fff;
+  border-color: #fff;
+  box-shadow: 0 0 15px var(--neon-blue-glow);
+  text-shadow: 0 0 5px #fff;
+}
+
+/* Special button highlights for game over or restarts */
+.game-over-btn {
+  color: var(--neon-pink);
+  border-color: var(--neon-pink);
+  text-align: center;
+  align-self: center;
+  min-width: 250px;
+  font-weight: 700;
+  clip-path: polygon(12px 0%, 100% 0%, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0% 100%, 0% 12px);
+}
+
+.game-over-btn:hover {
+  background: rgba(255, 0, 85, 0.15);
+  color: #fff;
+  border-color: #fff;
+  box-shadow: 0 0 20px var(--neon-pink-glow);
+}
+
+/* Custom Scrollbar for Retro feeling */
+.panel-content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.panel-content::-webkit-scrollbar-track {
+  background: rgba(6, 7, 19, 0.5);
+}
+
+.panel-content::-webkit-scrollbar-thumb {
+  background: rgba(0, 240, 255, 0.3);
+  border-radius: 3px;
+}
+
+.panel-content::-webkit-scrollbar-thumb:hover {
+  background: var(--neon-blue);
+}
+
+/* Footer layout */
+.game-footer {
+  padding: 10px 0;
+  border-top: 1px solid rgba(0, 240, 255, 0.1);
+}
+
+.credits-text {
+  font-family: var(--font-cyber);
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.credits-text p {
+  margin: 0;
+}
+
+/* Header Controls & Audio Button styling */
+.header-controls {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.audio-btn {
+  background: transparent;
+  border: 1px solid var(--neon-blue);
+  color: var(--neon-blue);
+  padding: 6px 14px;
+  font-family: var(--font-cyber);
+  font-size: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.3s ease;
+  clip-path: polygon(6px 0%, 100% 0%, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0% 100%, 0% 6px);
+  letter-spacing: 0.5px;
+}
+
+.audio-btn:hover {
+  background: rgba(0, 240, 255, 0.15);
+  color: #fff;
+  border-color: #fff;
+  box-shadow: 0 0 10px var(--neon-blue-glow);
+  text-shadow: 0 0 2px #fff;
+}
+
+.audio-btn.playing {
+  border-color: var(--neon-pink);
+  color: var(--neon-pink);
+}
+
+.audio-btn.playing:hover {
+  background: rgba(255, 0, 85, 0.15);
+  box-shadow: 0 0 10px var(--neon-pink-glow);
+  color: #fff;
+  border-color: #fff;
+  text-shadow: 0 0 2px #fff;
+}
+
