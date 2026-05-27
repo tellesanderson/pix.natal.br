@@ -1,0 +1,385 @@
+/* Custom Medieval Gothic Horror Theme for O Segredo do Mosteiro */
+
+:root {
+  --bg-stone: #0a0909;
+  --parchment-bg: #ebdec6;
+  --parchment-border: #4d0d08;
+  --blood-red: #8f0c05;
+  --blood-red-glow: rgba(143, 12, 5, 0.4);
+  
+  --text-dark: #1f1816;
+  --text-muted: #5e524d;
+  --text-light: #ebdec6;
+  
+  --font-gothic: 'Cinzel', serif;
+  --font-book: 'EB Garamond', serif;
+}
+
+body {
+  font-family: var(--font-book);
+  color: var(--text-light);
+  background-color: var(--bg-stone);
+  position: relative;
+  overflow: hidden;
+  height: 100vh;
+  width: 100vw;
+}
+
+/* Flickering Candle Light Background Effects */
+.candle-glow-1 {
+  position: absolute;
+  top: -150px;
+  left: 10%;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(245, 130, 32, 0.08) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 2;
+  animation: candleFlicker 5s ease-in-out infinite alternate;
+}
+
+.candle-glow-2 {
+  position: absolute;
+  bottom: -150px;
+  right: 10%;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(230, 95, 0, 0.06) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 2;
+  animation: candleFlicker 7s ease-in-out infinite alternate;
+}
+
+.vignette-overlay {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: radial-gradient(circle, transparent 40%, rgba(0, 0, 0, 0.8) 100%);
+  pointer-events: none;
+  z-index: 3;
+}
+
+@keyframes candleFlicker {
+  0% { opacity: 0.85; transform: scale(1); }
+  30% { opacity: 1; transform: scale(1.05) translate(10px, -5px); }
+  60% { opacity: 0.9; transform: scale(0.95) translate(-5px, 5px); }
+  100% { opacity: 1.05; transform: scale(1.02); }
+}
+
+/* Main Grid Layout */
+.game-container {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  max-width: 900px;
+  height: 90vh;
+  justify-content: space-between;
+}
+
+/* Gothic Header Style */
+.game-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 25px;
+  background: rgba(15, 14, 13, 0.9);
+  border-bottom: 2px solid var(--blood-red);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.8);
+  font-family: var(--font-gothic);
+}
+
+.logo-area {
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--text-light);
+}
+
+.blood-accent {
+  color: var(--blood-red);
+  text-shadow: 0 0 5px var(--blood-red);
+}
+
+/* Custom buttons */
+.utility-btn {
+  background: transparent;
+  border: 1px solid var(--text-light);
+  color: var(--text-light);
+  font-family: var(--font-gothic);
+  font-size: 0.75rem;
+  font-weight: bold;
+  padding: 6px 15px;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.3s ease;
+  letter-spacing: 1px;
+}
+
+.utility-btn:hover {
+  background: var(--blood-red);
+  border-color: var(--blood-red);
+  box-shadow: 0 0 8px var(--blood-red-glow);
+  color: #fff;
+}
+
+/* Main Layout Grid */
+.game-main {
+  flex-grow: 1;
+  margin: 20px 0;
+  display: flex;
+  position: relative;
+  overflow: hidden;
+  gap: 20px;
+}
+
+/* Gothic Parchment Panel */
+.parchment-panel {
+  flex-grow: 1;
+  background-color: var(--parchment-bg);
+  background-image: 
+    radial-gradient(rgba(0, 0, 0, 0.03) 1px, transparent 0),
+    linear-gradient(rgba(0, 0, 0, 0.02) 1px, transparent 0);
+  background-size: 8px 8px, 100% 30px;
+  border: 4px double var(--parchment-border);
+  box-shadow: 
+    0 10px 30px rgba(0, 0, 0, 0.8),
+    inset 0 0 40px rgba(100, 75, 45, 0.3);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: width 0.4s ease;
+}
+
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 20px;
+  background: rgba(77, 13, 8, 0.08);
+  border-bottom: 1px solid rgba(77, 13, 8, 0.15);
+  font-family: var(--font-gothic);
+  font-size: 0.75rem;
+  color: var(--blood-red);
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.cross-decor {
+  font-size: 0.9rem;
+}
+
+.panel-title {
+  text-align: center;
+}
+
+.panel-content {
+  flex-grow: 1;
+  padding: 30px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Text elements & custom serif paragraphs */
+.story-text-container {
+  margin-bottom: 30px;
+}
+
+.story-paragraph {
+  font-size: 1.2rem;
+  line-height: 1.8;
+  color: var(--text-dark);
+  margin-bottom: 25px;
+  text-align: justify;
+  text-indent: 2rem;
+  animation: scrollFadeIn 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes scrollFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+    filter: blur(2px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+/* Gothic Buttons */
+.story-options-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.gothic-btn {
+  font-family: var(--font-gothic);
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: var(--blood-red);
+  background: rgba(143, 12, 5, 0.05);
+  border: 1px solid var(--blood-red);
+  padding: 14px 20px;
+  cursor: pointer;
+  text-align: left;
+  outline: none;
+  transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1);
+  letter-spacing: 1px;
+  animation: scrollFadeIn 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.gothic-btn:hover {
+  background: var(--blood-red);
+  color: var(--parchment-bg);
+  box-shadow: 0 0 12px var(--blood-red-glow);
+  transform: translateY(-2px);
+}
+
+.gothic-btn.death-btn {
+  background: #000;
+  border-color: var(--blood-red);
+  color: var(--blood-red);
+  text-align: center;
+  align-self: center;
+  min-width: 280px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.9);
+}
+
+.gothic-btn.death-btn:hover {
+  background: var(--blood-red);
+  color: #000;
+  box-shadow: 0 0 15px var(--blood-red-glow);
+}
+
+/* Virtual Notepad Drawer styles */
+.notepad-sidebar {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 320px;
+  height: 100%;
+  background: rgba(15, 13, 12, 0.98);
+  border-left: 2px solid var(--blood-red);
+  box-shadow: -5px 0 25px rgba(0, 0, 0, 0.9);
+  display: flex;
+  flex-direction: column;
+  z-index: 50;
+  transform: translateX(100%);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.notepad-sidebar.active {
+  transform: translateX(0);
+}
+
+.notepad-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  border-bottom: 1px solid rgba(143, 12, 5, 0.3);
+  font-family: var(--font-gothic);
+}
+
+.notepad-header h3 {
+  font-size: 1rem;
+  color: var(--text-light);
+  margin: 0;
+}
+
+.close-btn {
+  background: transparent;
+  color: var(--text-secondary);
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.close-btn:hover {
+  color: var(--blood-red);
+}
+
+.notepad-body {
+  flex-grow: 1;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.notepad-help {
+  font-size: 0.85rem;
+  line-height: 1.4;
+  color: #8c8078;
+  margin-bottom: 15px;
+  text-align: justify;
+}
+
+textarea#notepad-textarea {
+  flex-grow: 1;
+  background: #141211;
+  border: 1px solid #3d352e;
+  border-radius: 2px;
+  color: #ebdec6;
+  font-family: var(--font-book);
+  font-size: 1.05rem;
+  line-height: 1.5;
+  padding: 12px;
+  resize: none;
+  outline: none;
+  margin-bottom: 15px;
+}
+
+textarea#notepad-textarea:focus {
+  border-color: var(--blood-red);
+  box-shadow: 0 0 5px rgba(143, 12, 5, 0.2);
+}
+
+.notepad-footer {
+  font-family: var(--font-gothic);
+  font-size: 0.65rem;
+  color: #8c8078;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.status-msg.saving {
+  color: var(--blood-red);
+  animation: savingPulse 1s infinite alternate;
+}
+
+@keyframes savingPulse {
+  from { opacity: 0.5; }
+  to { opacity: 1; }
+}
+
+/* Custom scrollbars */
+.panel-content::-webkit-scrollbar { width: 6px; }
+.panel-content::-webkit-scrollbar-track { background: rgba(77, 13, 8, 0.04); }
+.panel-content::-webkit-scrollbar-thumb { background: rgba(77, 13, 8, 0.3); }
+.panel-content::-webkit-scrollbar-thumb:hover { background: var(--blood-red); }
+
+/* Footer */
+.game-footer {
+  padding: 10px 0;
+  border-top: 1px solid rgba(143, 12, 5, 0.2);
+}
+
+.credits-text {
+  font-family: var(--font-gothic);
+  font-size: 0.7rem;
+  color: #8c8078;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.credits-text p {
+  margin: 0;
+}

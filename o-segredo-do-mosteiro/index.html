@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>O Segredo do Mosteiro - Aventura Solo</title>
+    <!-- Google Fonts for medieval gothic horror aesthetic -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=EB+Garamond:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+    <link href="./core/core.css" rel="stylesheet"> 
+    <link href="./my-game/styles.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Gothic lighting and parchment filters -->
+    <div class="candle-glow-1"></div>
+    <div class="candle-glow-2"></div>
+    <div class="vignette-overlay"></div>
+    
+    <div class="game-container">
+        <header class="game-header">
+            <div class="logo-area">
+                <span class="blood-accent">⚔️ </span>
+                <span id="game-title">O SEGREDO DO MOSTEIRO</span>
+            </div>
+            <button id="btn-notepad" class="utility-btn" title="Abrir Diário de Investigação">📜 Diário</button>
+        </header>
+
+        <main class="game-main">
+            <!-- Main Story Panel -->
+            <div class="parchment-panel">
+                <div class="panel-header">
+                    <span class="cross-decor">✙</span>
+                    <span class="panel-title">ABADIAM SANCTI RUTERFORD // ACÓLITO JOHNATTAN</span>
+                    <span class="cross-decor">✙</span>
+                </div>
+                <div class="panel-content">
+                    <section id="text" class="story-text-container"></section>
+                    <section id="options" class="story-options-container"></section>
+                </div>
+            </div>
+
+            <!-- Virtual Notepad Sidebar -->
+            <aside id="notepad-sidebar" class="notepad-sidebar">
+                <div class="notepad-header">
+                    <h3>📜 Diário do Acólito</h3>
+                    <button id="btn-close-notepad" class="close-btn">&times;</button>
+                </div>
+                <div class="notepad-body">
+                    <p class="notepad-help">Escreva aqui pistas, suspeitos, nomes ou anotações de sua investigação. Suas notas são salvas automaticamente na memória local do navegador.</p>
+                    <textarea id="notepad-textarea" placeholder="Ex: Harold e Julian tinham mãos sujas de terra... Stan diz não ser louco... Malcolm tem garras?"></textarea>
+                    <div class="notepad-footer">
+                        <span id="notepad-status" class="status-msg">Pronto</span>
+                    </div>
+                </div>
+            </aside>
+        </main>
+
+        <footer class="game-footer">
+            <div id="game-credits" class="credits-text"></div>
+        </footer>
+    </div>
+
+    <script defer src="./core/core.js" type="module"></script>
+</body>
+</html>
