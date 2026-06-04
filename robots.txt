@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://pix.natal.br/sitemap.xml
