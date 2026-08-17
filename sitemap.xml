@@ -1,57 +1,120 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <!-- Página Principal / Portal de Aventuras Solo -->
   <url>
     <loc>https://pix.natal.br/</loc>
-    <lastmod>2026-06-04</lastmod>
-    <changefreq>monthly</changefreq>
+    <lastmod>2026-08-16</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://pix.natal.br/hero-bg.webp</image:loc>
+      <image:title>Crônicas RPG - Acervo de Aventuras Solo e Livros-Jogos</image:title>
+      <image:caption>Biblioteca interativa de RPG solo e clássicos de revistas antigas brasileiras</image:caption>
+    </image:image>
   </url>
+
+  <!-- 1. Jovem Guerreiro -->
   <url>
     <loc>https://pix.natal.br/jovem-guerreiro/</loc>
-    <lastmod>2026-06-04</lastmod>
+    <lastmod>2026-08-16</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://pix.natal.br/hero-bg.webp</image:loc>
+      <image:title>Jovem Guerreiro - Aventura Solo de Fantasia Medieval</image:title>
+      <image:caption>Explore uma caverna repleta de perigos para salvar a vida de seu pai</image:caption>
+    </image:image>
   </url>
+
+  <!-- 2. Nascido Das Trevas -->
   <url>
     <loc>https://pix.natal.br/nascido-das-trevas/</loc>
-    <lastmod>2026-06-04</lastmod>
+    <lastmod>2026-08-16</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://pix.natal.br/vampire-bg.webp</image:loc>
+      <image:title>Nascido Das Trevas - Aventura Solo de Vampiro e Punk Rock</image:title>
+      <image:caption>Sobreviva na noite como um vampiro novato em uma banda de punk rock (Só Aventuras #6)</image:caption>
+    </image:image>
   </url>
+
+  <!-- 3. Sem Saída -->
   <url>
     <loc>https://pix.natal.br/sem-saida/</loc>
-    <lastmod>2026-06-04</lastmod>
+    <lastmod>2026-08-16</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://pix.natal.br/cyberpunk-bg.webp</image:loc>
+      <image:title>Sem Saída - RPG Solo Cyberpunk e Labirinto Virtual</image:title>
+      <image:caption>O ano é 2020 em um futuro distópico sombrio (Só Aventuras #6)</image:caption>
+    </image:image>
   </url>
+
+  <!-- 4. Assalto ao Mestre Arsenal -->
   <url>
     <loc>https://pix.natal.br/assalto-ao-mestre-arsenal/</loc>
-    <lastmod>2026-06-04</lastmod>
+    <lastmod>2026-08-16</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://pix.natal.br/arsenal-bg.webp</image:loc>
+      <image:title>Assalto ao Mestre Arsenal - Aventura Solo em Tormenta RPG</image:title>
+      <image:caption>Infiltre-se na torre de Mestre Arsenal em Arton para roubar artefatos lendários (Só Aventuras #6)</image:caption>
+    </image:image>
   </url>
+
+  <!-- 5. Eu, O Monstro -->
   <url>
     <loc>https://pix.natal.br/eu-o-monstro/</loc>
-    <lastmod>2026-06-04</lastmod>
+    <lastmod>2026-08-16</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://pix.natal.br/monster-bg.webp</image:loc>
+      <image:title>Eu, O Monstro - Aventura Solo de Lobisomem e Drama Urbano</image:title>
+      <image:caption>Um garoto de 13 anos descobre a maldição da licantropia e enfrenta vampiros (Só Aventuras #6)</image:caption>
+    </image:image>
   </url>
+
+  <!-- 6. Herança Maldita -->
   <url>
     <loc>https://pix.natal.br/heranca-maldita/</loc>
-    <lastmod>2026-06-04</lastmod>
+    <lastmod>2026-08-16</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://pix.natal.br/inheritance-bg.webp</image:loc>
+      <image:title>Herança Maldita - Aventura Solo de Horror Sobrenatural</image:title>
+      <image:caption>Escape de uma mansão e cidade assombradas por cultistas e demônios (Só Aventuras #6 / Silvio Schatner)</image:caption>
+    </image:image>
   </url>
+
+  <!-- 7. Coragem Metálica -->
   <url>
     <loc>https://pix.natal.br/coragem-metalica/</loc>
-    <lastmod>2026-06-04</lastmod>
+    <lastmod>2026-08-16</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://pix.natal.br/metal-bg.webp</image:loc>
+      <image:title>Coragem Metálica - Aventura Solo de Ficção Científica</image:title>
+      <image:caption>Explore planetas hostis como o Capitão Daion do Império Metaliano (Só Aventuras #6)</image:caption>
+    </image:image>
   </url>
+
+  <!-- 8. O Segredo do Mosteiro -->
   <url>
     <loc>https://pix.natal.br/o-segredo-do-mosteiro/</loc>
-    <lastmod>2026-06-04</lastmod>
+    <lastmod>2026-08-16</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://pix.natal.br/monastery-bg.webp</image:loc>
+      <image:title>O Segredo do Mosteiro - Aventura Solo de Investigação Medieval em Arkanun</image:title>
+      <image:caption>Investigue monges hereges e assassinatos demoníacos na Inquisição (Arkanun / Daemon / Só Aventuras #6)</image:caption>
+    </image:image>
   </url>
 </urlset>

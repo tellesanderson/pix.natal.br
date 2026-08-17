@@ -1,273 +1,737 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" dir="ltr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crônicas RPG - Aventuras Solo & Livro-Jogos Online</title>
-    <link href="styles.css" rel="stylesheet">
-    <meta name="description" content="Jogue aventuras solo interativas e RPG de texto online. Tome decisões, crie sua história e explore livros-jogos clássicos direto no navegador. Comece agora!">
-    <meta name="keywords" content="aventura solo, RPG solo, livro-jogo, gamebook, RPG de texto, escolha sua aventura, solo RPG brasil, aventura interativa, jogar RPG sozinho, RPG narrativo, solo adventuring, gamebook online, livro-jogo online, jogo de texto RPG">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    
+    <!-- Primary Meta Tags & SEO Masterclass -->
+    <title>Crônicas RPG - Aventuras Solo, Livros-Jogos & Clássicos de RPG Online</title>
+    <meta name="title" content="Crônicas RPG - Aventuras Solo, Livros-Jogos & Clássicos de RPG Online">
+    <meta name="description" content="Jogue as melhores aventuras solo de RPG e livros-jogos interativos direto no navegador. Adaptações lendárias da revista Só Aventuras #6, Dragão Brasil, Arkanun e Tormenta com áudio, rolador de dados e 100% gratuito.">
+    <meta name="keywords" content="aventura solo, RPG solo, livro-jogo, gamebook, RPG de texto, escolha sua aventura, solo RPG brasil, aventura interativa, jogar RPG sozinho, RPG narrativo, livro-jogo online, jogo de texto RPG, Só Aventuras 6, Dragão Brasil, Mestre Arsenal, Arkanun, Tormenta RPG, RPG clássico brasileiro, aventuras solo antigas">
+    <meta name="author" content="Anderson Telles">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
     <link rel="canonical" href="https://pix.natal.br/">
 
-    <!-- Open Graph / Facebook -->
+    <!-- Mobile & PWA -->
+    <meta name="theme-color" content="#ceb15b">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Crônicas RPG">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="apple-touch-icon" href="/hero-bg.webp">
+
+    <!-- OpenSearch -->
+    <link rel="search" type="application/opensearchdescription+xml" title="Crônicas RPG" href="/opensearch.xml">
+
+    <!-- Open Graph / Facebook / WhatsApp / Discord -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://pix.natal.br/">
-    <meta property="og:title" content="Crônicas RPG - Aventuras Solo & Livro-Jogos Online">
-    <meta property="og:description" content="Jogue aventuras solo interativas e RPG de texto online. Tome decisões, crie sua história e explore livros-jogos clássicos direto no navegador.">
-    <meta property="og:image" content="https://pix.natal.br/hero-bg.png">
+    <meta property="og:title" content="Crônicas RPG - Aventuras Solo & Livros-Jogos Online">
+    <meta property="og:description" content="Jogue aventuras solo interativas de RPG de texto direto no navegador. Adaptações de clássicos da Só Aventuras #6, Dragão Brasil, Arkanun e Tormenta!">
+    <meta property="og:image" content="https://pix.natal.br/hero-bg.webp">
+    <meta property="og:image:width" content="1024">
+    <meta property="og:image:height" content="1024">
+    <meta property="og:image:alt" content="Crônicas RPG - Biblioteca de Aventuras Solo e Livros-Jogos">
     <meta property="og:site_name" content="Crônicas RPG">
     <meta property="og:locale" content="pt_BR">
 
-    <!-- Twitter -->
+    <!-- Twitter / X -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:url" content="https://pix.natal.br/">
-    <meta name="twitter:title" content="Crônicas RPG - Aventuras Solo & Livro-Jogos Online">
-    <meta name="twitter:description" content="Jogue aventuras solo interativas e RPG de texto online. Tome decisões, crie sua história e explore livros-jogos clássicos direto no navegador.">
-    <meta name="twitter:image" content="https://pix.natal.br/hero-bg.png">
+    <meta name="twitter:title" content="Crônicas RPG - Aventuras Solo & Livros-Jogos Online">
+    <meta name="twitter:description" content="Jogue aventuras solo interativas de RPG de texto direto no navegador. Adaptações clássicas brasileiras com rolador de dados e áudio!">
+    <meta name="twitter:image" content="https://pix.natal.br/hero-bg.webp">
+    <meta name="twitter:image:alt" content="Crônicas RPG - Capa Principal">
 
-    <!-- Structured Data (JSON-LD) -->
+    <!-- Performance: Preconnect & Preload -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" as="image" href="/hero-bg.webp" type="image/webp" fetchpriority="high">
+    <link href="styles.css" rel="stylesheet">
+
+    <!-- Structured Data: JSON-LD Schema.org -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "WebSite",
-      "name": "Crônicas RPG",
-      "url": "https://pix.natal.br/",
-      "description": "Plataforma de aventuras solo interativas em formato RPG de texto e livro-jogos.",
-      "genre": "Role-Playing Game",
-      "inLanguage": "pt-BR",
-      "author": {
-        "@type": "Person",
-        "name": "Anderson Telles"
-      }
-    }
-    </script>
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "ItemList",
-      "name": "Acervo de Aventuras Solo - Crônicas RPG",
-      "description": "Lista de RPGs de texto e livros-jogos disponíveis para jogar online.",
-      "url": "https://pix.natal.br/#aventuras",
-      "numberOfItems": 8,
-      "itemListElement": [
+      "@graph": [
         {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Jovem Guerreiro",
-          "url": "https://pix.natal.br/jovem-guerreiro/"
+          "@type": "WebSite",
+          "@id": "https://pix.natal.br/#website",
+          "url": "https://pix.natal.br/",
+          "name": "Crônicas RPG",
+          "description": "Biblioteca interativa de aventuras solo literárias, livros-jogos de RPG de texto e adaptações de clássicos de revistas brasileiras de RPG.",
+          "inLanguage": "pt-BR",
+          "publisher": {
+            "@type": "Organization",
+            "@id": "https://pix.natal.br/#organization",
+            "name": "Crônicas RPG",
+            "url": "https://pix.natal.br/",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://pix.natal.br/favicon.svg"
+            }
+          },
+          "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://pix.natal.br/?q={search_term_string}#aventuras",
+            "query-input": "required name=search_term_string"
+          }
         },
         {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "Nascido Das Trevas",
-          "url": "https://pix.natal.br/nascido-das-trevas/"
+          "@type": "CollectionPage",
+          "@id": "https://pix.natal.br/#collection",
+          "url": "https://pix.natal.br/",
+          "name": "Acervo de Aventuras Solo e Livros-Jogos Online",
+          "isPartOf": { "@id": "https://pix.natal.br/#website" },
+          "description": "Catálogo completo de RPGs narrativos solo para jogar online no navegador, incluindo fantasia medieval, cyberpunk, terror sobrenatural e sci-fi.",
+          "mainEntity": {
+            "@type": "ItemList",
+            "name": "Aventuras Solo Disponíveis",
+            "numberOfItems": 8,
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Jovem Guerreiro",
+                "url": "https://pix.natal.br/jovem-guerreiro/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Nascido Das Trevas",
+                "url": "https://pix.natal.br/nascido-das-trevas/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 3,
+                "name": "Sem Saída",
+                "url": "https://pix.natal.br/sem-saida/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 4,
+                "name": "Assalto ao Mestre Arsenal",
+                "url": "https://pix.natal.br/assalto-ao-mestre-arsenal/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 5,
+                "name": "Eu, O Monstro",
+                "url": "https://pix.natal.br/eu-o-monstro/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 6,
+                "name": "Herança Maldita",
+                "url": "https://pix.natal.br/heranca-maldita/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 7,
+                "name": "Coragem Metálica",
+                "url": "https://pix.natal.br/coragem-metalica/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 8,
+                "name": "O Segredo do Mosteiro",
+                "url": "https://pix.natal.br/o-segredo-do-mosteiro/"
+              }
+            ]
+          }
         },
         {
-          "@type": "ListItem",
-          "position": 3,
-          "name": "Sem Saída",
-          "url": "https://pix.natal.br/sem-saida/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 4,
-          "name": "Assalto ao Mestre Arsenal",
-          "url": "https://pix.natal.br/assalto-ao-mestre-arsenal/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 5,
-          "name": "Eu, O Monstro",
-          "url": "https://pix.natal.br/eu-o-monstro/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 6,
-          "name": "Herança Maldita",
-          "url": "https://pix.natal.br/heranca-maldita/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 7,
-          "name": "Coragem Metálica",
-          "url": "https://pix.natal.br/coragem-metalica/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 8,
-          "name": "O Segredo do Mosteiro",
-          "url": "https://pix.natal.br/o-segredo-do-mosteiro/"
+          "@type": "FAQPage",
+          "@id": "https://pix.natal.br/#faq",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "O que é uma Aventura Solo de RPG?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Uma Aventura Solo (também conhecida como Livro-Jogo ou Gamebook) é uma narrativa interativa de RPG onde o jogador assume o papel do protagonista e toma as decisões que determinam o rumo e o desfecho da história, dispensando a necessidade de um mestre de jogo."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Como jogar os livros-jogos no Crônicas RPG?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Basta escolher qualquer uma das aventuras do catálogo e clicar em 'Iniciar Aventura'. Você lerá cada trecho da história e clicará nas opções de escolha. O portal inclui rolador de dados virtual embutido, suporte a narração por voz e gerenciamento de inventário."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Qual a origem das histórias e aventuras do site?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "As aventuras Nascido das Trevas, Sem Saída, Assalto ao Mestre Arsenal, Eu, O Monstro, Herança Maldita, Coragem Metálica e O Segredo do Mosteiro são adaptações e homenagens à histórica revista Só Aventuras #6, publicada nos anos 90 pela Editora Trama, universo de Tormenta, 3D&T e Arkanun (Daemon)."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Preciso instalar algum programa ou pagar para jogar?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Não. Todas as aventuras são 100% gratuitas e rodam instantaneamente direto no navegador do computador, tablet ou celular, funcionando também como PWA offline."
+              }
+            }
+          ]
         }
       ]
     }
     </script>
 </head>
 <body>
+    <div class="ambient-stars"></div>
     <div class="ambient-glow"></div>
     
-    <header>
-        <div class="logo">
-            <span>⚔️ Crônicas RPG</span>
-        </div>
+    <!-- Top Site Navigation Bar -->
+    <header class="site-header">
+        <a href="/" class="logo-container" title="Crônicas RPG - Início">
+            <svg class="logo-icon" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="256" cy="256" r="230" stroke="#ceb15b" stroke-width="20" fill="#14100b"/>
+                <polygon points="256,90 380,180 380,330 256,420 132,330 132,180" stroke="#ceb15b" stroke-width="14" fill="#1f1a2e"/>
+                <text x="256" y="285" font-family="'Cinzel', serif" font-size="90" font-weight="900" fill="#ceb15b" text-anchor="middle">20</text>
+            </svg>
+            <span class="logo-text">Crônicas RPG</span>
+        </a>
+        <nav aria-label="Navegação Principal">
+            <ul class="nav-links">
+                <li><a href="#aventuras">⚔️ Aventuras</a></li>
+                <li><a href="#historia">📜 História</a></li>
+                <li><a href="#faq">❓ FAQ</a></li>
+                <li><a href="javascript:void(0)" id="btn-open-dice" title="Abrir Rolador de Dados">🎲 Dados</a></li>
+                <li><a href="javascript:void(0)" id="btn-quick-resume" class="nav-btn-resume" style="display: none;">⚡ Continuar</a></li>
+            </ul>
+        </nav>
     </header>
 
     <main>
+        <!-- Hero Section -->
         <section class="hero">
+            <div class="hero-badge">⚔️ Biblioteca Nacional de RPG Solo & Livros-Jogos</div>
             <h1>O Destino em Suas Mãos</h1>
-            <p>Jogue sozinho, sinta a tensão, escolha seu caminho. Bem-vindo à principal biblioteca interativa de aventuras solo literárias.</p>
+            <p class="lead">Mergulhe em narrativas interativas, tome decisões cruciais e viva aventuras clássicas de RPG direto no seu navegador. Sem mestres, sem limites: sua coragem forja a lenda.</p>
+            
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <span class="stat-value">8</span>
+                    <span class="stat-label">Aventuras Solo</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-value">100%</span>
+                    <span class="stat-label">Gratuito & Online</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-value">🎙️</span>
+                    <span class="stat-label">Áudio Narrado</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-value">🎲</span>
+                    <span class="stat-label">Rolador Embutido</span>
+                </div>
+            </div>
         </section>
 
-        <section class="explanation">
-            <h2>O Que É Uma Aventura Solo?</h2>
-            <p>Esqueça os gráficos limitantes. Aqui, a imaginação é o motor da sua jornada. Uma Aventura Solo é um formato de <em>role-playing game</em> (RPG) onde você toma as decisões pelo protagonista. A cada passo lido, uma nova página, um novo destino. Sua coragem ou covardia determinarão o fim da história. Você está pronto para forjar sua lenda?</p>
+        <!-- Search & Filter Controls -->
+        <section class="search-filter-section" aria-label="Buscar e Filtrar Aventuras">
+            <div class="search-box-wrapper">
+                <span class="search-icon">🔍</span>
+                <input type="text" id="adventure-search" class="search-input" placeholder="Buscar por título, gênero, autor ou palavras-chave (ex: vampiro, cyberpunk, Tormenta)..." aria-label="Buscar aventuras">
+            </div>
+            
+            <div class="filter-chips" role="tablist" aria-label="Categorias de Aventura">
+                <button class="filter-chip active" data-filter="all" role="tab">Todos os Mundos</button>
+                <button class="filter-chip" data-filter="fantasia" role="tab">🗡️ Fantasia Medieval</button>
+                <button class="filter-chip" data-filter="cyberpunk" role="tab">🌆 Cyberpunk</button>
+                <button class="filter-chip" data-filter="terror" role="tab">🩸 Terror & Gótico</button>
+                <button class="filter-chip" data-filter="scifi" role="tab">🚀 Ficção Científica</button>
+                <button class="filter-chip" data-filter="investigacao" role="tab">🔍 Investigação</button>
+                <button class="filter-chip" data-filter="soaventuras" role="tab">⭐ Só Aventuras #6</button>
+            </div>
         </section>
 
+        <!-- Main Adventure Catalog Section -->
         <section class="adventures-section" id="aventuras">
-            <h2>Acervo de Aventuras</h2>
-            <div class="grid">
+            <div class="section-header">
+                <h2>Acervo de Aventuras Solo</h2>
+                <p>Escolha seu caminho e comece a jogar agora mesmo. Todas as aventuras contam com múltiplos finais e caminhos ramificados.</p>
+            </div>
+
+            <div class="grid" id="adventures-grid">
                 
-                <!-- Card Jovem Guerreiro -->
-                <article class="card">
+                <!-- 1. Jovem Guerreiro -->
+                <article class="card" data-genre="fantasia" data-tags="fantasia caverna espada iniciante d&d">
                     <div class="card-image-wrapper">
-                        <img src="hero-bg.png" alt="Capa Jovem Guerreiro" class="card-img">
+                        <div class="card-badges">
+                            <span class="badge badge-genre">Fantasia Medieval</span>
+                            <span class="badge badge-origin">Autoral</span>
+                        </div>
+                        <img src="hero-bg.webp" alt="Capa da aventura solo Jovem Guerreiro" class="card-img" width="600" height="350" loading="lazy" decoding="async">
                     </div>
                     <div class="card-content">
+                        <div class="card-meta">
+                            <span>⏱️ 20-30 min</span>
+                            <span>⚔️ Nível: Fácil</span>
+                        </div>
                         <h3 class="card-title">Jovem Guerreiro</h3>
                         <p class="card-desc">Você é um guerreiro inexperiente que deve adentrar uma caverna repleta de perigos desconhecidos para tentar salvar a vida de seu pai. Um passo em falso pode ser fatal.</p>
-                        <a href="./jovem-guerreiro/index.html" class="btn-primary">Iniciar Aventura</a>
+                        <div class="card-features">
+                            <span class="card-feature-pill">🎒 Inventário</span>
+                            <span class="card-feature-pill">🗡️ Combate</span>
+                            <span class="card-feature-pill">📜 Tradicional</span>
+                        </div>
+                        <a href="./jovem-guerreiro/index.html" class="btn-play" title="Jogar Jovem Guerreiro">Iniciar Aventura ⚔️</a>
                     </div>
                 </article>
 
-                <!-- Card Nascido Das Trevas -->
-                <article class="card">
+                <!-- 2. Nascido Das Trevas -->
+                <article class="card" data-genre="terror soaventuras" data-tags="terror vampiro punk rock musica anos 90 so aventuras">
                     <div class="card-image-wrapper">
-                        <img src="vampire-bg.png" alt="Capa Nascido Das Trevas" class="card-img" style="filter: brightness(0.8) contrast(1.2);">
+                        <div class="card-badges">
+                            <span class="badge badge-genre">Terror Urbano</span>
+                            <span class="badge badge-origin">Só Aventuras #6</span>
+                        </div>
+                        <img src="vampire-bg.webp" alt="Capa da aventura solo Nascido das Trevas" class="card-img" width="600" height="350" loading="lazy" decoding="async">
                     </div>
                     <div class="card-content">
+                        <div class="card-meta">
+                            <span>⏱️ 30-45 min</span>
+                            <span>🩸 Nível: Médio</span>
+                        </div>
                         <h3 class="card-title">Nascido Das Trevas</h3>
                         <p class="card-desc">Tente sobreviver na noite como um vampiro novato em uma banda de punk rock após receber uma mordida fatal de um estranho que rondava os bastidores.</p>
-                        <a href="./nascido-das-trevas/index.html" class="btn-primary" style="border-color: #e53935; color: #e53935;">Iniciar Aventura</a>
+                        <div class="card-features">
+                            <span class="card-feature-pill">🎙️ Áudio Narrado</span>
+                            <span class="card-feature-pill">🦇 Vampiros</span>
+                            <span class="card-feature-pill">🎸 Punk Rock</span>
+                        </div>
+                        <a href="./nascido-das-trevas/index.html" class="btn-play" title="Jogar Nascido Das Trevas">Iniciar Aventura 🩸</a>
                     </div>
                 </article>
 
-                <!-- Card Sem Saída -->
-                <article class="card locked" id="sem-saida-card" style="cursor: pointer;" title="???">
+                <!-- 3. Sem Saída -->
+                <article class="card" data-genre="cyberpunk soaventuras" data-tags="cyberpunk distopia labirinto futuro 2020 matrix hackers so aventuras">
                     <div class="card-image-wrapper">
-                        <img src="cyberpunk-bg.png" alt="Capa Sem Saída" class="card-img" style="filter: brightness(0.8) contrast(1.2); object-position: center;">
+                        <div class="card-badges">
+                            <span class="badge badge-genre">Cyberpunk</span>
+                            <span class="badge badge-origin">Só Aventuras #6</span>
+                        </div>
+                        <img src="cyberpunk-bg.webp" alt="Capa da aventura solo Sem Saída" class="card-img" width="600" height="350" loading="lazy" decoding="async">
                     </div>
                     <div class="card-content">
+                        <div class="card-meta">
+                            <span>⏱️ 25-40 min</span>
+                            <span>⚡ Nível: Difícil</span>
+                        </div>
                         <h3 class="card-title">Sem Saída</h3>
-                        <p class="card-desc">Uma jornada angustiante em um labirinto sem fim. Você conseguirá encontrar a saída antes que seja tarde demais?</p>
-                        <a href="javascript:void(0)" class="btn-primary">Bloqueado</a>
+                        <p class="card-desc">O ano é 2020 no mais sombrio futuro distópico. Uma jornada angustiante em um labirinto virtual de alta tecnologia. Você conseguirá encontrar a saída antes que seja tarde demais?</p>
+                        <div class="card-features">
+                            <span class="card-feature-pill">🎙️ Áudio Narrado</span>
+                            <span class="card-feature-pill">💻 Terminal UI</span>
+                            <span class="card-feature-pill">🤖 Cyber Matrix</span>
+                        </div>
+                        <a href="./sem-saida/index.html" class="btn-play" title="Jogar Sem Saída">Iniciar Aventura ⚡</a>
                     </div>
                 </article>
 
-                <!-- Card Assalto ao Mestre Arsenal -->
-                <article class="card">
+                <!-- 4. Assalto ao Mestre Arsenal -->
+                <article class="card" data-genre="fantasia soaventuras" data-tags="fantasia tormenta mestre arsenal arton ladrao furtividade marcelo cassaro so aventuras">
                     <div class="card-image-wrapper">
-                        <img src="arsenal-bg.png" alt="Capa Assalto ao Mestre Arsenal" class="card-img" style="filter: brightness(0.8) contrast(1.15); object-position: top;">
+                        <div class="card-badges">
+                            <span class="badge badge-genre">Fantasia / Tormenta</span>
+                            <span class="badge badge-origin">Só Aventuras #6</span>
+                        </div>
+                        <img src="arsenal-bg.webp" alt="Capa da aventura solo Assalto ao Mestre Arsenal" class="card-img" width="600" height="350" loading="lazy" decoding="async">
                     </div>
                     <div class="card-content">
+                        <div class="card-meta">
+                            <span>⏱️ 35-50 min</span>
+                            <span>🗡️ Nível: Difícil</span>
+                        </div>
                         <h3 class="card-title">Assalto ao Mestre Arsenal</h3>
-                        <p class="card-desc">Jogue como um ladrão invadindo a torre do temido Mestre Arsenal em busca de artefatos mágicos. Fantasia clássica, perfeita para mecânicas de furtividade e inventário no portal!</p>
-                        <a href="./assalto-ao-mestre-arsenal/index.html" class="btn-primary" style="border-color: #d4af37; color: #d4af37;">Iniciar Aventura</a>
+                        <p class="card-desc">No icônico mundo de Arton (Tormenta), jogue como um ladino infiltrando a fortaleza do temido Sumo-Sacerdote de Keenn, Mestre Arsenal, para roubar artefatos lendários.</p>
+                        <div class="card-features">
+                            <span class="card-feature-pill">🎙️ Áudio Narrado</span>
+                            <span class="card-feature-pill">🗝️ Furtividade</span>
+                            <span class="card-feature-pill">🛡️ Tormenta RPG</span>
+                        </div>
+                        <a href="./assalto-ao-mestre-arsenal/index.html" class="btn-play" title="Jogar Assalto ao Mestre Arsenal">Iniciar Aventura 🗝️</a>
                     </div>
                 </article>
 
-                <!-- Card Eu, O Monstro -->
-                <article class="card" id="eu-o-monstro-card">
+                <!-- 5. Eu, O Monstro -->
+                <article class="card" data-genre="terror soaventuras" data-tags="terror lobisomem lobo furia drama urbano vampiros so aventuras">
                     <div class="card-image-wrapper">
-                        <img src="monster-bg.png" alt="Capa Eu, O Monstro" class="card-img" style="filter: brightness(0.8) contrast(1.2); object-position: top;">
+                        <div class="card-badges">
+                            <span class="badge badge-genre">Terror & Drama</span>
+                            <span class="badge badge-origin">Só Aventuras #6</span>
+                        </div>
+                        <img src="monster-bg.webp" alt="Capa da aventura solo Eu, O Monstro" class="card-img" width="600" height="350" loading="lazy" decoding="async">
                     </div>
                     <div class="card-content">
+                        <div class="card-meta">
+                            <span>⏱️ 30-40 min</span>
+                            <span>🐺 Nível: Médio</span>
+                        </div>
                         <h3 class="card-title">Eu, O Monstro</h3>
-                        <p class="card-desc">Sendo um garoto de 13 anos que descobre ser lobisomem, enfrente vampiros num drama urbano. Ideal para implementarmos uma "Barra de Fúria" e escolhas morais no nosso site!</p>
-                        <a href="./eu-o-monstro/index.html" class="btn-primary" style="border-color: #ceb15b; color: #ceb15b;">Iniciar Aventura</a>
+                        <p class="card-desc">Um garoto de 13 anos descobre a terrível maldição da licantropia. Em meio a um drama urbano comovente e feroz, confronte vampiros e decida entre a humanidade e a fúria animal.</p>
+                        <div class="card-features">
+                            <span class="card-feature-pill">🎙️ Áudio Narrado</span>
+                            <span class="card-feature-pill">🐺 Lobisomem</span>
+                            <span class="card-feature-pill">⚖️ Escolhas Morais</span>
+                        </div>
+                        <a href="./eu-o-monstro/index.html" class="btn-play" title="Jogar Eu, O Monstro">Iniciar Aventura 🐺</a>
                     </div>
                 </article>
 
-                <!-- Card Herança Maldita -->
-                <article class="card">
+                <!-- 6. Herança Maldita -->
+                <article class="card" data-genre="terror soaventuras" data-tags="terror horror lovecraft sobrenatural cultos mansao silvio schatner so aventuras">
                     <div class="card-image-wrapper">
-                        <img src="inheritance-bg.png" alt="Capa Herança Maldita" class="card-img" style="filter: brightness(0.7) contrast(1.15); object-position: top;">
+                        <div class="card-badges">
+                            <span class="badge badge-genre">Horror Sobrenatural</span>
+                            <span class="badge badge-origin">Só Aventuras #6</span>
+                        </div>
+                        <img src="inheritance-bg.webp" alt="Capa da aventura solo Herança Maldita" class="card-img" width="600" height="350" loading="lazy" decoding="async">
                     </div>
                     <div class="card-content">
+                        <div class="card-meta">
+                            <span>⏱️ 40-55 min</span>
+                            <span>🕯️ Nível: Desafiador</span>
+                        </div>
                         <h3 class="card-title">Herança Maldita</h3>
-                        <p class="card-desc">Você herda propriedades numa cidade tomada por cultos macabros e demônios-árvore. Horror sobrenatural tenso, excelente para mecânicas de sanidade e temporizadores de fuga na nossa interface!</p>
-                        <a href="./heranca-maldita/index.html" class="btn-primary" style="border-color: #8b0000; color: #8b0000;">Iniciar Aventura</a>
+                        <p class="card-desc">Você herda uma mansão em Ravenhollow, uma cidade esquecida tomada por rituais sombrios, cultistas macabros e demônios antigos. Escape com sua sanidade intacta.</p>
+                        <div class="card-features">
+                            <span class="card-feature-pill">🎙️ Áudio Narrado</span>
+                            <span class="card-feature-pill">🕯️ Sanidade</span>
+                            <span class="card-feature-pill">🏚️ Horror Gótico</span>
+                        </div>
+                        <a href="./heranca-maldita/index.html" class="btn-play" title="Jogar Herança Maldita">Iniciar Aventura 🕯️</a>
                     </div>
                 </article>
 
-                <!-- Card Coragem Metálica -->
-                <article class="card">
+                <!-- 7. Coragem Metálica -->
+                <article class="card" data-genre="scifi soaventuras" data-tags="scifi ficcao cientifica espaco naves aliens capitao daion metaliano so aventuras">
                     <div class="card-image-wrapper">
-                        <img src="metal-bg.png" alt="Capa Coragem Metálica" class="card-img" style="filter: brightness(0.7) contrast(1.15); object-position: top;">
+                        <div class="card-badges">
+                            <span class="badge badge-genre">Ficção Científica</span>
+                            <span class="badge badge-origin">Só Aventuras #6</span>
+                        </div>
+                        <img src="metal-bg.webp" alt="Capa da aventura solo Coragem Metálica" class="card-img" width="600" height="350" loading="lazy" decoding="async">
                     </div>
                     <div class="card-content">
+                        <div class="card-meta">
+                            <span>⏱️ 35-45 min</span>
+                            <span>🚀 Nível: Médio</span>
+                        </div>
                         <h3 class="card-title">Coragem Metálica</h3>
-                        <p class="card-desc">Explore um planeta alienígena letal como um herói de metal vivo. Ficção científica empolgante, pronta para ganhar um HUD de armadura e controle de danos na web!</p>
-                        <a href="./coragem-metalica/index.html" class="btn-primary" style="border-color: #cca025; color: #cca025;">Iniciar Aventura</a>
+                        <p class="card-desc">No papel do Capitão Daion, explorador do Império Metaliano, pouse em planetas desconhecidos repletos de formas de vida hostis e colmeias alienígenas com seu corpo de metal vivo.</p>
+                        <div class="card-features">
+                            <span class="card-feature-pill">🎙️ Áudio Narrado</span>
+                            <span class="card-feature-pill">🚀 Space Opera</span>
+                            <span class="card-feature-pill">🛸 Alien Hive</span>
+                        </div>
+                        <a href="./coragem-metalica/index.html" class="btn-play" title="Jogar Coragem Metálica">Iniciar Aventura 🚀</a>
                     </div>
                 </article>
 
-                <!-- Card O Segredo do Mosteiro -->
-                <article class="card">
+                <!-- 8. O Segredo do Mosteiro -->
+                <article class="card" data-genre="investigacao soaventuras" data-tags="investigacao misterio inquisicao arkanun daemon mosteiro monges demonios so aventuras">
                     <div class="card-image-wrapper">
-                        <img src="monastery-bg.png" alt="Capa O Segredo do Mosteiro" class="card-img" style="filter: brightness(0.7) contrast(1.15); object-position: center;">
+                        <div class="card-badges">
+                            <span class="badge badge-genre">Investigação Histórica</span>
+                            <span class="badge badge-origin">Só Aventuras / Arkanun</span>
+                        </div>
+                        <img src="monastery-bg.webp" alt="Capa da aventura solo O Segredo do Mosteiro" class="card-img" width="600" height="350" loading="lazy" decoding="async">
                     </div>
                     <div class="card-content">
+                        <div class="card-meta">
+                            <span>⏱️ 45-60 min</span>
+                            <span>✙ Nível: Investigativo</span>
+                        </div>
                         <h3 class="card-title">O Segredo do Mosteiro</h3>
-                        <p class="card-desc">Na Inquisição, investigue um mosteiro isolado repleto de monges hereges e demônios. Suspense investigativo genial para o jogador usar um bloco de notas virtual caçando pistas!</p>
-                        <a href="./o-segredo-do-mosteiro/index.html" class="btn-primary" style="border-color: #8b0000; color: #8b0000;">Iniciar Aventura</a>
+                        <p class="card-desc">No sombrio universo de ARKANUN, durante a Inquisição medieval, investigue assassinatos bizarros em um mosteiro isolado repleto de heresias e pactos infernais.</p>
+                        <div class="card-features">
+                            <span class="card-feature-pill">📖 Bloco de Notas</span>
+                            <span class="card-feature-pill">🔔 Áudio Ambiental</span>
+                            <span class="card-feature-pill">✙ Arkanun Daemon</span>
+                        </div>
+                        <a href="./o-segredo-do-mosteiro/index.html" class="btn-play" title="Jogar O Segredo do Mosteiro">Iniciar Aventura ✙</a>
                     </div>
                 </article>
 
             </div>
         </section>
+
+        <!-- Historical Heritage & Brazilian Solo RPGs Retrospective -->
+        <section class="history-section" id="historia">
+            <div class="history-container">
+                <div class="section-header">
+                    <h2>O Legado das Aventuras Solo no Brasil</h2>
+                    <p>Uma homenagem à era de ouro das revistas de RPG dos anos 90 e 2000 que marcaram gerações de jogadores.</p>
+                </div>
+                
+                <div class="history-grid">
+                    <div class="history-card">
+                        <h3>📖 A Febre dos Livros-Jogos</h3>
+                        <p>Nos anos 80 e 90, antes da popularização da internet e dos videogames modernos, os <strong>Livros-Jogos (Gamebooks)</strong> criados por mestres como Steve Jackson e Ian Livingstone (série <em>Fighting Fantasy / Aventuras Fantásticas</em>) desembarcaram no Brasil, permitindo que qualquer pessoa vivesse narrativas épicas de RPG sem a necessidade de um grupo reunido.</p>
+                        <p>O leitor tornava-se o herói: a cada página, uma decisão ramificada determinava vida ou morte, exigindo raciocínio, sorte nos dados e bravura.</p>
+                    </div>
+
+                    <div class="history-card">
+                        <h3>🌟 A Lendária Só Aventuras #6 & Dragão Brasil</h3>
+                        <p>No final da década de 90, a <strong>Editora Trama</strong> (casa da icônica <em>Dragão Brasil</em> e do sistema <em>3D&T</em>) lançou a histórica edição <strong>Só Aventuras #6</strong>, uma revista inteiramente dedicada a aventuras solo em diversos gêneros: desde vampiros urbanos e ficção científica a invasões épicas na torre do <strong>Mestre Arsenal</strong> em Arton (Tormenta) e investigações demoníacas em <strong>Arkanun</strong> (Daemon Editora).</p>
+                        <ul>
+                            <li>⚔️ <strong>Tormenta:</strong> O maior cenário de fantasia do Brasil.</li>
+                            <li>🦇 <strong>Arkanun & Trevas:</strong> Horror histórico e ocultismo refinado.</li>
+                            <li>⭐ <strong>Preservação Digital:</strong> Trazemos estas obras para o século XXI com acessibilidade, áudio e modernidade.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="faq-section" id="faq">
+            <div class="section-header">
+                <h2>Perguntas Frequentes</h2>
+                <p>Tudo o que você precisa saber sobre o portal, mecânicas de RPG Solo e como aproveitar ao máximo sua experiência.</p>
+            </div>
+
+            <div class="faq-list">
+                <article class="faq-item">
+                    <button class="faq-question" aria-expanded="false">
+                        <span>O que é uma Aventura Solo de RPG?</span>
+                        <span class="faq-icon">▼</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Uma Aventura Solo (também chamada de Livro-Jogo ou RPG de Texto Interativo) é uma história onde você assume o papel de protagonista. Em vez de ler passivamente, você toma as decisões fundamentais em cada trecho da história. Suas escolhas levam a diferentes desfechos, vitórias épicas ou finais fatais.</p>
+                    </div>
+                </article>
+
+                <article class="faq-item">
+                    <button class="faq-question" aria-expanded="false">
+                        <span>Preciso de dados físicos ou fichas para jogar?</span>
+                        <span class="faq-icon">▼</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Não é obrigatório! O portal <strong>Crônicas RPG</strong> possui um <strong>Rolador de Dados Virtual Universal (D4, D6, D8, D10, D12, D20, D100)</strong> embutido que você pode abrir a qualquer momento pelo botão no canto inferior ou no menu superior. Além disso, as aventuras possuem gerenciamento automático de inventário e notas.</p>
+                    </div>
+                </article>
+
+                <article class="faq-item">
+                    <button class="faq-question" aria-expanded="false">
+                        <span>Como funciona o recurso de Áudio e Leitura Acessível?</span>
+                        <span class="faq-icon">▼</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>As aventuras do portal possuem narração integrada com áudio humano e suporte a síntese de voz (TTS) do navegador em português (pt-BR), além de botão de acessibilidade para alternar fontes confortáveis para pessoas com dislexia.</p>
+                    </div>
+                </article>
+
+                <article class="faq-item">
+                    <button class="faq-question" aria-expanded="false">
+                        <span>O progresso da minha história fica salvo se eu fechar a página?</span>
+                        <span class="faq-icon">▼</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Sim! O portal memoriza sua última aventura jogada via <em>LocalStorage</em> e exibe o botão <strong>⚡ Continuar Aventura</strong> no topo do site para que você retome exatamente de onde parou.</p>
+                    </div>
+                </article>
+
+                <article class="faq-item">
+                    <button class="faq-question" aria-expanded="false">
+                        <span>Posso jogar no celular ou sem internet (Offline)?</span>
+                        <span class="faq-icon">▼</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Sim! O Crônicas RPG é um <strong>Progressive Web App (PWA)</strong> completo. Você pode adicioná-lo à tela inicial do seu smartphone (Android/iOS) e jogar suas aventuras mesmo quando estiver sem conexão com a internet.</p>
+                    </div>
+                </article>
+            </div>
+        </section>
     </main>
 
-    <footer>
-        <p>&copy; 2026 Crônicas RPG. Forjado por Anderson Telles.</p>
-        <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 10px; max-width: 850px; margin-left: auto; margin-right: auto; line-height: 1.5; font-family: 'Inter', sans-serif;">
-            As aventuras solo <em>Nascido das Trevas</em>, <em>Sem Saída</em>, <em>Assalto ao Mestre Arsenal</em>, <em>Eu, O Monstro</em>, <em>Herança Maldita</em>, <em>Coragem Metálica</em> e <em>O Segredo do Mosteiro</em> são adaptações da clássica revista <strong>Só Aventuras #6</strong>, publicada pela Editora Trama. Todos os direitos destas obras e marcas pertencem aos seus respectivos autores e editores.
-        </p>
+    <!-- Footer with Full Links and Heritage Notice -->
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-col">
+                <h4>⚔️ Crônicas RPG</h4>
+                <p>O maior acervo interativo de aventuras solo e livros-jogos em língua portuguesa, dedicado à preservação da história e da literatura de RPG no Brasil.</p>
+                <p>Criado e mantido por <strong>Anderson Telles</strong>.</p>
+            </div>
+
+            <div class="footer-col">
+                <h4>Acervo</h4>
+                <ul>
+                    <li><a href="./jovem-guerreiro/index.html">Jovem Guerreiro</a></li>
+                    <li><a href="./nascido-das-trevas/index.html">Nascido Das Trevas</a></li>
+                    <li><a href="./sem-saida/index.html">Sem Saída</a></li>
+                    <li><a href="./assalto-ao-mestre-arsenal/index.html">Assalto ao Mestre Arsenal</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h4>Mundos</h4>
+                <ul>
+                    <li><a href="./eu-o-monstro/index.html">Eu, O Monstro</a></li>
+                    <li><a href="./heranca-maldita/index.html">Herança Maldita</a></li>
+                    <li><a href="./coragem-metalica/index.html">Coragem Metálica</a></li>
+                    <li><a href="./o-segredo-do-mosteiro/index.html">O Segredo do Mosteiro</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h4>Recursos</h4>
+                <ul>
+                    <li><a href="#aventuras">Catálogo Completo</a></li>
+                    <li><a href="#historia">História do RPG Solo</a></li>
+                    <li><a href="#faq">Perguntas Frequentes</a></li>
+                    <li><a href="javascript:void(0)" onclick="if(window.RPGDiceInstance) window.RPGDiceInstance.toggleModal(true);">Rolador de Dados RPG</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2026 Crônicas RPG. Desenvolvido com excelência por Anderson Telles.</p>
+            <p class="footer-heritage-note">
+                As obras <em>Nascido das Trevas</em>, <em>Sem Saída</em>, <em>Assalto ao Mestre Arsenal</em>, <em>Eu, O Monstro</em>, <em>Herança Maldita</em>, <em>Coragem Metálica</em> e <em>O Segredo do Mosteiro</em> são adaptações e tributos à revista histórica <strong>Só Aventuras #6</strong> (Editora Trama). Todos os direitos de marcas, universos e conceitos originais pertencem aos seus respectivos autores, criadores e editoras.
+            </p>
+        </div>
     </footer>
 
+    <!-- Core Scripts: Dice Roller, Search & PWA Service Worker -->
+    <script src="dice-roller.js"></script>
     <script>
-        // Easter Egg: Desbloqueio secreto da aventura "Sem Saída"
-        let clickCount = 0;
-        let easterEggTimer;
-        
-        const semSaidaCard = document.getElementById('sem-saida-card');
-        if(semSaidaCard) {
-            semSaidaCard.addEventListener('click', function(e) {
-                // Impede o redirecionamento dos links internos
-                e.preventDefault(); 
-                
-                clickCount++;
-                clearTimeout(easterEggTimer);
-                
-                // Pisca o card para dar feedback ao jogador
-                semSaidaCard.style.filter = `brightness(${1 + (clickCount * 0.2)})`;
-                setTimeout(() => { semSaidaCard.style.filter = ''; }, 100);
- 
-                if (clickCount >= 5) {
-                    // Feedback visual drástico
-                    semSaidaCard.style.transition = 'all 0.1s';
-                    semSaidaCard.style.transform = 'scale(0.9)';
-                    semSaidaCard.style.filter = 'hue-rotate(90deg) drop-shadow(0 0 20px #0ff)';
-                    
-                    setTimeout(() => {
-                        window.location.href = './sem-saida/index.html';
-                    }, 500);
-                } else {
-                    easterEggTimer = setTimeout(() => {
-                        clickCount = 0;
-                    }, 1000); // 1 segundo para acumular os 5 cliques
-                }
+        // PWA Service Worker Registration
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js').catch(err => {
+                    console.log('ServiceWorker registration not required in current context:', err);
+                });
             });
         }
 
+        // Live Search & Category Filtering
+        document.addEventListener('DOMContentLoaded', () => {
+            const searchInput = document.getElementById('adventure-search');
+            const filterChips = document.querySelectorAll('.filter-chip');
+            const cards = document.querySelectorAll('.card');
+            const grid = document.getElementById('adventures-grid');
+
+            let currentFilter = 'all';
+            let currentSearch = '';
+
+            function updateCards() {
+                let visibleCount = 0;
+                cards.forEach(card => {
+                    const genres = card.dataset.genre || '';
+                    const tags = (card.dataset.tags || '') + ' ' + (card.querySelector('.card-title')?.innerText || '') + ' ' + (card.querySelector('.card-desc')?.innerText || '');
+                    
+                    const matchesFilter = currentFilter === 'all' || genres.includes(currentFilter);
+                    const matchesSearch = currentSearch === '' || tags.toLowerCase().includes(currentSearch.toLowerCase());
+
+                    if (matchesFilter && matchesSearch) {
+                        card.style.display = 'flex';
+                        visibleCount++;
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+
+                // Handle no results
+                let noRes = document.getElementById('no-results-msg');
+                if (visibleCount === 0) {
+                    if (!noRes) {
+                        noRes = document.createElement('div');
+                        noRes.id = 'no-results-msg';
+                        noRes.className = 'no-results';
+                        noRes.innerHTML = '<h3>Nenhuma aventura encontrada</h3><p>Tente buscar por outro termo ou selecione "Todos os Mundos".</p>';
+                        grid.appendChild(noRes);
+                    }
+                } else if (noRes) {
+                    noRes.remove();
+                }
+            }
+
+            if (searchInput) {
+                searchInput.addEventListener('input', (e) => {
+                    currentSearch = e.target.value.trim();
+                    updateCards();
+                });
+            }
+
+            filterChips.forEach(chip => {
+                chip.addEventListener('click', () => {
+                    filterChips.forEach(c => c.classList.remove('active'));
+                    chip.classList.add('active');
+                    currentFilter = chip.dataset.filter;
+                    updateCards();
+                });
+            });
+
+            // Quick Resume Button Check
+            const lastAdv = localStorage.getItem('cronicas_last_adventure');
+            const validAdventures = [
+                'jovem-guerreiro',
+                'nascido-das-trevas',
+                'sem-saida',
+                'assalto-ao-mestre-arsenal',
+                'eu-o-monstro',
+                'heranca-maldita',
+                'coragem-metalica',
+                'o-segredo-do-mosteiro'
+            ];
+            const btnResume = document.getElementById('btn-quick-resume');
+            if (lastAdv && validAdventures.includes(lastAdv) && btnResume) {
+                btnResume.style.display = 'inline-flex';
+                btnResume.href = `./${lastAdv}/index.html`;
+                btnResume.title = `Continuar sua última jornada em: ${lastAdv.replace(/-/g, ' ')}`;
+            } else if (btnResume) {
+                btnResume.style.display = 'none';
+            }
+
+            // FAQ Accordion
+            const faqItems = document.querySelectorAll('.faq-item');
+            faqItems.forEach(item => {
+                const questionBtn = item.querySelector('.faq-question');
+                if (questionBtn) {
+                    questionBtn.addEventListener('click', () => {
+                        const isActive = item.classList.contains('active');
+                        faqItems.forEach(i => {
+                            i.classList.remove('active');
+                            i.querySelector('.faq-question')?.setAttribute('aria-expanded', 'false');
+                        });
+                        if (!isActive) {
+                            item.classList.add('active');
+                            questionBtn.setAttribute('aria-expanded', 'true');
+                        }
+                    });
+                }
+            });
+
+            // Dice roller menu trigger
+            const btnOpenDice = document.getElementById('btn-open-dice');
+            if (btnOpenDice) {
+                btnOpenDice.addEventListener('click', () => {
+                    const diceWidget = document.getElementById('rpg-dice-widget');
+                    if (diceWidget) diceWidget.click();
+                });
+            }
+
+            // Check URL search parameters (e.g. ?q=vampiro)
+            const urlParams = new URLSearchParams(window.location.search);
+            const query = urlParams.get('q');
+            if (query && searchInput) {
+                searchInput.value = query;
+                currentSearch = query;
+                updateCards();
+            }
+        });
     </script>
 </body>
 </html>

@@ -1,51 +1,87 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" dir="ltr">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sem Saída - RPG de Texto Cyberpunk & Labirinto | Crônicas RPG</title>
-    <meta name="description" content="Uma jornada angustiante em um labirinto sem fim com temática cyberpunk. Consiga escapar antes que seu tempo ou sanidade acabe. RPG narrativo online.">
-    <meta name="keywords" content="Sem Saída, aventura solo, RPG cyberpunk, livro-jogo, RPG solo, RPG de texto, escolha sua aventura, livro-jogo online, jogo de texto RPG">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    
+    <!-- Primary SEO Meta Tags -->
+    <title>Sem Saída - RPG de Texto Cyberpunk & Labirinto Distópico | Crônicas RPG</title>
+    <meta name="title" content="Sem Saída - RPG de Texto Cyberpunk & Labirinto Distópico | Crônicas RPG">
+    <meta name="description" content="O ano é 2020. Uma jornada angustiante em um labirinto virtual de alta tecnologia com temática cyberpunk da clássica revista Só Aventuras #6. Jogue grátis online!">
+    <meta name="keywords" content="Sem Saída, aventura solo, RPG cyberpunk, livro-jogo, RPG solo, RPG de texto, escolha sua aventura, livro-jogo online, jogo de texto RPG, Só Aventuras 6, distopia">
+    <meta name="author" content="Anderson Telles">
+    <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://pix.natal.br/sem-saida/">
+
+    <!-- PWA & Favicon -->
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+    <link rel="apple-touch-icon" href="../cyberpunk-bg.webp">
+    <meta name="theme-color" content="#00f2fe">
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://pix.natal.br/sem-saida/">
     <meta property="og:title" content="Sem Saída - RPG de Texto Cyberpunk & Labirinto | Crônicas RPG">
     <meta property="og:description" content="Uma jornada angustiante em um labirinto sem fim com temática cyberpunk. Consiga escapar antes que seu tempo ou sanidade acabe.">
-    <meta property="og:image" content="https://pix.natal.br/cyberpunk-bg.png">
+    <meta property="og:image" content="https://pix.natal.br/cyberpunk-bg.webp">
+    <meta property="og:image:width" content="1024">
+    <meta property="og:image:height" content="1024">
     <meta property="og:site_name" content="Crônicas RPG">
     <meta property="og:locale" content="pt_BR">
 
-    <!-- Twitter -->
+    <!-- Twitter / X -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:url" content="https://pix.natal.br/sem-saida/">
     <meta name="twitter:title" content="Sem Saída - RPG de Texto Cyberpunk & Labirinto | Crônicas RPG">
     <meta name="twitter:description" content="Uma jornada angustiante em um labirinto sem fim com temática cyberpunk. Consiga escapar antes que seu tempo ou sanidade acabe.">
-    <meta name="twitter:image" content="https://pix.natal.br/cyberpunk-bg.png">
+    <meta name="twitter:image" content="https://pix.natal.br/cyberpunk-bg.webp">
 
     <!-- Structured Data (JSON-LD) -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "VideoGame",
-      "name": "Sem Saída",
-      "description": "Uma jornada angustiante em um labirinto sem fim. Você conseguirá encontrar a saída antes que seja tarde demais?",
-      "genre": ["Role-Playing Game", "Text Adventure", "Cyberpunk", "Dystopian"],
-      "playMode": "SinglePlayer",
-      "applicationCategory": "GameApplication",
-      "operatingSystem": "Any",
-      "url": "https://pix.natal.br/sem-saida/",
-      "image": "https://pix.natal.br/cyberpunk-bg.png",
-      "author": {
-        "@type": "Person",
-        "name": "Anderson Telles"
-      },
-      "publisher": {
-        "@type": "Organization",
-        "name": "Crônicas RPG"
-      }
+      "@graph": [
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Crônicas RPG",
+              "item": "https://pix.natal.br/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Sem Saída",
+              "item": "https://pix.natal.br/sem-saida/"
+            }
+          ]
+        },
+        {
+          "@type": "VideoGame",
+          "name": "Sem Saída",
+          "description": "Uma jornada angustiante em um labirinto sem fim. Você conseguirá encontrar a saída antes que seja tarde demais?",
+          "genre": ["Role-Playing Game", "Text Adventure", "Cyberpunk", "Dystopian", "Sci-Fi"],
+          "playMode": "SinglePlayer",
+          "applicationCategory": "GameApplication",
+          "operatingSystem": "Any Web Browser",
+          "inLanguage": "pt-BR",
+          "isAccessibleForFree": true,
+          "url": "https://pix.natal.br/sem-saida/",
+          "image": "https://pix.natal.br/cyberpunk-bg.webp",
+          "author": {
+            "@type": "Person",
+            "name": "Anderson Telles"
+          },
+          "publisher": {
+            "@type": "Organization",
+            "name": "Crônicas RPG",
+            "url": "https://pix.natal.br/"
+          }
+        }
+      ]
     }
     </script>
 
@@ -65,6 +101,7 @@
     <div class="game-wrapper">
         <header class="game-header">
             <div class="logo-area">
+                <a href="../#aventuras" style="color: #00f2fe; text-decoration: none; font-size: 0.85rem; margin-right: 15px; font-weight: 700;">⚔️ Início / Acervo</a>
                 <span class="neon-text-blue">SYS: </span>
                 <span class="neon-text-pink" id="game-title">SEM SAÍDA</span>
             </div>
@@ -96,6 +133,7 @@
         </footer>
     </div>
 
+    <script src="../dice-roller.js"></script>
     <script defer src="./core/core.js" type="module"></script>
 </body>
 </html>

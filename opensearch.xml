@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/">
+  <ShortName>Crônicas RPG</ShortName>
+  <Description>Buscar aventuras solo e livros-jogos interativos de RPG</Description>
+  <InputEncoding>UTF-8</InputEncoding>
+  <Url type="text/html" template="https://pix.natal.br/?q={searchTerms}#aventuras"/>
+  <Image width="16" height="16" type="image/svg+xml">https://pix.natal.br/favicon.svg</Image>
+</OpenSearchDescription>

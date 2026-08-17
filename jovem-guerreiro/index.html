@@ -1,51 +1,87 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" dir="ltr">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jovem Guerreiro - Aventura Solo & Livro-Jogo de Fantasia | Crônicas RPG</title>
-    <meta name="description" content="Adentre uma caverna repleta de mistérios e perigos nesta aventura solo de RPG de texto. Suas decisões decidirão se você consegue salvar seu pai. Jogue online!">
-    <meta name="keywords" content="Jovem Guerreiro, aventura solo, livro-jogo, RPG solo, RPG de texto, RPG de fantasia, escolha sua aventura, livro-jogo online">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    
+    <!-- Primary SEO Meta Tags -->
+    <title>Jovem Guerreiro - Aventura Solo & Livro-Jogo de Fantasia Medieval | Crônicas RPG</title>
+    <meta name="title" content="Jovem Guerreiro - Aventura Solo & Livro-Jogo de Fantasia Medieval | Crônicas RPG">
+    <meta name="description" content="Adentre uma caverna repleta de mistérios e perigos nesta aventura solo de RPG de texto. Suas decisões decidirão se você consegue salvar seu pai. Jogue grátis online!">
+    <meta name="keywords" content="Jovem Guerreiro, aventura solo, livro-jogo, RPG solo, RPG de texto, RPG de fantasia, escolha sua aventura, livro-jogo online, gamebook brasil">
+    <meta name="author" content="Anderson Telles">
+    <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://pix.natal.br/jovem-guerreiro/">
+
+    <!-- PWA & Favicon -->
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+    <link rel="apple-touch-icon" href="../hero-bg.webp">
+    <meta name="theme-color" content="#ceb15b">
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://pix.natal.br/jovem-guerreiro/">
     <meta property="og:title" content="Jovem Guerreiro - Aventura Solo & Livro-Jogo de Fantasia | Crônicas RPG">
     <meta property="og:description" content="Adentre uma caverna repleta de mistérios e perigos nesta aventura solo de RPG de texto. Suas decisões decidirão se você consegue salvar seu pai.">
-    <meta property="og:image" content="https://pix.natal.br/hero-bg.png">
+    <meta property="og:image" content="https://pix.natal.br/hero-bg.webp">
+    <meta property="og:image:width" content="1024">
+    <meta property="og:image:height" content="1024">
     <meta property="og:site_name" content="Crônicas RPG">
     <meta property="og:locale" content="pt_BR">
 
-    <!-- Twitter -->
+    <!-- Twitter / X -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:url" content="https://pix.natal.br/jovem-guerreiro/">
     <meta name="twitter:title" content="Jovem Guerreiro - Aventura Solo & Livro-Jogo de Fantasia | Crônicas RPG">
     <meta name="twitter:description" content="Adentre uma caverna repleta de mistérios e perigos nesta aventura solo de RPG de texto. Suas decisões decidirão se você consegue salvar seu pai.">
-    <meta name="twitter:image" content="https://pix.natal.br/hero-bg.png">
+    <meta name="twitter:image" content="https://pix.natal.br/hero-bg.webp">
 
     <!-- Structured Data (JSON-LD) -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "VideoGame",
-      "name": "Jovem Guerreiro",
-      "description": "Você é um guerreiro inexperiente que deve adentrar uma caverna repleta de perigos desconhecidos para tentar salvar a vida de seu pai. Um passo em falso pode ser fatal.",
-      "genre": ["Role-Playing Game", "Text Adventure", "Fantasy"],
-      "playMode": "SinglePlayer",
-      "applicationCategory": "GameApplication",
-      "operatingSystem": "Any",
-      "url": "https://pix.natal.br/jovem-guerreiro/",
-      "image": "https://pix.natal.br/hero-bg.png",
-      "author": {
-        "@type": "Person",
-        "name": "Anderson Telles"
-      },
-      "publisher": {
-        "@type": "Organization",
-        "name": "Crônicas RPG"
-      }
+      "@graph": [
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Crônicas RPG",
+              "item": "https://pix.natal.br/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Jovem Guerreiro",
+              "item": "https://pix.natal.br/jovem-guerreiro/"
+            }
+          ]
+        },
+        {
+          "@type": "VideoGame",
+          "name": "Jovem Guerreiro",
+          "description": "Você é um guerreiro inexperiente que deve adentrar uma caverna repleta de perigos desconhecidos para tentar salvar a vida de seu pai. Um passo em falso pode ser fatal.",
+          "genre": ["Role-Playing Game", "Text Adventure", "Fantasy Medieval", "Gamebook"],
+          "playMode": "SinglePlayer",
+          "applicationCategory": "GameApplication",
+          "operatingSystem": "Any Web Browser",
+          "inLanguage": "pt-BR",
+          "isAccessibleForFree": true,
+          "url": "https://pix.natal.br/jovem-guerreiro/",
+          "image": "https://pix.natal.br/hero-bg.webp",
+          "author": {
+            "@type": "Person",
+            "name": "Anderson Telles"
+          },
+          "publisher": {
+            "@type": "Organization",
+            "name": "Crônicas RPG",
+            "url": "https://pix.natal.br/"
+          }
+        }
+      ]
     }
     </script>
 
@@ -53,11 +89,18 @@
     <link href="./my-game/styles.css" rel="stylesheet">
 </head>
 <body>
+    <nav class="adventure-top-bar" aria-label="Navegação da Aventura">
+        <a href="../#aventuras" title="Voltar ao Catálogo de Aventuras">⚔️ Início / Acervo</a>
+        <button id="btn-narrate" title="Ouvir Narração da Cena">🔊 Narração</button>
+        <button id="btn-dyslexia" title="Alternar Fonte Acessível">👁️ Fonte Fácil</button>
+    </nav>
+
     <header class="container">
         <div class="title-container">
             <h1 id="game-title">Jovem Guerreiro</h1>
         </div>
     </header>
+
     <main class="container">
         <div class="text-container">
             <section id="image" class="image-section"></section>
@@ -66,11 +109,14 @@
             <section id="options" class="buttons-section"></section>
         </div>        
     </main>
+
     <footer class="container">
         <div class="credits-container">
             <div id="game-credits"></div>
         </div>        
     </footer> 
+
+    <script src="../dice-roller.js"></script>
     <script defer src="./core/core.js" type="module"></script>
 </body>
 </html>

@@ -1,39 +1,83 @@
-@import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@300&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=PT+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Inter:wght@400;600&family=PT+Sans:wght@400;700&display=swap');
 
-:root{
-
-  --font-family: 'PT Sans', sans-serif;
-  --bg-color: #3e4148;
+:root {
+  --font-family: 'PT Sans', 'Inter', sans-serif;
+  --bg-color: #121016;
 
   /* header */
-  --header-color: #fcffdb;
+  --header-color: #f5df88;
 
   /* text container */
-  --text-bg-color: #463a37;
-  --text-border-color: #1f110f;
+  --text-bg-color: rgba(26, 21, 20, 0.88);
+  --text-border-color: #ceb15b;
   --text-color: #fcffdb;
 
   /* options */
   --btn-bg-color: #2f140d;
-  --btn-border-color: #fcffdb;
+  --btn-border-color: #ceb15b;
   --btn-color: #fcffdb;  
 
   /* options:disabled */
-  --btn-dis-bg-color: #401c13;
-  --btn-dis-color: #8b7979;
+  --btn-dis-bg-color: #22120e;
+  --btn-dis-color: #736464;
 
   /* options:hover */
-  --btn-hov-bg-color: #fcffdb;
-  --btn-hov-border-color: #fcffdb;
-  --btn-hov-color: #2f140d;  
+  --btn-hov-bg-color: #ceb15b;
+  --btn-hov-border-color: #fff;
+  --btn-hov-color: #120804;  
 
   /* credits */
-  --credits-color: #fcffdb;
+  --credits-color: #ceb15b;
   --credits-link-color: #dfbc60;
 }
 
 body {
-  background-image: url("images/background.gif"); 
+  background-image: url("images/background.webp");
+  background-color: var(--bg-color);
 }
-   
+
+.adventure-top-bar {
+  width: 100%;
+  max-width: 800px;
+  margin: 10px auto 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background: rgba(18, 15, 26, 0.85);
+  border: 1px solid rgba(206, 177, 91, 0.3);
+  border-radius: 8px;
+  backdrop-filter: blur(8px);
+}
+
+.adventure-top-bar a, .adventure-top-bar button {
+  color: #ceb15b;
+  text-decoration: none;
+  font-family: 'Cinzel', serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s;
+}
+
+.adventure-top-bar a:hover, .adventure-top-bar button:hover {
+  color: #fff;
+  text-shadow: 0 0 10px rgba(206, 177, 91, 0.5);
+}
+
+.text-container {
+  border-radius: 12px;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.7);
+  backdrop-filter: blur(12px);
+}
+
+.dyslexia-font {
+  font-family: 'Comic Sans MS', 'Arial', sans-serif !important;
+  line-height: 1.8 !important;
+  letter-spacing: 0.5px !important;
+}

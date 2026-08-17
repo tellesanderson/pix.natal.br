@@ -1,0 +1,25 @@
+{
+  "name": "Crônicas RPG - Aventuras Solo & Livros-Jogos",
+  "short_name": "Crônicas RPG",
+  "description": "Biblioteca interativa de aventuras solo de RPG e livros-jogos clássicos para jogar online direto no navegador.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#080705",
+  "theme_color": "#ceb15b",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/hero-bg.webp",
+      "sizes": "512x512",
+      "type": "image/webp",
+      "purpose": "any"
+    }
+  ],
+  "categories": ["games", "entertainment", "books"]
+}

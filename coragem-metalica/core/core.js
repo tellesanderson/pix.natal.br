@@ -128,12 +128,12 @@ function getBgForId(id) {
   const hiveNodes = ["06", "07", "12", "14", "16", "17", "19", "22", "27", "30", "32", "35", "40"];
   const shipNodes = ["03", "04", "08", "21", "23", "26", "29", "38"];
 
-  if (spaceNodes.includes(id)) return 'space_orbit.png';
-  if (surfaceNodes.includes(id)) return 'planet_surface.png';
-  if (hiveNodes.includes(id)) return 'alien_hive.png';
-  if (shipNodes.includes(id)) return 'ship_interior.png';
+  if (spaceNodes.includes(id)) return 'space_orbit.webp';
+  if (surfaceNodes.includes(id)) return 'planet_surface.webp';
+  if (hiveNodes.includes(id)) return 'alien_hive.webp';
+  if (shipNodes.includes(id)) return 'ship_interior.webp';
 
-  return 'space_orbit.png';
+  return 'space_orbit.webp';
 }
 
 function showTextNode(textNodeIndex) {
@@ -341,24 +341,33 @@ window.onload = function() {
         isNarrating = true;
         btnNarrate.innerText = "🔇 Parar Narração";
 
-        // Tenta tocar o áudio estático gerado do Edge TTS
-        const audioUrl = `./my-game/audio/${currentNodeId}.mp3`;
-        currentAudio = new Audio(audioUrl);
+        // Tenta tocar o áudio WebM (Opus) ultra leve com fallback para MP3
+        const webmUrl = `./my-game/audio/${currentNodeId}.webm`;
+        const mp3Url = `./my-game/audio/${currentNodeId}.mp3`;
+        
+        currentAudio = new Audio(webmUrl);
         
         currentAudio.onended = () => {
           stopAllNarration();
         };
 
-        currentAudio.onerror = () => {
-          console.warn(`Áudio estático não encontrado (${audioUrl}). Usando fallback do navegador...`);
-          currentAudio = null;
-          usarFallbackNavegador(fullText);
+        const tryMp3Fallback = () => {
+          const fallbackMp3 = new Audio(mp3Url);
+          fallbackMp3.onended = () => stopAllNarration();
+          fallbackMp3.onerror = () => {
+            currentAudio = null;
+            usarFallbackNavegador(fullText);
+          };
+          fallbackMp3.play().then(() => {
+            currentAudio = fallbackMp3;
+          }).catch(() => {
+            currentAudio = null;
+            usarFallbackNavegador(fullText);
+          });
         };
 
-        currentAudio.play().catch(err => {
-          console.warn("Falha ao tocar MP3, iniciando fallback:", err);
-          usarFallbackNavegador(fullText);
-        });
+        currentAudio.onerror = tryMp3Fallback;
+        currentAudio.play().catch(tryMp3Fallback);
       }
     });
   }

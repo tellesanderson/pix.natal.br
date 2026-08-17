@@ -314,23 +314,33 @@ window.onload = () => {
       btnNarrate.innerText = "🔇 Parar";
       btnNarrate.classList.add('playing');
       
-      const audioUrl = `./my-game/audio/${currentNodeId}.mp3`;
-      currentAudio = new Audio(audioUrl);
+      // Tenta tocar o áudio WebM (Opus) ultra leve com fallback para MP3
+      const webmUrl = `./my-game/audio/${currentNodeId}.webm`;
+      const mp3Url = `./my-game/audio/${currentNodeId}.mp3`;
+      
+      currentAudio = new Audio(webmUrl);
       
       currentAudio.onended = () => {
         stopAllNarration();
       };
       
-      currentAudio.onerror = () => {
-        currentAudio = null;
-        usarFallbackNavegador(textToSpeak);
+      const tryMp3Fallback = () => {
+        const fallbackMp3 = new Audio(mp3Url);
+        fallbackMp3.onended = () => stopAllNarration();
+        fallbackMp3.onerror = () => {
+          currentAudio = null;
+          usarFallbackNavegador(textToSpeak);
+        };
+        fallbackMp3.play().then(() => {
+          currentAudio = fallbackMp3;
+        }).catch(() => {
+          currentAudio = null;
+          usarFallbackNavegador(textToSpeak);
+        });
       };
       
-      currentAudio.play().catch(err => {
-        console.warn("Audio playback blocked or failed. Falling back to TTS:", err);
-        currentAudio = null;
-        usarFallbackNavegador(textToSpeak);
-      });
+      currentAudio.onerror = tryMp3Fallback;
+      currentAudio.play().catch(tryMp3Fallback);
     });
   }
   

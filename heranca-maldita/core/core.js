@@ -128,12 +128,12 @@ function getBgForId(id) {
   const forestNodes = ["06", "10", "16", "24", "26", "40"];
   const townNodes = ["02", "08", "13", "14", "19", "21", "23", "33", "36", "38", "39"];
 
-  if (mansionNodes.includes(id)) return 'old_mansion.png';
-  if (cemeteryNodes.includes(id)) return 'cemetery_mausoleum.png';
-  if (forestNodes.includes(id)) return 'cursed_forest.png';
-  if (townNodes.includes(id)) return 'dark_police_station.png';
+  if (mansionNodes.includes(id)) return 'old_mansion.webp';
+  if (cemeteryNodes.includes(id)) return 'cemetery_mausoleum.webp';
+  if (forestNodes.includes(id)) return 'cursed_forest.webp';
+  if (townNodes.includes(id)) return 'dark_police_station.webp';
 
-  return 'old_mansion.png';
+  return 'old_mansion.webp';
 }
 
 function showTextNode(textNodeIndex) {
@@ -341,24 +341,33 @@ window.onload = function() {
         isNarrating = true;
         btnNarrate.innerText = "🔇 Parar Narração";
 
-        // Tenta tocar o áudio estático gerado do Edge TTS
-        const audioUrl = `./my-game/audio/${currentNodeId}.mp3`;
-        currentAudio = new Audio(audioUrl);
+        // Tenta tocar o áudio WebM (Opus) ultra leve com fallback para MP3
+        const webmUrl = `./my-game/audio/${currentNodeId}.webm`;
+        const mp3Url = `./my-game/audio/${currentNodeId}.mp3`;
+        
+        currentAudio = new Audio(webmUrl);
         
         currentAudio.onended = () => {
           stopAllNarration();
         };
 
-        currentAudio.onerror = () => {
-          console.warn(`Áudio estático não encontrado (${audioUrl}). Usando fallback do navegador...`);
-          currentAudio = null;
-          usarFallbackNavegador(fullText);
+        const tryMp3Fallback = () => {
+          const fallbackMp3 = new Audio(mp3Url);
+          fallbackMp3.onended = () => stopAllNarration();
+          fallbackMp3.onerror = () => {
+            currentAudio = null;
+            usarFallbackNavegador(fullText);
+          };
+          fallbackMp3.play().then(() => {
+            currentAudio = fallbackMp3;
+          }).catch(() => {
+            currentAudio = null;
+            usarFallbackNavegador(fullText);
+          });
         };
 
-        currentAudio.play().catch(err => {
-          console.warn("Falha ao tocar MP3, iniciando fallback:", err);
-          usarFallbackNavegador(fullText);
-        });
+        currentAudio.onerror = tryMp3Fallback;
+        currentAudio.play().catch(tryMp3Fallback);
       }
     });
   }
