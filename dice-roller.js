@@ -424,8 +424,14 @@ class RPGDiceRoller {
   }
 }
 
-// Auto instantiate on DOM load
+// Auto instantiate on DOM load & Register PWA Service Worker
 if (typeof window !== 'undefined') {
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/sw.js').catch(() => {});
+    });
+  }
+
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => new RPGDiceRoller());
   } else {
