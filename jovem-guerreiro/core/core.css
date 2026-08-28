@@ -1,134 +1,405 @@
 *, *::before, *::after {
   box-sizing: border-box;
-  margin:0;
-  padding:0;
-  border: 0;
+}
+
+:root {
+  color-scheme: dark;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
 }
 
 html {
-  font-family: var(--font-family);
-  font-size: 16px;
-  height: 100%;
-}
-  
-body {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  background-color: var(--bg-color);
-  background-position: center bottom;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-}
-  
-.container {
-  padding: 20px;
-  max-width: 800px;
-  margin: 20px;
-  width: 100%; 
+  min-width: 320px;
+  min-height: 100%;
+  scroll-behavior: smooth;
 }
 
-/* header section */
-.title-container {
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  min-height: 100dvh;
+  margin: 0;
+}
+
+body.sidebar-open {
+  overflow: hidden;
+}
+
+button, input, textarea, select {
+  font: inherit;
+}
+
+button, a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button {
+  border: 0;
+}
+
+a {
+  color: inherit;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+.skip-link {
+  position: fixed;
+  top: 12px;
+  left: 12px;
+  z-index: 1000;
+  padding: 10px 14px;
+  transform: translateY(-150%);
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+.topbar {
+  position: relative;
+  z-index: 30;
+  width: min(1380px, calc(100% - 40px));
+  min-height: 72px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 20px;
+}
+
+.brand,
+.topbar-actions,
+.topbar-title,
+.brand-copy,
+.icon-button {
+  display: flex;
+  align-items: center;
+}
+
+.brand {
+  justify-self: start;
+}
+
+.brand-copy,
+.topbar-title {
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.topbar-title {
+  align-items: center;
+}
+
+.topbar-actions {
+  justify-self: end;
+  gap: 4px;
+}
+
+.game-shell {
+  position: relative;
+  z-index: 10;
+  width: min(1380px, calc(100% - 40px));
+  min-height: calc(100vh - 128px);
+  min-height: calc(100dvh - 128px);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 310px minmax(0, 850px);
+  justify-content: center;
+  align-items: stretch;
+  gap: 18px;
+}
+
+.journey-panel,
+.story-card {
+  min-height: 0;
+  max-height: calc(100vh - 128px);
+  max-height: calc(100dvh - 128px);
+}
+
+.journey-panel {
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.story-card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.story-header {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.story-scroll {
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scroll-behavior: smooth;
+}
+
+.image-section:empty {
+  display: none;
+}
+
+.buttons-section {
+  display: grid;
+  gap: 12px;
+}
+
+.choice-button {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 44px 1fr auto;
+  align-items: center;
+  gap: 14px;
+  text-align: left;
+}
+
+.choice-arrow {
+  justify-self: end;
+}
+
+.journey-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.journey-stats > div,
+.inventory-grid,
+.journey-actions,
+.dialog-actions {
+  display: flex;
+}
+
+.journey-stats > div {
+  flex-direction: column;
+}
+
+.inventory-grid {
+  flex-wrap: wrap;
+}
+
+.journey-actions,
+.dialog-actions {
+  flex-direction: column;
+  gap: 10px;
+}
+
+.section-heading,
+.journey-head,
+.dialog-heading,
+.toggle-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.close-sidebar,
+.sidebar-toggle {
+  display: none;
+}
+
+.site-footer {
+  position: relative;
+  z-index: 10;
+  min-height: 56px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+}
+
+.site-footer #game-credits,
+.site-footer #game-credits p {
+  display: inline;
+  margin: 0;
+}
+
+.site-footer #game-credits a {
+  margin-left: 10px;
+}
+
+.mobile-scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+}
+
+.toast {
+  position: fixed;
+  z-index: 100;
+  left: 50%;
+  bottom: 24px;
+  transform: translate(-50%, 16px);
+}
+
+.toast.is-visible {
+  transform: translate(-50%, 0);
+}
+
+.game-dialog {
+  width: min(92vw, 520px);
+  max-height: min(88vh, 720px);
+  padding: 0;
+}
+
+.game-dialog form {
+  padding: 32px;
+}
+
+.game-dialog::backdrop {
+  backdrop-filter: blur(8px);
+}
+
+.game-dialog fieldset {
+  min-width: 0;
+  padding: 0;
+  border: 0;
+}
+
+.segmented-control {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.toggle-row span {
+  display: flex;
+  flex-direction: column;
+}
+
+.toggle-row input {
+  flex: 0 0 auto;
+}
+
+.resume-dialog form,
+.restart-dialog form {
   text-align: center;
 }
 
-.title-container {
-  color: var(--header-color);
-  font-size: 2.5vw;
+.resume-dialog .dialog-actions,
+.restart-dialog .dialog-actions {
+  margin-top: 26px;
 }
 
-@media screen and (min-width:800px){
-  .title-container {
-    font-size: 20px;
+@media (max-width: 1000px) {
+  .topbar-title {
+    display: none;
+  }
+
+  .topbar {
+    grid-template-columns: 1fr auto;
+  }
+
+  .control-label {
+    display: none;
+  }
+
+  .icon-button {
+    justify-content: center;
   }
 }
 
-/* main section */
-.text-container {
-  background-color: var(--text-bg-color);
-  border: 4px solid var(--text-border-color); 
+@media (max-width: 900px) {
+  .topbar {
+    width: min(100% - 28px, 760px);
+    min-height: 64px;
+  }
+
+  .game-shell {
+    width: min(100% - 28px, 760px);
+    min-height: calc(100vh - 80px);
+    min-height: calc(100dvh - 80px);
+    display: block;
+    z-index: auto;
+  }
+
+  .story-card {
+    max-height: calc(100vh - 80px);
+    max-height: calc(100dvh - 80px);
+  }
+
+  .journey-panel {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 50;
+    width: min(88vw, 360px);
+    max-height: none;
+    transform: translateX(105%);
+    transition: transform 260ms ease;
+  }
+
+  body.sidebar-open .journey-panel {
+    transform: translateX(0);
+  }
+
+  .close-sidebar,
+  .sidebar-toggle {
+    display: inline-flex;
+  }
+
+  .site-footer {
+    display: none;
+  }
 }
 
-.text-container section {
-  margin: 20px;
+@media (max-width: 560px) {
+  .topbar {
+    width: calc(100% - 20px);
+  }
+
+  .brand-copy {
+    display: none;
+  }
+
+  .game-shell {
+    width: calc(100% - 16px);
+    min-height: calc(100vh - 72px);
+    min-height: calc(100dvh - 72px);
+  }
+
+  .story-card {
+    max-height: calc(100vh - 72px);
+    max-height: calc(100dvh - 72px);
+  }
+
+  .story-header {
+    gap: 10px;
+  }
+
+  .choice-button {
+    grid-template-columns: 34px 1fr auto;
+    gap: 10px;
+  }
+
+  .game-dialog form {
+    padding: 24px 20px;
+  }
 }
 
-.image-section img {
-  width: 100%;
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 }
 
-.text-section p {
-  text-indent: 2rem;
-  text-align: justify;
-  padding-top: 20px;
-  color: var(--text-color);
-}
-
-.inventory-section {
-  margin: 20px;
-  color: var(--text-color);
-}
-
-.inventory-section h4 {
-  font-size: 15px;
-  margin-bottom: 8px;
-}
-
-.inventory-section li {
-  margin-left: 20px;
-}
-
-.buttons-section .btn {
-  margin-top: 10px;
-  background-color: var(--btn-bg-color);
-  border: 2px solid var(--btn-border-color);
-  border-radius: 5px;
-  padding: 12px;
-  color: var(--btn-color);
-  outline: none;
-  font-size: 16px;
-  cursor: pointer;
-  width: 100%;
-} 
-
-.buttons-section .btn:hover {
-  background-color: var(--btn-hov-bg-color);
-  border-color: var(--btn-hov-border-color);
-  color: var(--btn-hov-color);
-}
-
-.buttons-section .btn:disabled {
-  background-color: var(--btn-dis-bg-color);
-  border-width: 0px;
-  color: var(--btn-dis-color);
-} 
-
-.buttons-section .btn:disabled:hover {
-  background-color: var(--btn-dis-bg-color);
-  border-width: 0px;
-  color: var(--btn-dis-color);
-}
-
-/* footer section */
-.credits-container {
-  text-align: center;
-  color: var(--credits-color);
-  line-height: 25px;
-}
-
-.credits-container a {
-  display: block;
-  color: var(--credits-link-color);
-}
-
-.credits-container a:hover {
-  color: var(--credits-color);
+body.reduce-motion *,
+body.reduce-motion *::before,
+body.reduce-motion *::after {
+  scroll-behavior: auto !important;
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
 }

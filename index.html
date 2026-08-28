@@ -623,6 +623,14 @@
             const cards = document.querySelectorAll('.card');
             const grid = document.getElementById('adventures-grid');
 
+            // Preserve cada capa inteira e usa a própria arte como fundo atmosférico.
+            document.querySelectorAll('.card-image-wrapper').forEach(wrapper => {
+                const cover = wrapper.querySelector('.card-img');
+                if (cover) {
+                    wrapper.style.setProperty('--card-image', `url("${cover.src}")`);
+                }
+            });
+
             let currentFilter = 'all';
             let currentSearch = '';
 

@@ -1,4 +1,4 @@
-const CACHE_NAME = 'cronicas-rpg-v2';
+const CACHE_NAME = 'cronicas-rpg-v6';
 const FONT_CACHE_NAME = 'cronicas-rpg-fonts-v1';
 
 // Todos os arquivos essenciais do portal e das 8 aventuras para funcionamento 100% offline
@@ -7,6 +7,7 @@ const CORE_ASSETS = [
   '/index.html',
   '/styles.css',
   '/dice-roller.js',
+  '/adventure-save.js',
   '/favicon.svg',
   '/site.webmanifest',
   '/hero-bg.webp',
@@ -26,7 +27,9 @@ const CORE_ASSETS = [
   '/jovem-guerreiro/my-game/game.js',
   '/jovem-guerreiro/my-game/styles.css',
   '/jovem-guerreiro/my-game/images/background.webp',
+  '/jovem-guerreiro/my-game/images/caverna-negra-key-art.png',
   '/jovem-guerreiro/my-game/images/scenes/scene-00.webp',
+  '/jovem-guerreiro/my-game/images/scenes/scene-00-modern.png',
 
   // 2. Nascido das Trevas
   '/nascido-das-trevas/',

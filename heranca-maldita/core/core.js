@@ -1,4 +1,5 @@
 import { credits, textNodes } from './../my-game/game.js';
+import { createAdventureSave } from './../../adventure-save.js';
 
 function cleanStoryText(text) {
   if (!text) return '';
@@ -46,6 +47,11 @@ const textElement = document.getElementById('text');
 const inventoryElement = document.getElementById('inventory');
 const optionButtonsElement = document.getElementById('options');
 const glassPanel = document.querySelector('.main-glass-panel');
+const adventureSave = createAdventureSave({
+  slug: 'heranca-maldita',
+  title: 'Herança Maldita',
+  initialNode: 'intro'
+});
 
 let state = {};
 let isNarrating = false;
@@ -115,6 +121,7 @@ if (window.speechSynthesis) {
 }
 
 function startGame() {
+  adventureSave.clear();
   state = {};
   showTextNode("intro");
 }
@@ -136,7 +143,7 @@ function getBgForId(id) {
   return 'old_mansion.webp';
 }
 
-function showTextNode(textNodeIndex) {
+function showTextNode(textNodeIndex, { persist = true } = {}) {
   currentNodeId = textNodeIndex;
   stopAllNarration();
 
@@ -249,6 +256,8 @@ function showTextNode(textNodeIndex) {
   }
 
   inventoryElement.innerHTML = "";
+
+  if (persist) adventureSave.save(textNodeIndex, state);
 }
 
 function enabledOption(option) {
@@ -259,6 +268,23 @@ function selectOption(option) {
   let nextTextNodeId = option.destino;
   state = Object.assign(state, option.setState || {});
   showTextNode(nextTextNodeId);
+}
+
+function resumeOrStartGame() {
+  const saved = adventureSave.load(textNodes);
+  if (!saved) {
+    startGame();
+    return;
+  }
+
+  showTextNode('intro', { persist: false });
+  adventureSave.offer(saved, {
+    onResume: () => {
+      state = { ...saved.state };
+      showTextNode(saved.nodeId);
+    },
+    onRestart: startGame
+  });
 }
 
 function showCredits() {
@@ -381,5 +407,5 @@ window.onload = function() {
       });
   }
   
-  startGame();
+  resumeOrStartGame();
 }

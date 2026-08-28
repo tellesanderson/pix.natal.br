@@ -403,36 +403,58 @@ header.site-header {
 }
 
 .card-image-wrapper {
-  height: 200px;
+  height: clamp(240px, 24vw, 285px);
   overflow: hidden;
   position: relative;
   background-color: #121019;
+  isolation: isolate;
+}
+
+.card-image-wrapper::before {
+  content: '';
+  position: absolute;
+  z-index: 0;
+  inset: -24px;
+  background-image: var(--card-image, none);
+  background-size: cover;
+  background-position: center;
+  filter: blur(20px) brightness(0.42) saturate(0.82);
+  transform: scale(1.08);
+  opacity: 0.9;
+  pointer-events: none;
 }
 
 .card-image-wrapper::after {
   content: '';
   position: absolute;
+  z-index: 2;
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 60%;
-  background: linear-gradient(to top, rgba(18, 15, 26, 1) 0%, transparent 100%);
+  height: 48%;
+  background: linear-gradient(to top, rgba(18, 15, 26, 0.98) 0%, rgba(18, 15, 26, 0.18) 72%, transparent 100%);
   pointer-events: none;
 }
 
 .card-img {
+  position: relative;
+  z-index: 1;
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  object-fit: contain;
+  object-position: center;
+  filter: drop-shadow(0 10px 24px rgba(0, 0, 0, 0.38));
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.6s ease;
 }
 
 .card:hover .card-img {
-  transform: scale(1.08);
+  transform: scale(1.025);
+  filter: drop-shadow(0 14px 30px rgba(0, 0, 0, 0.48));
 }
 
 .card-badges {
   position: absolute;
+  z-index: 3;
   top: 12px;
   left: 12px;
   right: 12px;

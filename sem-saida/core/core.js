@@ -1,9 +1,15 @@
 import { credits, textNodes } from './../my-game/game.js';
+import { createAdventureSave } from './../../adventure-save.js';
 
 const textElement = document.getElementById('text');
 const optionsElement = document.getElementById('options');
 const titleElement = document.getElementById('game-title');
 const creditsElement = document.getElementById('game-credits');
+const adventureSave = createAdventureSave({
+  slug: 'sem-saida',
+  title: 'Sem Saída',
+  initialNode: 'intro'
+});
 
 let gameState = {};
 let currentAudio = null;
@@ -189,11 +195,12 @@ function playSynthSound(type) {
 }
 
 function startGame() {
+  adventureSave.clear();
   gameState = {};
   showTextNode("intro");
 }
 
-function showTextNode(nodeId) {
+function showTextNode(nodeId, { persist = true } = {}) {
   currentNodeId = nodeId;
   stopAllNarration();
 
@@ -269,10 +276,29 @@ function showTextNode(nodeId) {
   if (terminalPanel) {
     terminalPanel.scrollTo({ top: 0, behavior: 'smooth' });
   }
+
+  if (persist) adventureSave.save(nodeId, gameState);
 }
 
 function selectOption(nextId) {
   showTextNode(nextId);
+}
+
+function resumeOrStartGame() {
+  const saved = adventureSave.load(textNodes);
+  if (!saved) {
+    startGame();
+    return;
+  }
+
+  showTextNode('intro', { persist: false });
+  adventureSave.offer(saved, {
+    onResume: () => {
+      gameState = { ...saved.state };
+      showTextNode(saved.nodeId);
+    },
+    onRestart: startGame
+  });
 }
 
 function setupCredits() {
@@ -344,5 +370,5 @@ window.onload = () => {
     });
   }
   
-  startGame();
+  resumeOrStartGame();
 };
